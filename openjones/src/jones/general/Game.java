@@ -168,7 +168,14 @@ public class Game {
 		return _curPlayer.getState().getHour() < WEEK_LIMIT;
     }
 
-        
-        
+    /**
+     * Get all possible actions the current player can perform.
+     * If he is inside a building, returns the building's actions and an exit action
+     * Otherwise, returns all movements (a movement for each building)        
+     * @return 
+     */    
+    public ArrayList<Action> getActions() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }    
     
 }
