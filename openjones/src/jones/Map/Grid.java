@@ -4,6 +4,7 @@
  */
 package jones.Map;
 
+import jones.general.PlayerPosition;
 import jones.general.Position;
 
 /**
@@ -11,6 +12,11 @@ import jones.general.Position;
  * @author dimid
  */
 public class Grid<T extends GridTile> {
+
+    public static int manhattanDistance(PlayerPosition _oldPos, PlayerPosition _newPos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public final int HEIGTH; //rows
     public final int WIDTH;  //cols
     private GridTile [][] _grid;

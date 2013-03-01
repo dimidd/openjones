@@ -37,7 +37,14 @@ public class MapManager {
     public MapManager () {
            
     }
-       
+      
+    
+    public GridTile getTile (Position pos) {
+        return _grid.get(pos);
+    }
+    
+    
+    
     public static MapManager getDefaultMap() {
         
         MapManager m  = new MapManager();

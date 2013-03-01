@@ -8,10 +8,6 @@ package jones.general;
  *
  * @author dimid
  */
-public class Happiness {
-
-    void add(int effect) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class Happiness extends Measure {
     
 }

@@ -8,7 +8,6 @@ package jones.general;
  *
  * @author dimid
  */
-public class Health extends Measure {
-
-     
+class Career extends Measure {
+    
 }

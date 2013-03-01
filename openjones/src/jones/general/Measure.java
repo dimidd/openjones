@@ -8,7 +8,12 @@ package jones.general;
  *
  * @author dimid
  */
-public class Health extends Measure {
+public class Measure {
 
-     
+    private int _score;
+    
+    void add(int effect) {
+        _score += effect;
+    }
+    
 }

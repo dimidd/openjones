@@ -7,6 +7,7 @@ package jones.general;
 import jones.Map.MapManager;
 import java.util.ArrayList;
 import java.util.Iterator;
+import jones.Map.Building;
 
 /**
  *
@@ -39,9 +40,7 @@ public class Game {
         else {
             _map = map;
         }
-            
-        
-        
+                           
         _players = new ArrayList<>();
         _victors = new ArrayList<>();
         
@@ -140,28 +139,37 @@ public class Game {
     }
 
     private Player getNextPlayer() {
-        if (_players.isEmpty())
-			return null;
-		if (_players.size() - 1 >  _curPlayerIndex) {
-			++_curPlayerIndex;
-			return _players.get(_curPlayerIndex);
-		}
-		else {
-			_curPlayerIndex = 0;
-			return _players.get(_curPlayerIndex);
-		}
+        if (_players.isEmpty()) {
+            return null;
+        }
+        
+        if (_players.size() - 1 > _curPlayerIndex) {
+            ++_curPlayerIndex;
+            return _players.get(_curPlayerIndex);
+        } 
+        else {
+            _curPlayerIndex = 0;
+            return _players.get(_curPlayerIndex);
+        }
 						       
     }
 
     private void changeEconomy() {
         _economy.changeStocks();
         _economy.changeBuildings(_map.buildingsIterator()); //prices + salaries 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
     private void performAction(Action event, Player _curPlayer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        event.perform(_curPlayer);
+         
+        if (!hasTime()) {
+            endTurn();
+        }
+
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private boolean hasTime() {
@@ -174,8 +182,80 @@ public class Game {
      * Otherwise, returns all movements (a movement for each building)        
      * @return 
      */    
-    public ArrayList<Action> getActions() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }    
+    public ArrayList<? extends Action> gePossibletActions() {
+        PlayerPosition curPos = _curPlayer.getState().getPos();
+        if(curPos.isInBuilding()) {
+            Building curBuild = (Building) _map.getTile(curPos);
+            return curBuild.getBuildingActions();
+        }
+        else {
+            return getPossibleMovements();
+        }
+    }
+            
+   
+    /**
+     * Return all possible movements to adjacent locations of the current player.
+     * Checks the adjacent locations: North, East, South, West. If they are passable, adds them to the list.
+     * If the current tile is enterable, also adds the Enter movement.
+     * @return List of movements
+     */
+    private ArrayList<Movement> getPossibleMovements() {
+        ArrayList<Movement> result = new ArrayList<>();
+        PlayerPosition curPos = _curPlayer.getState().getPos();
+        assert(!curPos.isInBuilding());
+        Position test = new Position(curPos);
+        
+        //north
+        test.setXY(curPos.getX() , curPos.getY() - 1);
+        try {
+            if (_map.getTile(test).isPassable()) {
+                result.add( new Movement (curPos, new PlayerPosition(test, curPos.isInBuilding())));
+            }
+        }        
+        catch  (IllegalArgumentException iae) {
+            
+        }
+        
+        //east
+        test.setXY(curPos.getX() + 1, curPos.getY());
+        try {
+            if (_map.getTile(test).isPassable()) {
+                result.add( new Movement (curPos, new PlayerPosition(test, curPos.isInBuilding())));
+            }
+        }        
+        catch  (IllegalArgumentException iae) {
+            
+        }
+        
+        //south
+        test.setXY(curPos.getX(), curPos.getY() + 1);
+        try {
+            if (_map.getTile(test).isPassable()) {
+                result.add( new Movement (curPos, new PlayerPosition(test, curPos.isInBuilding())));
+            }
+        }        
+        catch  (IllegalArgumentException iae) {
+            
+        }
+        
+        //west
+        test.setXY(curPos.getX() - 1, curPos.getY());
+        try {
+            if (_map.getTile(test).isPassable()) {
+                result.add( new Movement (curPos, new PlayerPosition(test, curPos.isInBuilding())));
+            }
+        }        
+        catch  (IllegalArgumentException iae) {
+            
+        }
+        
+        if (_map.getTile(test).isEnterable()) {
+            result.add( new Movement (curPos, new PlayerPosition(test, true)));
+        }
+        
+        return result;
+        
+    }
     
 }

@@ -12,7 +12,7 @@ public class PlayerPosition extends Position {
 
     private boolean _isInBuilding;
     
-    public boolean isIsInBuilding() {
+    public boolean isInBuilding() {
         return _isInBuilding;
     }
 
@@ -33,5 +33,14 @@ public class PlayerPosition extends Position {
         super(pos);
         _isInBuilding = inside;
     }
+    
+        
+    public void setPosition (PlayerPosition other) {
+        super.setPosition(other);
+        _isInBuilding = other._isInBuilding;
+    }
+
+    
+    
  
 }

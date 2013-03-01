@@ -29,7 +29,8 @@ public class PlayerState {
     private PlayerPosition _pos;
     private Health _health;
     private Happiness _happiness;
-    
+    private Career _career;
+    private int _cash;
     
     
     PlayerState (MapManager map) {
@@ -75,7 +76,13 @@ public class PlayerState {
          _happiness.add(effect);
     }
 
-    public int getHour() {
+ 
+    public void affectCareer (int effect ) {
+         _career.add(effect);
+    }
+
+
+      public int getHour() {
         return _hour;
     }
 
@@ -145,6 +152,14 @@ public class PlayerState {
 
     public void setHappiness(Happiness happiness) {
         this._happiness = happiness;
+    }
+
+    void affectCash(int cashEffect) {
+        _cash += cashEffect;
+    }
+
+    void affectTime(int timeEffect) {
+        _hour += timeEffect;
     }
 
     

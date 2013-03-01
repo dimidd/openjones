@@ -37,6 +37,11 @@ public abstract  class Building extends Site {
     public boolean isEnterable() {
         return true;
     }
+
+ 
+    public ArrayList<? extends Action> getBuildingActions() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
   
 }

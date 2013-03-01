@@ -8,10 +8,36 @@ package jones.general;
  *
  * @author dimid
  */
-public class Action {
+public abstract class Action {
 
-    void perform(Player _curPlayer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public abstract boolean checkConditions();
+
+    public abstract void doAction(Player player);
+
+    public final void perform(Player player) {
+        if (!checkConditions())
+            return;
+        doAction(player);
+        player.getState().affectHealth(healthEffect());
+        player.getState().affectHappiness(happinessEffect());
+        player.getState().affectCareer(careerEffect());
+        player.getState().affectCash(cashEffect());
+        player.getState().affectTime(timeEffect());
+            
     }
+
+    public abstract int healthEffect(); 
+
+    public abstract int happinessEffect();
+
+    public abstract int WealthEffect();
+
+    public abstract int careerEffect();
+     
+    public abstract int cashEffect();
+    
+    public abstract int timeEffect();
+   
     
 }
