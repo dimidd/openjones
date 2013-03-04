@@ -1,6 +1,6 @@
 package jones.general;
 
-import jones.Map.Building;
+import jones.map.Building;
 import java.util.Iterator;
 
 /**

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.Map;
+package jones.map;
 
 /**
  * A tile is defined by a hierarchy of 3 binary state-variables. 

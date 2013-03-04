@@ -10,11 +10,19 @@ package jones.general;
  */
 public class Possessions {
 
-    void add(Possession ps) {
+    public void add(Possession ps) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void remove(Possession ps) {
+    public void remove(Possession ps) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int sumRestHealthEffects() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int sumRestHappinessEffects() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

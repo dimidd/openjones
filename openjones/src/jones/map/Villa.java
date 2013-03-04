@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.Map;
+package jones.map;
 
-import jones.general.Action;
+import java.util.ArrayList;
+import jones.actions.Action;
 import jones.general.Position;
 
 /**
@@ -18,9 +19,16 @@ public class Villa extends House{
         
     }
 
+ 
     @Override
-    public Action relax() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getRelaxHealthEffect() {
+        return 7;
     }
-    
+
+    @Override
+    public int getRelaxHappinessEffect() {
+        return 7;
+    }
+
+      
 }

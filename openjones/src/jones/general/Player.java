@@ -4,6 +4,8 @@
  */
 package jones.general;
 
+import jones.map.House;
+
 /**
  *
  * @author dimid
@@ -21,7 +23,9 @@ public class Player {
     }
 
     void startTurn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        _state.advanceWeeks();
+        House home = _state.getHouse();
+        _state.setPos(home.getPosition(), false);
     }
 
     public int getId() {
@@ -40,13 +44,13 @@ public class Player {
         return _graphics;
     }
 
-    void move(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    void move(Movement move) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    void move(int x, int y) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    void move(Movement move) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
     
     

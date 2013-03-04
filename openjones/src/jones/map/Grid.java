@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.Map;
+package jones.map;
 
 import jones.general.PlayerPosition;
 import jones.general.Position;
@@ -13,8 +13,8 @@ import jones.general.Position;
  */
 public class Grid<T extends GridTile> {
 
-    public static int manhattanDistance(PlayerPosition _oldPos, PlayerPosition _newPos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static int manhattanDistance(PlayerPosition pos1, PlayerPosition pos2) {
+        return Math.abs(pos1.getX() - pos2.getX()) + Math.abs(pos1.getY() - pos2.getY());
     }
     
     public final int HEIGTH; //rows
@@ -23,8 +23,9 @@ public class Grid<T extends GridTile> {
    
     public  Grid ( int height, int width) {
         
-        if (width <= 0 || height <=0)
+        if (width <= 0 || height <=0) {
             throw new IllegalArgumentException("Dimensions must be positive");
+        }
         WIDTH = width;
         HEIGTH = height;
         _grid = new GridTile[height][width];

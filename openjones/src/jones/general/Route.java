@@ -4,7 +4,8 @@
  */
 package jones.general;
 
-import jones.Map.MapManager;
+import jones.actions.Movement;
+import jones.map.MapManager;
 import java.util.ArrayList;
 
 /**

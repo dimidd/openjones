@@ -42,6 +42,8 @@ public class Position {
 
     }
 
-    
+    public String toString () {
+        return "("+_x+","+_y+")";
+    }
  
 }

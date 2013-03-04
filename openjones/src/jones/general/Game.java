@@ -4,10 +4,12 @@
  */
 package jones.general;
 
-import jones.Map.MapManager;
+import jones.actions.Movement;
+import jones.actions.Action;
+import jones.map.MapManager;
 import java.util.ArrayList;
 import java.util.Iterator;
-import jones.Map.Building;
+import jones.map.Building;
 
 /**
  *
@@ -16,7 +18,10 @@ import jones.Map.Building;
 public class Game {
     
     public final int MAX_PLAYERS = 4;
-    public final int WEEK_LIMIT = 600;
+    
+    public final static int TIMEUNITS_PER_WEEK = 600;
+    public final static int TIMEUNITS_PER_HOUR = 5;
+    
 
     private ArrayList <Player> _players;
     private EventManager _eventGen;
@@ -88,11 +93,11 @@ public class Game {
         Iterator<Movement> iter = path.iterator();
         while (hasTime() && iter.hasNext()) {
            Movement move =  iter.next();
-           //updates clock
-           _curPlayer.move(move);
-        }
-        if (!hasTime()) {
-            endTurn();
+           move.perform(_curPlayer);//updates player state and calls 
+           if (!hasTime()) {
+               endTurn();
+           }
+           
         }
     }
     
@@ -173,7 +178,7 @@ public class Game {
     }
 
     private boolean hasTime() {
-		return _curPlayer.getState().getHour() < WEEK_LIMIT;
+		return _curPlayer.getState().getHour() < TIMEUNITS_PER_WEEK;
     }
 
     /**

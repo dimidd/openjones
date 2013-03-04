@@ -5,13 +5,14 @@
 package jones.general;
 
 /**
+ * A Possession is an amount of units of a Commodity
  *
  * @author dimid
  */
 public class Possession {
     
-    private int _units;
-    private Commodity _commod;
+    protected int _units;
+    protected Commodity _commod;
     //private int _unitValue;
     
     

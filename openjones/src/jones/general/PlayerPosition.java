@@ -41,6 +41,9 @@ public class PlayerPosition extends Position {
     }
 
     
-    
+    public String toString () {
+        String inout = (_isInBuilding)? "in" : "out";
+        return "("+super.toString()+","+inout+")";
+    }
  
 }

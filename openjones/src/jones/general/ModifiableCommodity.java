@@ -3,7 +3,8 @@ package jones.general;
 public class ModifiableCommodity extends Commodity {
 
 
-	public ModifiableCommodity(int value, String name) {
+
+    public ModifiableCommodity(int value, String name) {
 		super(value, name);
 		// TODO Auto-generated constructor stub
 	}

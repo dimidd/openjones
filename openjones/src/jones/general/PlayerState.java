@@ -4,8 +4,8 @@
  */
 package jones.general;
 
-import jones.Map.House;
-import jones.Map.MapManager;
+import jones.map.House;
+import jones.map.MapManager;
 
 /**
  *
@@ -19,7 +19,8 @@ public class PlayerState {
     public final House LOWEST_HOUSING;// = new Tent(); 
  
     
-    private int _hour;
+    private int _clock;
+    private int _weeks;
     private Goals _goals;
     private Possessions _possessions;
     private Skills _skills;
@@ -35,7 +36,8 @@ public class PlayerState {
     
     PlayerState (MapManager map) {
         LOWEST_HOUSING = map.getLowestHousing();
-        _hour = 0;
+        _clock = 0;
+        _weeks = 1;
         _goals = new Goals();
         _possessions = new Possessions();
         _skills = new Skills();
@@ -83,7 +85,7 @@ public class PlayerState {
 
 
       public int getHour() {
-        return _hour;
+        return _clock;
     }
 
     public Goals getGoals() {
@@ -119,7 +121,7 @@ public class PlayerState {
     }
 
     public void setHour(int hour) {
-        this._hour = hour;
+        this._clock = hour;
     }
 
     public void setGoals(Goals goals) {
@@ -146,6 +148,12 @@ public class PlayerState {
         this._pos = pos;
     }
 
+      
+    public void setPos(Position pos, boolean isInside) {
+        this._pos.setPosition(pos);
+        this._pos.leaveBuilding();
+    }
+
     public void setHealth(Health health) {
         this._health = health;
     }
@@ -154,12 +162,24 @@ public class PlayerState {
         this._happiness = happiness;
     }
 
-    void affectCash(int cashEffect) {
+    public void affectCash(int cashEffect) {
         _cash += cashEffect;
     }
 
-    void affectTime(int timeEffect) {
-        _hour += timeEffect;
+    public void affectTime(int timeEffect) {
+        _clock += timeEffect;
+    }
+
+    public int timeLeft() {
+        return Game.TIMEUNITS_PER_WEEK - getHour();
+    }
+
+    public int getCash() {
+        return _cash;
+    }
+
+    void advanceWeeks() {
+        ++_weeks;
     }
 
     

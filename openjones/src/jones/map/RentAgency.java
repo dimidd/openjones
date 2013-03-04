@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.Map;
+package jones.map;
 
 import jones.general.Position;
 
@@ -10,11 +10,10 @@ import jones.general.Position;
  *
  * @author dimid
  */
-class SuperMarket extends Building {
+class RentAgency extends Building {
 
-    public SuperMarket(Position pos, String name) {     
+    public RentAgency(Position pos, String name) {
         super(pos,name);
-
     }
     
 }

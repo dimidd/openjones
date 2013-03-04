@@ -2,9 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package jones.actions;
 
-import jones.Map.Grid;
+import jones.map.Grid;
+import jones.general.Player;
+import jones.general.PlayerPosition;
+import jones.general.Position;
 
 /**
  *
@@ -14,7 +17,7 @@ public class Movement extends Action {
     
     private PlayerPosition _oldPos;
     private PlayerPosition _newPos;
-    //int _duration;
+    private int _duration;
     
     /**
      *  The time it takes to move to an adjacent tile on the map 
@@ -36,46 +39,59 @@ public class Movement extends Action {
     public Movement (PlayerPosition oldpos, PlayerPosition newpos) {
         _oldPos = oldpos;
         _newPos = newpos;
-        
+        _duration = calcDuration();
     }
 
     @Override
-    public void doAction(Player player) {
+    protected void doAction(Player player) {
         player.getState().setPos(_newPos);
     }
 
     @Override
-    public int healthEffect() {
+    public int healthEffect(Player player) {
         return 0;
     }
 
     @Override
-    public int happinessEffect() {
+    public int happinessEffect(Player player) {
         return 0;
     }
 
     @Override
-    public boolean checkConditions() {
-        return true;
+    protected String checkConditions(Player player) {
+        return checkTime(player);
+            
+    
     }
 
     @Override
-    public int careerEffect() {
+    public int careerEffect(Player player) {
         return 0;
     }
 
     @Override
-    public int cashEffect() {
+    public int cashEffect(Player player) {
         return 0;
     }
 
+//    @Override
+//    public int WealthEffect(Player player) {
+//        return 0;
+//    }
+
     @Override
-    public int WealthEffect() {
-        return 0;
+    public int timeEffect(Player player) {
+            return _duration;
+        
     }
 
     @Override
-    public int timeEffect() {
+    public String toString() {
+        return "Move from " + _oldPos + " to " + _newPos;
+    }
+
+    private int calcDuration() {
+                
         int dist = Grid.manhattanDistance(_oldPos, _newPos);
         int buildingDuration;
         
@@ -107,9 +123,19 @@ public class Movement extends Action {
             
             return SINGLE_TILE_MOVEMENT_DURATION * dist + buildingDuration;
         }
-            
-        
+
     }
+
+    
+    
+    
+        public static Movement getExitMovement(Position position) {
+            PlayerPosition oldP = new PlayerPosition(position, true);
+            PlayerPosition newP = new PlayerPosition(position, false);
+            
+            return new Movement(oldP, newP);
+        }
+    
     
     
     
