@@ -38,8 +38,8 @@ public class RelaxAction extends Action {
 
     
     @Override
-    protected String checkConditions(Player player) {
-        return null;
+    protected ActionResponse checkConditions(Player player) {
+        return checkTime(player);
     }
 
     @Override
@@ -92,5 +92,17 @@ public class RelaxAction extends Action {
     public String toString() {
         return "Rest";
     }
-    
+
+ 
+    @Override
+    protected ActionResponse getPositiveResponse() {
+        return new ActionResponse(true, null);
+    }
+
+    @Override
+    public boolean isSubmenu() {
+        return false;
+    }
+
+     
 }

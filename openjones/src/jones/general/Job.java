@@ -14,5 +14,10 @@ public class Job {
     private String _name;
     private Building _buildong;
     private int _wage; //per hour
-    
+
+    public Building getBuilding() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }

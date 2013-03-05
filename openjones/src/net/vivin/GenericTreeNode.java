@@ -34,6 +34,15 @@ public class GenericTreeNode<T> {
         return this.children;
     }
 
+    public List<T> getDataOfChildren() {
+        List<T> result = new ArrayList<>();
+        for (GenericTreeNode<T> child: this.children) {
+            result.add(child.data);
+        }
+        
+        return result;
+    }
+    
     public int getNumberOfChildren() {
         return getChildren().size();
     }

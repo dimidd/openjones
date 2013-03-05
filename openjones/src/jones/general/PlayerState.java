@@ -31,6 +31,7 @@ public class PlayerState {
     private Health _health;
     private Happiness _happiness;
     private Career _career;
+    //private Clothes _clothes;
     private int _cash;
     
     
@@ -150,8 +151,8 @@ public class PlayerState {
 
       
     public void setPos(Position pos, boolean isInside) {
-        this._pos.setPosition(pos);
-        this._pos.leaveBuilding();
+        
+        this._pos.setPosition(new PlayerPosition(pos, isInside));
     }
 
     public void setHealth(Health health) {
@@ -181,6 +182,10 @@ public class PlayerState {
     void advanceWeeks() {
         ++_weeks;
     }
+
+	public int getWeeks() {
+		return _weeks;
+	}
 
     
 

@@ -15,26 +15,14 @@ import jones.general.Position;
  */
 public class Movement extends Action {
     
-    private PlayerPosition _oldPos;
-    private PlayerPosition _newPos;
-    private int _duration;
+    protected PlayerPosition _oldPos;
+    protected PlayerPosition _newPos;
+    protected int _duration;
     
     /**
      *  The time it takes to move to an adjacent tile on the map 
      */
     public final int SINGLE_TILE_MOVEMENT_DURATION = 10;
-    
-    
-    /**
-     * The time it takes to exit a building
-     */
-    public final int EXIT_BUILDING_DURATION = 0;
-    
-    
-    /**
-     * The time it takes to enter a building
-     */
-    public final int ENTER_BUILDING_DURATION = 2;
     
     public Movement (PlayerPosition oldpos, PlayerPosition newpos) {
         _oldPos = oldpos;
@@ -44,7 +32,7 @@ public class Movement extends Action {
 
     @Override
     protected void doAction(Player player) {
-        player.getState().setPos(_newPos);
+        player.getState().setPos(getNewPos());
     }
 
     @Override
@@ -58,7 +46,7 @@ public class Movement extends Action {
     }
 
     @Override
-    protected String checkConditions(Player player) {
+    protected ActionResponse checkConditions(Player player) {
         return checkTime(player);
             
     
@@ -87,25 +75,25 @@ public class Movement extends Action {
 
     @Override
     public String toString() {
-        return "Move from " + _oldPos + " to " + _newPos;
+        return "Move from " + getOldPos() + " to " + getNewPos();
     }
 
     private int calcDuration() {
                 
-        int dist = Grid.manhattanDistance(_oldPos, _newPos);
+        int dist = Grid.manhattanDistance(getOldPos(), getNewPos());
         int buildingDuration;
         
         if (0 == dist) {
             
-            if (_oldPos.isInBuilding() == _newPos.isInBuilding()) {
+            if (getOldPos().isInBuilding() == getNewPos().isInBuilding()) {
                 buildingDuration = 0;
             }
             else
-                if (_oldPos.isInBuilding() == true && _newPos.isInBuilding() == false) {
-                buildingDuration = EXIT_BUILDING_DURATION;
+                if (getOldPos().isInBuilding() == true && getNewPos().isInBuilding() == false) {
+                buildingDuration = ExitBuildingMovement.EXIT_BUILDING_DURATION;
             }
             else {
-                buildingDuration = ENTER_BUILDING_DURATION;
+                buildingDuration = EnterBuildingMovement.ENTER_BUILDING_DURATION;
             }
             
             return buildingDuration;
@@ -113,12 +101,12 @@ public class Movement extends Action {
         
         else {
             buildingDuration = 0;
-            if (_oldPos.isInBuilding() == true) {
-                buildingDuration += EXIT_BUILDING_DURATION;
+            if (getOldPos().isInBuilding() == true) {
+                buildingDuration += ExitBuildingMovement.EXIT_BUILDING_DURATION;
             }
             
-            if (_newPos.isInBuilding() == true) {
-                buildingDuration += ENTER_BUILDING_DURATION;
+            if (getNewPos().isInBuilding() == true) {
+                buildingDuration += EnterBuildingMovement.ENTER_BUILDING_DURATION;
             }
             
             return SINGLE_TILE_MOVEMENT_DURATION * dist + buildingDuration;
@@ -126,18 +114,55 @@ public class Movement extends Action {
 
     }
 
+       
     
-    
-    
-        public static Movement getExitMovement(Position position) {
-            PlayerPosition oldP = new PlayerPosition(position, true);
-            PlayerPosition newP = new PlayerPosition(position, false);
-            
-            return new Movement(oldP, newP);
-        }
-    
-    
-    
-    
+//        public static Movement getExitMovement(Position position) {
+//            PlayerPosition oldP = new PlayerPosition(position, true);
+//            PlayerPosition newP = new PlayerPosition(position, false);
+//            
+//            return new Movement(oldP, newP);
+//        }
+//    
+
+    /**
+     * @return the _oldPos
+     */
+    public PlayerPosition getOldPos() {
+        return _oldPos;
+    }
+
+    /**
+     * @param oldPos the _oldPos to set
+     */
+    public void setOldPos(PlayerPosition oldPos) {
+        this._oldPos = oldPos;
+    }
+
+    /**
+     * @return the _newPos
+     */
+    public PlayerPosition getNewPos() {
+        return _newPos;
+    }
+
+    /**
+     * @param newPos the _newPos to set
+     */
+    public void setNewPos(PlayerPosition newPos) {
+        this._newPos = newPos;
+    }
+
+ 
+    @Override
+    protected ActionResponse getPositiveResponse() {
+        return new ActionResponse(true, null);
+    }
+
+
+    @Override
+    public boolean isSubmenu() {
+        return false;
+    }
+     
     
 }

@@ -13,7 +13,7 @@ import jones.general.Player;
 public abstract class Action {
 
     
-    protected abstract String checkConditions(Player player);
+    protected abstract ActionResponse checkConditions(Player player);
 
     protected abstract void doAction(Player player);
 
@@ -24,9 +24,9 @@ public abstract class Action {
      * @return Returns null iff the action performed.
      *          otherwise returns a String with an explanation
      */
-    public final String perform(Player player) {
-        String preConditions = checkConditions(player);
-        if (null != preConditions) {
+    public final ActionResponse perform(Player player) {
+        ActionResponse preConditions = checkConditions(player);
+        if (!preConditions._wasPerformed) {
             return preConditions;
         }
         doAction(player);
@@ -36,7 +36,7 @@ public abstract class Action {
         player.getState().affectCash(cashEffect(player));
         player.getState().affectTime(timeEffect(player));
             
-        return null;
+        return getPositiveResponse();
     }
 
     public abstract int healthEffect(Player player); 
@@ -54,12 +54,22 @@ public abstract class Action {
     @Override
     public abstract String toString();
 
-    protected String checkTime(Player player) {
+    protected ActionResponse checkTime(Player player) {
         if (player.getState().timeLeft() < timeEffect(player)) {
-            return null;
+            return new ActionResponse(true, null);
         }
         else {
-            return "Not enough time";
+            return new ActionResponse(false,"Not enough time");
         }
     }
+
+    protected abstract ActionResponse getPositiveResponse();
+    
+    /**
+     * Return true iff this action leads to a menu of other actions
+     * @return
+     */
+    public abstract boolean isSubmenu();
+
+       
 }

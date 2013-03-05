@@ -17,11 +17,19 @@ public class Player {
     private PlayerState _state;
     private PlayerGraphics _graphics;
 
+    public Player (String name, PlayerGraphics graphics) {
+    	 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     boolean hasWon() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void setGoals(Goals goals) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+    
     void startTurn() {
         _state.advanceWeeks();
         House home = _state.getHouse();
@@ -42,6 +50,10 @@ public class Player {
 
     public PlayerGraphics getGraphics() {
         return _graphics;
+    }
+    
+    public int clothesLevel () {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 //    void move(int x, int y) {

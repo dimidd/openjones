@@ -20,7 +20,7 @@ public class PlayerPosition extends Position {
         this._isInBuilding = true;
     }
     
-    public void leaveBuilding() {
+    public void exitBuilding() {
         this._isInBuilding = false;
     }
         
@@ -33,7 +33,12 @@ public class PlayerPosition extends Position {
         super(pos);
         _isInBuilding = inside;
     }
-    
+  
+      public PlayerPosition(PlayerPosition other) {
+        super(other);
+        _isInBuilding = other._isInBuilding;
+    }
+ 
         
     public void setPosition (PlayerPosition other) {
         super.setPosition(other);
@@ -41,9 +46,10 @@ public class PlayerPosition extends Position {
     }
 
     
+    @Override
     public String toString () {
         String inout = (_isInBuilding)? "in" : "out";
         return "("+super.toString()+","+inout+")";
     }
- 
+
 }

@@ -9,7 +9,9 @@ import jones.actions.Action;
 import jones.map.MapManager;
 import java.util.ArrayList;
 import java.util.Iterator;
+import jones.actions.ActionResponse;
 import jones.map.Building;
+import jones.map.GridTile;
 
 /**
  *
@@ -30,7 +32,11 @@ public class Game {
     private Player _curPlayer;
     //private boolean [] _hasWon; //true if player met his goals
     
-    private ArrayList <Player> _victors; // = new ArrayList<>;
+    public Player getCurPlayer() {
+		return _curPlayer;	
+    }
+
+	private ArrayList <Player> _victors; // = new ArrayList<>;
     private MapManager _map;
     private EconomyManager _economy; //holds a list of stocks and updates them
     
@@ -86,7 +92,8 @@ public class Game {
      */
     public void movePlayer (PlayerPosition pos) {
         Action event = _eventGen.getRandomRoadEvent(_curPlayer);
-        performAction(event, _curPlayer);
+        event.perform (_curPlayer);
+        //performAction(event, _curPlayer);
         
         Route route = Route.findRoute (_curPlayer.getState().getPos(), pos, _map);
         ArrayList<Movement> path = route.getMovementSequence();
@@ -109,7 +116,7 @@ public class Game {
  
     public void leaveBuilding() {
         PlayerPosition pos = _curPlayer.getState().getPos();
-        pos.leaveBuilding();
+        pos.exitBuilding();
         movePlayer(pos);
     }
 
@@ -137,7 +144,7 @@ public class Game {
         _curPlayer = getNextPlayer();
         _curPlayer.startTurn(); //eat food, rent etc
         Action event = _eventGen.getRandomWeekendEvent(_curPlayer);
-        performAction(event, _curPlayer);
+        event.perform (_curPlayer);
         
         changeEconomy();
         return false;                
@@ -166,17 +173,25 @@ public class Game {
     }
 
 
-    private void performAction(Action event, Player _curPlayer) {
-        event.perform(_curPlayer);
-         
-        if (!hasTime()) {
-            endTurn();
-        }
+//    private String performAction(Action event, Player _curPlayer) {
+//        String result = event.perform(_curPlayer);
+//        return result; 
+////        if (!hasTime()) {
+////            endTurn();
+////        }
+//
+//        
+//        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+    
+    
+    private ActionResponse performBuildingAction(int actionIndex) {
+        Building build = (Building) getPlayerTile();
+        ActionResponse result = build.performAction(actionIndex,_curPlayer);
+        return result; 
 
-        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     private boolean hasTime() {
 		return _curPlayer.getState().getHour() < TIMEUNITS_PER_WEEK;
     }
@@ -191,7 +206,7 @@ public class Game {
         PlayerPosition curPos = _curPlayer.getState().getPos();
         if(curPos.isInBuilding()) {
             Building curBuild = (Building) _map.getTile(curPos);
-            return curBuild.getBuildingActions();
+            return curBuild.getPlayerActions(_curPlayer);
         }
         else {
             return getPossibleMovements();
@@ -263,4 +278,19 @@ public class Game {
         
     }
     
+    public int getTime() {
+    	return _curPlayer.getState().getHour();
+    }
+    
+    public int getWeek() {
+    	return _curPlayer.getState().getWeeks();
+    }
+ 
+    public boolean isInside() {
+    	return _curPlayer.getState().getPos().isInBuilding();
+    }
+    
+    public GridTile getPlayerTile() {
+        return _map.getTile(_curPlayer.getState().getPos());
+    }
 }

@@ -17,7 +17,7 @@ public abstract class PurchaseAction extends Action {
     protected Possession _possession;
 
     @Override
-    protected String checkConditions(Player player) {
+    protected ActionResponse checkConditions(Player player) {
         return checkCash(player);
     }
 
@@ -59,20 +59,26 @@ public abstract class PurchaseAction extends Action {
         return _possession.toString()+" "+_possession.worth()+"$";
     }
 
-    private String checkCash(Player player) {
-        if (player.getState().getCash() < _possession.worth()) {
-            return "Not enough money";
-        }
-        else {
-            return null;
-        }
-    }
-
     /**
      * Adds purchase-specific effects (besides cash and possession).
      * e.g. Rent may change player`s home. Clothes may change player`s clothes
      * @param player 
      */
     protected abstract void purchaseEffects(Player player); 
+    
+    
+    @Override
+    public boolean isSubmenu() {
+        return false;
+    }
+
+    protected ActionResponse checkCash(Player player) {
+        if (player.getState().getCash() < _possession.worth()) {
+            return new ActionResponse(false, "Not enough money");
+        } else {
+            return new ActionResponse(true, null);
+        }
+    }
+
     
 }

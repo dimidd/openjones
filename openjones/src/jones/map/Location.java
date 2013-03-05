@@ -21,7 +21,7 @@ public abstract class Location implements GridTile {
     }
     
     public Location (Position pos) {
-        _pos = pos;
+        _pos = new Position(pos);
     }
     
 }
