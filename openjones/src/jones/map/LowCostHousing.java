@@ -6,29 +6,35 @@ package jones.map;
 
 import java.util.ArrayList;
 import jones.actions.Action;
+import jones.actions.RelaxAction;
 import jones.general.Position;
 
 /**
  *
  * @author dimid
  */
-public class Villa extends House{
+public class LowCostHousing extends House {
 
-    public Villa(Position pos, String name) {
+    /** Create a new Building
+    *
+    * @param pos
+    */
+    public LowCostHousing (Position pos, String name) {
         super(pos,name);
         
     }
 
- 
+
     @Override
     public int getRelaxHealthEffect() {
-        return 7;
+        return 3;
     }
 
     @Override
     public int getRelaxHappinessEffect() {
-        return 7;
+        return 3;
     }
 
-      
+  
+    
 }

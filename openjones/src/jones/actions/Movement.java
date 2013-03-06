@@ -7,7 +7,6 @@ package jones.actions;
 import jones.map.Grid;
 import jones.general.Player;
 import jones.general.PlayerPosition;
-import jones.general.Position;
 
 /**
  *

@@ -15,7 +15,7 @@ import jones.general.Position;
  */
 public class MapManager {
     
-    private House _lowestHousing;// = new Tent(); 
+    private House _lowestHousing;// = new LowCostHousing(); 
     
     private Grid<Location> _grid;
     private ArrayList <Building> _buildings;
@@ -70,14 +70,18 @@ public class MapManager {
     private void addDefaultBuildings() {
         //(0,0) is top left corner
         Position pos = new Position (0,0);
-        _buildings.add(new Villa(pos,"luxHousing"));
+        House secHousing = new SecurityHousing(pos,"Security Apartment");
+        _buildings.add(secHousing);
         
-        pos.setXY(1,0);
-        _buildings.add(new RentAgency(pos,"rent"));
-
         pos.setXY(2,0);
-        _lowestHousing = new Tent(pos,"tent");
+        _lowestHousing = new LowCostHousing(pos,"Low-Cost Apartment");
         _buildings.add(_lowestHousing);
+      
+        pos.setXY(1,0);
+        ArrayList<House> houses = new ArrayList<>();
+        houses.add(_lowestHousing);
+        houses.add(secHousing);
+        _buildings.add(new RentAgency(pos,"rent", houses));
 
         pos.setXY(3,0);
         _buildings.add(new PawnShop(pos,"pawn"));

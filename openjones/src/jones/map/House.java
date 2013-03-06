@@ -4,7 +4,6 @@
  */
 package jones.map;
 
-import java.util.ArrayList;
 import jones.actions.Action;
 import jones.actions.RelaxAction;
 import jones.general.Position;
@@ -36,16 +35,19 @@ public abstract class House extends Building {
         return new RelaxAction(this);
     }
 
-     
-    @Override
-    public ArrayList<? extends Action> getBuildingActions() {
-                
-        return _actions;
-    }
-
     public abstract int getRelaxHealthEffect();
 
     public abstract int getRelaxHappinessEffect();
+
+    @Override
+    protected void addJobs() {
+        //no jobs
+    }
+
+    @Override
+    protected void buildActionsTree() {
+        //no actions
+    }
 
     
 }

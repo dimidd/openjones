@@ -147,6 +147,7 @@ public class Game {
         event.perform (_curPlayer);
         
         changeEconomy();
+        displayMessages(_curPlayer);
         return false;                
     }
 
@@ -292,5 +293,9 @@ public class Game {
     
     public GridTile getPlayerTile() {
         return _map.getTile(_curPlayer.getState().getPos());
+    }
+
+    private void displayMessages(Player _curPlayer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

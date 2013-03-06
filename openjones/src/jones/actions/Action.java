@@ -71,5 +71,20 @@ public abstract class Action {
      */
     public abstract boolean isSubmenu();
 
+    /**
+     * Return the max period a player has upto a limit.
+     * @param limit The max period
+     * @param player
+     * @return Iff the player, doesn't have time at all, return Integer.MAX_VALUE.
+     *          Otherwise, return the max period the player has upto a limit
+     *
+     */
+    protected int getAvailiableTimeUpto(int limit, Player player) {
+        if (!player.hasTime()) {
+            return Integer.MAX_VALUE;
+        }
+        return Math.min(limit, player.timeLeft());
+    }
+
        
 }

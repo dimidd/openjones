@@ -10,10 +10,24 @@ package jones.general;
  */
 public class Measure {
 
-    private int _score;
+    protected int _score;
     
     void add(int effect) {
-        _score += effect;
+        setScore(getScore() + effect);
+    }
+
+    /**
+     * @return the _score
+     */
+    public int getScore() {
+        return _score;
+    }
+
+    /**
+     * @param score the _score to set
+     */
+    public void setScore(int score) {
+        this._score = score;
     }
     
 }

@@ -4,6 +4,8 @@
  */
 package jones.general;
 
+import possessions.PossessionManager;
+
 /**
  *
  * @author dimid
@@ -19,7 +21,7 @@ public class Goals {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void recompute(Possessions _possessions, Skills _skills, Health _health, Happiness _happiness) {
+    void recompute(PossessionManager _possessions, Skills _skills, Health _health, Happiness _happiness) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

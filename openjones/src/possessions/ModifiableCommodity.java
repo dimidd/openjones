@@ -1,4 +1,4 @@
-package jones.general;
+package possessions;
 
 public class ModifiableCommodity extends Commodity {
 

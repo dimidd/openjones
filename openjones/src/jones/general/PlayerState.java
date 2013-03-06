@@ -4,6 +4,10 @@
  */
 package jones.general;
 
+import possessions.Possession;
+import possessions.PossessionManager;
+import jones.jobs.Unemployed;
+import jones.jobs.Job;
 import jones.map.House;
 import jones.map.MapManager;
 
@@ -22,7 +26,7 @@ public class PlayerState {
     private int _clock;
     private int _weeks;
     private Goals _goals;
-    private Possessions _possessions;
+    private PossessionManager _possessions;
     private Skills _skills;
     private Job _job;
     private House _house;
@@ -40,9 +44,9 @@ public class PlayerState {
         _clock = 0;
         _weeks = 1;
         _goals = new Goals();
-        _possessions = new Possessions();
+        _possessions = new PossessionManager();
         _skills = new Skills();
-        _job = Unemployed.getJob();
+        _job = new Unemployed();
         
         _house = LOWEST_HOUSING;
         _pos = new PlayerPosition(_house.getPosition(), false);
@@ -93,7 +97,7 @@ public class PlayerState {
         return _goals;
     }
 
-    public Possessions getPossessions() {
+    public PossessionManager getPossessions() {
         return _possessions;
     }
 
@@ -129,7 +133,7 @@ public class PlayerState {
         this._goals = goals;
     }
 
-    public void setPossessions(Possessions possessions) {
+    public void setPossessions(PossessionManager possessions) {
         this._possessions = possessions;
     }
 
@@ -183,9 +187,14 @@ public class PlayerState {
         ++_weeks;
     }
 
-	public int getWeeks() {
-		return _weeks;
-	}
+    
+    public int getWeeks() {	
+        return _weeks;	
+    }
+
+    public boolean hasTime() {
+        return timeLeft() > 0;
+    }
 
     
 

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package possessions;
 
 /**
  * Consumable is a commodity that is used each week. e.g. food

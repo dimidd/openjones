@@ -26,7 +26,7 @@ public class Player {
     }
 
     public void setGoals(Goals goals) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        _state.setGoals(goals);
 
     }
     
@@ -63,6 +63,35 @@ public class Player {
 //    void move(Movement move) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+
+    public Career getCareer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void affectCash(int cashEffect) {
+        _state.affectCash(cashEffect);
+    }
+
+    public int getWeeks() {
+        return _state.getWeeks();
+    }
+
+    public void affectTime(int timeEffect) {
+        _state.affectTime(timeEffect);
+    }
+
+    public int getHour() {
+        return _state.getHour();
+    }
+
+    public boolean hasTime() {
+        return _state.hasTime();
+    }
+
+    public int timeLeft() {
+         return _state.timeLeft();
+    }
+    
     
     
     

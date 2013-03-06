@@ -12,7 +12,7 @@ import jones.actions.Action;
 import jones.actions.ActionResponse;
 import jones.actions.ExitBuildingMovement;
 import jones.actions.RelaxAction;
-import jones.general.Job;
+import jones.jobs.Job;
 import jones.general.Player;
 import jones.general.Position;
 import net.vivin.GenericTree;
@@ -60,8 +60,9 @@ public abstract  class Building extends Site {
         root.setData(mainMenu);
         _actionsTree.setRoot(root);        
         _playerActionsParent = null;       
-        _actions = null;
+        _actions = null;    
         
+        addJobs();       
     }
    
        
@@ -107,7 +108,7 @@ public abstract  class Building extends Site {
     public void prepareForPlayerEntrance(Player player) {
         _playerActionsParent = getActionsTree().getRoot();
         _actions = null;
-        buildActionsTree();
+        buildActionsTree(player);
               
     }
 
@@ -142,7 +143,7 @@ public abstract  class Building extends Site {
         return response;
     }
 
-    protected abstract void buildActionsTree();
+    protected abstract void buildActionsTree(Player player);
 
     private Collection<? extends Action> getMenuActions(Player player) {
         assert (null != _playerActionsParent);
@@ -196,6 +197,8 @@ public abstract  class Building extends Site {
                (actionIndex == RELAX_ACTION_INDEX )   ||
                (actionIndex == WORK_ACTION_INDEX  ); 
     }
+
+    protected abstract void addJobs();
     
   
 }
