@@ -31,12 +31,21 @@ class PawnShop extends Building {
         super(pos,name);
         _redeemables = new HashMap<>();
         _buyables = new ArrayList<>();
-        _actions.add(new PawnAction);
+       // _actions.add(new PawnAction);
+        //TODO
     }
 
-    @Override
-    public ArrayList<? extends Action> getBuildingActions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
+	@Override
+	protected void buildActionsTree(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void addJobs() {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

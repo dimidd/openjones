@@ -5,13 +5,15 @@
 package possessions;
 
 /**
- *
+ * A simple stock. Doesn't consider units owned to update price.
+ *  Override for a more realistic model
  * @author dimid
  */
-public abstract class Stock extends ModifiableCommodity {
+public class Stock extends ModifiableCommodity {
     
     private static int _totalUnitsOwned;
-
+    
+    
     /**
      * Number of units of this stock owned by all players
      * @return

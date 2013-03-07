@@ -103,6 +103,31 @@ public class Player {
         _state.setRentContract(r);
     }
 
+	public boolean isRentDue() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean hasFoodSpoiled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean hasAllFoodSpoiled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean areClothesAboutToWare() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public int getSumOfRescueFromRelative() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
     
     
     

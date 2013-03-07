@@ -32,6 +32,7 @@ public class Game {
     private Player _curPlayer;
     //private boolean [] _hasWon; //true if player met his goals
     
+    
     public Player getCurPlayer() {
 		return _curPlayer;	
     }
@@ -39,6 +40,18 @@ public class Game {
 	private ArrayList <Player> _victors; // = new ArrayList<>;
     private MapManager _map;
     private EconomyManager _economy; //holds a list of stocks and updates them
+
+	private ArrayList<GameAnnouncement> _annoncments;
+    private Action _weekendEvent;
+	
+	
+    public boolean hasAnnouncements() {
+    	return !_annoncments.isEmpty();
+    }
+    
+    public ArrayList<GameAnnouncement> getAnnouncements() {
+    	return _annoncments;
+    }
     
     /**
      * Initializes the game. Adds Default buildings
@@ -58,19 +71,14 @@ public class Game {
         _eventGen = new EventManager();
         
         _economy = new ConstantEconomyModel();
-        addDefaultStocks();
+       
         
         _curPlayerIndex = -1;
         _curPlayer = null;
         
     }
     
-    private void addDefaultStocks() {
-		// TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
-	}
-
+ 
 	/**
      * Adds a player to the game
      * @param p player
@@ -143,11 +151,11 @@ public class Game {
         
         _curPlayer = getNextPlayer();
         _curPlayer.startTurn(); //eat food, rent etc
-        Action event = _eventGen.getRandomWeekendEvent(_curPlayer);
-        event.perform (_curPlayer);
+        _weekendEvent = _eventGen.getRandomWeekendEvent(_curPlayer);
+        _weekendEvent.perform (_curPlayer);
         
         changeEconomy();
-        displayMessages(_curPlayer);
+        updateAnnouncements();
         return false;                
     }
 
@@ -186,7 +194,7 @@ public class Game {
 //    }
     
     
-    private ActionResponse performBuildingAction(int actionIndex) {
+    public ActionResponse performBuildingAction(int actionIndex) {
         Building build = (Building) getPlayerTile();
         ActionResponse result = build.performAction(actionIndex,_curPlayer);
         return result; 
@@ -295,7 +303,46 @@ public class Game {
         return _map.getTile(_curPlayer.getState().getPos());
     }
 
-    private void displayMessages(Player _curPlayer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void updateAnnouncements() {
+    	weekendEvent();
+    	checkFood();
+    	checkRent();
+    	CheckClothes();
+    	checkRelative();
     }
+
+	private void checkRelative() {
+		int relativeHelp = _curPlayer.getSumOfRescueFromRelative();
+		if (relativeHelp > 0)
+			_annoncments.add(new GameAnnouncement("A relative sent you "+relativeHelp+"$"));
+
+		
+	}
+
+	private void CheckClothes() {
+		if (_curPlayer.areClothesAboutToWare())
+			_annoncments.add(new GameAnnouncement("You need new clothes"));
+		
+	}
+
+	private void checkRent() {
+		if (_curPlayer.isRentDue())
+			_annoncments.add(new GameAnnouncement("Rent is due"));
+		
+	}
+
+	private void checkFood() {
+		if (_curPlayer.hasFoodSpoiled()) {
+			if (_curPlayer.hasAllFoodSpoiled())
+				_annoncments.add(new GameAnnouncement("All your food spoiled!"));
+			else
+				_annoncments.add(new GameAnnouncement("Some of your food spoiled!"));
+		}
+		
+	}
+
+	private void weekendEvent() {
+		_annoncments.add(new GameAnnouncement(_weekendEvent.toString()));
+		
+	}
 }

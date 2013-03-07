@@ -4,6 +4,7 @@
  */
 package jones.map;
 
+import jones.general.Player;
 import jones.general.Position;
 
 /**
@@ -16,5 +17,17 @@ class SuperMarket extends Building {
         super(pos,name);
 
     }
+
+	@Override
+	protected void buildActionsTree(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void addJobs() {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
