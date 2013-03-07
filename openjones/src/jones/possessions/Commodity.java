@@ -1,4 +1,4 @@
-package possessions;
+package jones.possessions;
 
 public class Commodity {
 	

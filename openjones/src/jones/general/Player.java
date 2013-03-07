@@ -5,8 +5,8 @@
 package jones.general;
 
 import jones.map.House;
-import possessions.Possession;
-import possessions.RentContract;
+import jones.possessions.Possession;
+import jones.possessions.RentContract;
 
 /**
  *

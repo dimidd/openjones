@@ -9,7 +9,7 @@ import java.util.HashMap;
 import jones.actions.Action;
 import jones.general.Player;
 import jones.general.Position;
-import possessions.Possession;
+import jones.possessions.Possession;
 
 /**
  * Allows the user to pawn items for quick cash.

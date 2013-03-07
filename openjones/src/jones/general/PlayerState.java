@@ -5,13 +5,13 @@
 package jones.general;
 
 import possessions.CasualClothes;
-import possessions.Possession;
-import possessions.PossessionManager;
-import possessions.RentPossesion;
-import possessions.WeekOfRent;
+import jones.possessions.Possession;
+import jones.possessions.PossessionManager;
+import jones.possessions.RentPossesion;
+import jones.possessions.WeekOfRent;
 import jones.jobs.Unemployed;
 import jones.jobs.Job;
-import possessions.RentContract;
+import jones.possessions.RentContract;
 import jones.map.House;
 import jones.map.MapManager;
 import jones.map.RentAgency;

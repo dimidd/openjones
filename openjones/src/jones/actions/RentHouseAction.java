@@ -6,8 +6,8 @@ package jones.actions;
 
 import jones.general.Player;
 import jones.map.House;
-import possessions.RentPossesion;
-import possessions.WeekOfRent;
+import jones.possessions.RentPossesion;
+import jones.possessions.WeekOfRent;
 
 /**
  *

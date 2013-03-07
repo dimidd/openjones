@@ -4,7 +4,7 @@
  */
 package jones.general;
 
-import possessions.PossessionManager;
+import jones.possessions.PossessionManager;
 
 /**
  *

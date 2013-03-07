@@ -6,7 +6,7 @@ package jones.map;
 
 import java.util.ArrayList;
 
-import possessions.Stock;
+import jones.possessions.Stock;
 
 import jones.general.Player;
 import jones.general.Position;

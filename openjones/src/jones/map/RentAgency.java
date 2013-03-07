@@ -5,7 +5,7 @@
 package jones.map;
 
 import jones.actions.RentHouseAction;
-import possessions.RentContract;
+import jones.possessions.RentContract;
 import jones.actions.PayRentAction;
 import java.util.List;
 import jones.jobs.Job;

@@ -4,7 +4,7 @@
  */
 package jones.actions;
 
-import possessions.RentPossesion;
+import jones.possessions.RentPossesion;
 import jones.general.Player;
 
 /**

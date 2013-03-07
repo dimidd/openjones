@@ -4,7 +4,7 @@
  */
 package jones.general;
 
-import possessions.Stock;
+import jones.possessions.Stock;
 import jones.map.Building;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -5,7 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
-import possessions.Possession;
+import jones.possessions.Possession;
 
 /**
  *
