@@ -65,6 +65,8 @@ public class MapManager {
         return _lowestHousing;
     }
     
+    
+    
     /**
      * Adds the default buildings and sets the lowest housing
      */

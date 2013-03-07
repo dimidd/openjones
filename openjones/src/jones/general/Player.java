@@ -4,8 +4,8 @@
  */
 package jones.general;
 
-import possessions.Contract;
 import jones.map.House;
+import possessions.Possession;
 import possessions.RentContract;
 
 /**
@@ -103,13 +103,13 @@ public class Player {
         _state.setRentContract(r);
     }
 
-	public boolean isRentDue() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isRentDue() {		
+		return 0 == _state.getNumOfWeeksOfRent();
 	}
 
 	public boolean hasFoodSpoiled() {
 		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -126,6 +126,16 @@ public class Player {
 	public int getSumOfRescueFromRelative() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public void removeNonContractRentPossesions() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setRentPossession(Possession possession) {
+		_state.getPossessions().setRentPossession(possession);
+		
 	}
 
     

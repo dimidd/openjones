@@ -4,13 +4,17 @@
  */
 package jones.general;
 
+import possessions.CasualClothes;
 import possessions.Possession;
 import possessions.PossessionManager;
+import possessions.RentPossesion;
+import possessions.WeekOfRent;
 import jones.jobs.Unemployed;
 import jones.jobs.Job;
 import possessions.RentContract;
 import jones.map.House;
 import jones.map.MapManager;
+import jones.map.RentAgency;
 
 /**
  *
@@ -30,7 +34,7 @@ public class PlayerState {
     private PossessionManager _possessions;
     private Skills _skills;
     private Job _job;
-    private House _house;
+    //private House _house;
     //private Position 
     private PlayerPosition _pos;
     private Health _health;
@@ -38,21 +42,36 @@ public class PlayerState {
     private Career _career;
     //private Clothes _clothes;
     private int _cash;
-    private RentContract _rentContract;
     
-    PlayerState (MapManager map) {
+    public final static int MAX_JOB_RANK = 9;
+    public final static int INITIAL_CASH = 200;
+    public final static int CASUAL_CLOTHES_BASE_VALUE = 70;
+    
+    
+    /**
+     * Creates a new PlayerState with default values
+     * @param map
+     */
+    public PlayerState (MapManager map) {
         LOWEST_HOUSING = map.getLowestHousing();
         _clock = 0;
         _weeks = 1;
         _goals = new Goals();
         _possessions = new PossessionManager();
+        WeekOfRent lowestHousingRentWeek = new WeekOfRent(map.getLowestHousing().pricePerWeek(), LOWEST_HOUSING);
+        RentPossesion baseRent = new RentPossesion(RentAgency.WEEKS_OF_RENT, lowestHousingRentWeek);
+        _possessions.setRentContract(new RentContract(baseRent));
+        _possessions.add(baseRent);
+        _possessions.add(new Possession(1, new CasualClothes(CASUAL_CLOTHES_BASE_VALUE)));
         _skills = new Skills();
         _job = new Unemployed();
         
-        _house = LOWEST_HOUSING;
-        _pos = new PlayerPosition(_house.getPosition(), false);
+        //_house = LOWEST_HOUSING;
+        _pos = new PlayerPosition(getHouse().getPosition(), false);
         _health = new Health();
         _happiness = new Happiness();
+        _career = new Career(MAX_JOB_RANK, _weeks);
+        _cash = INITIAL_CASH;
     }
     
     public void recomputeGoals() {
@@ -111,7 +130,7 @@ public class PlayerState {
     }
 
     public House getHouse() {
-        return _house;
+        return _possessions.getRentContract().getHouse();
     }
 
     public PlayerPosition getPos() {
@@ -146,9 +165,9 @@ public class PlayerState {
         this._job = job;
     }
 
-    public void setHouse(House house) {
-        this._house = house;
-    }
+//    public void setHouse(House house) {
+//        this._house = house;
+//    }
 
     public void setPos(PlayerPosition pos) {
         this._pos = pos;
@@ -197,13 +216,18 @@ public class PlayerState {
         return timeLeft() > 0;
     }
 
-    RentContract getRentContract() {
-        return _rentContract;
+    public RentContract getRentContract() {
+        return _possessions.getRentContract();
     }
 
     public void setRentContract(RentContract r) {
-        _rentContract = r;
+    	 _possessions.setRentContract(r);
     }
+
+	public int getNumOfWeeksOfRent() {
+		
+		return _possessions.getRentPossession().getUnits();
+	}
 
     
 

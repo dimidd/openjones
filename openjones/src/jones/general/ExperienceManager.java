@@ -64,8 +64,8 @@ class ExperienceManager {
      * @param cap
      * @return the new experience 
      */
-    public Experience addExperience (int rank, int cap, Player player) {
-        return _exps.put(rank, new Experience(player,cap));
+    public Experience addExperience (int rank, int cap, int weeks) {
+        return _exps.put(rank, new Experience(weeks,cap));
     }
      
     /**
@@ -73,8 +73,8 @@ class ExperienceManager {
      * @param rank
      * @return the new experience
      */
-    public Experience addExperience (int rank, Player player) {
-           return _exps.put(rank, new Experience(player,getCapByRank(rank)));
+    public Experience addExperience (int rank, int weeks) {
+           return _exps.put(rank, new Experience(getCapByRank(rank), weeks));
     }
 
     /**
@@ -82,9 +82,9 @@ class ExperienceManager {
      * @param maxRank
      *  
      */
-    public void addAllExperiences (int maxRank, Player player) {
+    public void addAllExperiences (int maxRank, int weeks) {
         for(int i=1; i<=maxRank; ++i) {
-            addExperience(i, player);
+            addExperience(i, weeks);
         }
     }
 

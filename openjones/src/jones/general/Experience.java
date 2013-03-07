@@ -37,12 +37,12 @@ class Experience {
     
     /**
      * 
-     * @param player The player who gained it. (uses player`s current weeks)
      * @param cap The maximum experience which can be gained
      */
-    public Experience (Player player, int cap) {
+    public Experience (int cap, int weeks) {
         _CAP = cap;
         _value = 0;
+        _timestamp = weeks;
     }
 
     public Experience(Experience other) {

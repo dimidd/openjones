@@ -6,7 +6,6 @@ package jones.actions;
 
 import jones.general.Player;
 import jones.map.House;
-import net.vivin.GenericTreeNode;
 import possessions.RentPossesion;
 import possessions.WeekOfRent;
 
@@ -32,17 +31,18 @@ public class RentHouseAction extends PurchaseAction {
     
     @Override
     public int happinessEffect(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	return 0;
     }
 
     @Override
     protected void purchaseEffects(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	player.setRentPossession(_possession);
+    	player.getRentContract().setPossession(_possession);
     }
 
     @Override
     protected ActionResponse getPositiveResponse(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	return new ActionResponse(true, "Tell all your rich friends about us");
     }
     
         

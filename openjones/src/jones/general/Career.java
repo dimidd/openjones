@@ -15,9 +15,9 @@ package jones.general;
 public class Career extends Measure {
     private ExperienceManager _exp;
     
-    public Career (int maxJobRank, Player player) {
+    public Career (int maxJobRank, int weeks) {
         _exp = new ExperienceManager();
-        _exp.addAllExperiences(maxJobRank, player);
+        _exp.addAllExperiences(maxJobRank, weeks);
     }
 
     public Career(Career other) {

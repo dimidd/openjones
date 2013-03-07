@@ -13,8 +13,7 @@ import jones.general.Player;
  */
  public class PayRentAction extends PurchaseAction {
      
-
- 
+	 
 
     public PayRentAction(RentPossesion rent) {
         _possession = rent;

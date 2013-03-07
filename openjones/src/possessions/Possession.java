@@ -47,5 +47,13 @@ public class Possession {
         this._units = units;
     }
 
+    /**
+     * @param units the units to be added
+     */
+    public void addUnits(int units) {
+        this._units += units;
+    }
+
+ 
    
 }
