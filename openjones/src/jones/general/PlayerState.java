@@ -8,6 +8,7 @@ import possessions.Possession;
 import possessions.PossessionManager;
 import jones.jobs.Unemployed;
 import jones.jobs.Job;
+import possessions.RentContract;
 import jones.map.House;
 import jones.map.MapManager;
 
@@ -37,7 +38,7 @@ public class PlayerState {
     private Career _career;
     //private Clothes _clothes;
     private int _cash;
-    
+    private RentContract _rentContract;
     
     PlayerState (MapManager map) {
         LOWEST_HOUSING = map.getLowestHousing();
@@ -194,6 +195,14 @@ public class PlayerState {
 
     public boolean hasTime() {
         return timeLeft() > 0;
+    }
+
+    RentContract getRentContract() {
+        return _rentContract;
+    }
+
+    public void setRentContract(RentContract r) {
+        _rentContract = r;
     }
 
     

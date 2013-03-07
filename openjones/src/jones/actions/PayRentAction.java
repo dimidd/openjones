@@ -4,8 +4,6 @@
  */
 package jones.actions;
 
-import jones.actions.ActionResponse;
-import jones.actions.PurchaseAction;
 import possessions.RentPossesion;
 import jones.general.Player;
 
@@ -13,65 +11,43 @@ import jones.general.Player;
  *
  * @author dimid
  */
-class PayRentAction extends PurchaseAction {
+ public class PayRentAction extends PurchaseAction {
+     
+
+ 
 
     public PayRentAction(RentPossesion rent) {
         _possession = rent;
     }
 
     @Override
-    protected ActionResponse checkConditions(Player player) {
-        return checkCash(player);
-    }
-
-    @Override
-    protected void doAction(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int healthEffect(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
 
     @Override
     public int happinessEffect(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int careerEffect(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int cashEffect(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int timeEffect(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Pay rent for 1 month "+_possession.worth();
     }
 
     @Override
-    protected ActionResponse getPositiveResponse() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected ActionResponse getPositiveResponse(Player player) {
+        return new ActionResponse(true,"I'M here for all your renting needs");
     }
 
     @Override
     public boolean isSubmenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     protected void purchaseEffects(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

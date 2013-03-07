@@ -8,10 +8,9 @@ package possessions;
  *
  * @author dimid
  */
-public class RentPossesion extends Possession {
-    public static final int WEEKS_OF_RENT = 4;
+public class RentPossesion extends Consumable {
     
-    public RentPossesion(Rent rent) {
-        super(WEEKS_OF_RENT, rent);
+    public RentPossesion(int numOfWeeks, WeekOfRent rent) {
+        super(numOfWeeks, rent, 1.00);
     }
 }

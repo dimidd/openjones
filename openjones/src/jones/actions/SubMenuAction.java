@@ -66,7 +66,7 @@ public class SubMenuAction extends Action {
     }
 
     @Override
-    protected ActionResponse getPositiveResponse() {
+    protected ActionResponse getPositiveResponse(Player player) {
         return new ActionResponse(true, null);
     }
 

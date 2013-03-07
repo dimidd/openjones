@@ -12,17 +12,25 @@ package possessions;
 public class Possession {
     
     protected int _units;
-    protected Commodity _commod;
+    protected Commodity _commodity;
     //private int _unitValue;
+
+    public Commodity getCommodity() {
+        return _commodity;
+    }
+
+    public void setCommodity(Commodity _commodity) {
+        this._commodity = _commodity;
+    }
     
     
     public Possession (int units, Commodity commod) {
         _units = units;
-        _commod = commod;
+        _commodity = commod;
     }
     
     public int worth () {
-        return getUnits() * _commod.getUnitValue();
+        return getUnits() * _commodity.getUnitValue();
     }
 
     /**

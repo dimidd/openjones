@@ -21,8 +21,9 @@ public class MapManager {
     private ArrayList <Building> _buildings;
     private ArrayList <Location> _nonBuildings;
     
-   
-   
+    public static final int BASE_RENT_LOWCOST_HOUSING = 305;
+    public static final int BASE_RENT_SECURITY_HOUSING = 445;
+  
     public MapManager (House lowestHousing) {
         if (null != lowestHousing) {
             _lowestHousing = lowestHousing;
@@ -70,11 +71,11 @@ public class MapManager {
     private void addDefaultBuildings() {
         //(0,0) is top left corner
         Position pos = new Position (0,0);
-        House secHousing = new SecurityHousing(pos,"Security Apartment");
+        House secHousing = new SecurityHousing(pos,"Security Apartment",BASE_RENT_SECURITY_HOUSING);
         _buildings.add(secHousing);
         
         pos.setXY(2,0);
-        _lowestHousing = new LowCostHousing(pos,"Low-Cost Apartment");
+        _lowestHousing = new LowCostHousing(pos,"Low-Cost Apartment",BASE_RENT_LOWCOST_HOUSING);
         _buildings.add(_lowestHousing);
       
         pos.setXY(1,0);

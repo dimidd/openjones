@@ -8,13 +8,13 @@ package possessions;
  * Consumable is a commodity that is used each week. e.g. food
  * @author dimid
  */
-public class Consumble extends Possession {
+public class Consumable extends Possession {
     
     private double _consuptionRate;
     private double _consumed;
     public final double EPSILON = 0.001;
     
-    public Consumble (int units, Commodity comm, double rate) {
+    public Consumable (int units, Commodity comm, double rate) {
         super(units, comm);
         _consuptionRate = rate;
         _consumed = 0;

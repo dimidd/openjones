@@ -14,6 +14,7 @@ import possessions.Possession;
 public abstract class PurchaseAction extends Action {
     
     
+    
     protected Possession _possession;
 
     @Override

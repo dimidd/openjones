@@ -14,8 +14,8 @@ import jones.general.Position;
  */
 public class SecurityHousing extends House{
 
-    public SecurityHousing(Position pos, String name) {
-        super(pos,name);
+    public SecurityHousing(Position pos, String name, int pricePerMonth) {
+        super(pos, name, pricePerMonth);
         
     }
 

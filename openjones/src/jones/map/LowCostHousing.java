@@ -4,9 +4,6 @@
  */
 package jones.map;
 
-import java.util.ArrayList;
-import jones.actions.Action;
-import jones.actions.RelaxAction;
 import jones.general.Position;
 
 /**
@@ -19,8 +16,8 @@ public class LowCostHousing extends House {
     *
     * @param pos
     */
-    public LowCostHousing (Position pos, String name) {
-        super(pos,name);
+    public LowCostHousing (Position pos, String name, int pricePerMonth) {
+        super(pos, name, pricePerMonth);
         
     }
 

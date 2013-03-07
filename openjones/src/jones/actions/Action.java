@@ -36,7 +36,7 @@ public abstract class Action {
         player.getState().affectCash(cashEffect(player));
         player.getState().affectTime(timeEffect(player));
             
-        return getPositiveResponse();
+        return getPositiveResponse(player);
     }
 
     public abstract int healthEffect(Player player); 
@@ -63,7 +63,7 @@ public abstract class Action {
         }
     }
 
-    protected abstract ActionResponse getPositiveResponse();
+    protected abstract ActionResponse getPositiveResponse(Player player);
     
     /**
      * Return true iff this action leads to a menu of other actions

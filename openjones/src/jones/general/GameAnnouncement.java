@@ -11,5 +11,9 @@ package jones.general;
  * @author dimid
  */
 public class GameAnnouncement {
+    public String _msg;
     
+    public GameAnnouncement (String msg) {
+        _msg = msg;
+    }
 }

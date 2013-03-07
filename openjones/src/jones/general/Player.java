@@ -4,7 +4,9 @@
  */
 package jones.general;
 
+import possessions.Contract;
 import jones.map.House;
+import possessions.RentContract;
 
 /**
  *
@@ -91,7 +93,16 @@ public class Player {
     public int timeLeft() {
          return _state.timeLeft();
     }
+
+    public RentContract getRentContract() {
+        return _state.getRentContract();
+    }
+ 
     
+    public void setRentContract(RentContract r) {
+        _state.setRentContract(r);
+    }
+
     
     
     

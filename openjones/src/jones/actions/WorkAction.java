@@ -72,12 +72,12 @@ public class WorkAction extends Action {
 
     @Override
     protected ActionResponse checkConditions(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return checkTime(player);
     }
 
     @Override
-    protected ActionResponse getPositiveResponse() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected ActionResponse getPositiveResponse(Player player) {
+        return new ActionResponse(true, null);
     }
 
     @Override

@@ -6,6 +6,7 @@ package jones.map;
 
 import jones.actions.Action;
 import jones.actions.RelaxAction;
+import jones.general.Player;
 import jones.general.Position;
 
 /**
@@ -14,16 +15,17 @@ import jones.general.Position;
  */
 public abstract class House extends Building {
 
+    protected int _pricePerMonth;
     
     /** Create a new Building
     *
     * @param pos
     */
-    public House (Position pos, String name) {
+    public House (Position pos, String name, int pricePerMonth) {
         super(pos,name);
  
         _actions.add(new RelaxAction(this));
-        
+        _pricePerMonth = pricePerMonth;
        
     }
     
@@ -45,8 +47,20 @@ public abstract class House extends Building {
     }
 
     @Override
-    protected void buildActionsTree() {
+    protected void buildActionsTree(Player player) {
         //no actions
+    }
+
+    /**
+     * Rent cost per week
+     * @return 
+     */
+    public int pricePerWeek() {
+        return pricePerMonth() / RentAgency.WEEKS_OF_RENT;
+    }
+
+    private int pricePerMonth() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
