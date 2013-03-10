@@ -54,6 +54,14 @@ public class Possession {
         this._units += units;
     }
 
+    /**
+     * Consume, if this Possession is consumable.
+     * Otherwise, do nothing
+     * 
+     */
+    void consume() {
+    }
+
  
    
 }

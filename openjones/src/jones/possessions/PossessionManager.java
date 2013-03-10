@@ -91,7 +91,10 @@ public class PossessionManager {
             _rentDebt += rentPoss.getCommodity().getUnitValue();
         }
         
+        //TODO: food, clothes
         
+        for (Possession p: _poss)
+            p.consume();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

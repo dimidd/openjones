@@ -268,6 +268,10 @@ public class PlayerState {
          _rentDebt = debt;        
     }
 
+    boolean hasWon() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     
 

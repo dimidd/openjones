@@ -5,6 +5,7 @@
 package jones.general;
 
 import jones.map.House;
+import jones.map.MapManager;
 import jones.possessions.Possession;
 import jones.possessions.RentContract;
 
@@ -19,12 +20,16 @@ public class Player {
     private PlayerState _state;
     private PlayerGraphics _graphics;
 
-    public Player (String name, PlayerGraphics graphics) {
-    	 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Player (String name, PlayerGraphics graphics, MapManager map) {
+    	 
+        _name = name;
+        _state = new PlayerState(map);
+        _graphics = graphics;
+        
     }
     
     boolean hasWon() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _state.hasWon();
     }
 
     public void setGoals(Goals goals) {

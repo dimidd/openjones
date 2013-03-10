@@ -20,6 +20,7 @@ public class Consumable extends Possession {
         _consumed = 0;
     }
     
+    @Override
     public void consume() {
         _consumed += _consuptionRate;
         if (_consuptionRate > 1.00 + EPSILON){
