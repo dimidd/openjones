@@ -31,13 +31,16 @@ public class Game {
     private int _curPlayerIndex;
     private Player _curPlayer;
     //private boolean [] _hasWon; //true if player met his goals
+    public final int MIN_PERIOD_BETWEEN_RENT_ANNOUNCEMENTS = 4;
+    
     
     
     public Player getCurPlayer() {
 		return _curPlayer;	
     }
 
-	private ArrayList <Player> _victors; // = new ArrayList<>;
+	
+    private ArrayList <Player> _victors; // = new ArrayList<>;
     private MapManager _map;
     private EconomyManager _economy; //holds a list of stocks and updates them
 
@@ -150,12 +153,14 @@ public class Game {
         }
         
         _curPlayer = getNextPlayer();
-        _curPlayer.startTurn(); //eat food, rent etc
+        _curPlayer.gotoStartPosition(); //eat food, rent etc
         _weekendEvent = _eventGen.getRandomWeekendEvent(_curPlayer);
         _weekendEvent.perform (_curPlayer);
         
         changeEconomy();
         updateAnnouncements();
+        _curPlayer.consume();
+        
         return false;                
     }
 
@@ -205,6 +210,7 @@ public class Game {
 		return _curPlayer.getState().getHour() < TIMEUNITS_PER_WEEK;
     }
 
+    
     /**
      * Get all possible actions the current player can perform.
      * If he is inside a building, returns the building's actions and an exit action
@@ -324,9 +330,18 @@ public class Game {
 			_annoncments.add(new GameAnnouncement("You need new clothes"));
 		
 	}
+        
+        /**
+         * Rent model:
+         * The player starts with 4 WORs (weeks of rent), and a rent debt of 0.
+         * Every turn, one WOR is consumed. Whenever the player reaches 0 week,
+         * he player receives an announcement (in condition that at least 4 weeks have passed since the last announcement).
+         * Every week, if the player has 0 WOR (before consuming), the rent debt is increased by the value of
+         * 1 WOR. The debt is garnished from the player's wage, and prevent from signing a rent contract.
+         */
 
 	private void checkRent() {
-		if (_curPlayer.isRentDue())
+		if (_curPlayer.isRentDue() && (_curPlayer.getWeeks() - _curPlayer.getlastRentAnnouncement()) >= MIN_PERIOD_BETWEEN_RENT_ANNOUNCEMENTS)
 			_annoncments.add(new GameAnnouncement("Rent is due"));
 		
 	}

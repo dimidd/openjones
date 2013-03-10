@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class PossessionManager {
 
-	//	private RentPossesion 		_rent;
+	//	private RentPossession 		_rent;
 	//	private ClothesPossession	_clothes;
 	//	private FoodPossession		_food;
 	private RentContract _rentContract;
@@ -60,8 +60,8 @@ public class PossessionManager {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
-	public Possession getRentPossession() {
-		return find(_rentContract.getPossession());
+	public RentPossession getRentPossession() {
+		return (RentPossession) find(_rentContract.getPossession());
 	}
 
 	public RentContract getRentContract() {
@@ -76,6 +76,24 @@ public class PossessionManager {
 		_poss.remove(getRentPossession());
 		_poss.add(possession);
 	}
+
+        
+    /**
+     * Before consuming check rent:
+     * if the player has 0 WOR (before consuming), the rent debt is increased by the value of
+     * 1 WOR.
+     */
+        
+    public void consume() {
+        //check rent debt
+        RentPossession rentPoss = getRentPossession();
+        if (null != rentPoss && 0 == rentPoss.getUnits()) {
+            _rentDebt += rentPoss.getCommodity().getUnitValue();
+        }
+        
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
 }

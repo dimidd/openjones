@@ -56,7 +56,7 @@ public abstract class House extends Building {
      * @return 
      */
     public int pricePerWeek() {
-        return pricePerMonth() / RentAgency.WEEKS_OF_RENT;
+        return pricePerMonth() / RentAgency.WEEKS_OF_RENT_IN_A_MONTH;
     }
 
     private int pricePerMonth() {

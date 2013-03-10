@@ -13,4 +13,5 @@ public class CasualClothes extends Clothes {
     public CasualClothes (int value) {
         super(value,"Casual Clothes",1);
     }
+    
 }

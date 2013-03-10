@@ -4,10 +4,10 @@
  */
 package jones.general;
 
-import possessions.CasualClothes;
+import jones.possessions.CasualClothes;
 import jones.possessions.Possession;
 import jones.possessions.PossessionManager;
-import jones.possessions.RentPossesion;
+import jones.possessions.RentPossession;
 import jones.possessions.WeekOfRent;
 import jones.jobs.Unemployed;
 import jones.jobs.Job;
@@ -34,15 +34,41 @@ public class PlayerState {
     private PossessionManager _possessions;
     private Skills _skills;
     private Job _job;
-    //private House _house;
-    //private Position 
     private PlayerPosition _pos;
     private Health _health;
     private Happiness _happiness;
     private Career _career;
-    //private Clothes _clothes;
     private int _cash;
+
+    //last time the player was annonced, that rent was due
+    private int _lastRentAnnouncement;
     
+    private int _rentDebt;
+
+    public int getClock() {
+        return _clock;
+    }
+
+    public void setClock(int _clock) {
+        this._clock = _clock;
+    }
+
+    public Career getCareer() {
+        return _career;
+    }
+
+    public void setCareer(Career _career) {
+        this._career = _career;
+    }
+
+    public int getLastRentAnnouncement() {
+        return _lastRentAnnouncement;
+    }
+
+    public void setLastRentAnnouncement(int _lastRentAnnouncement) {
+        this._lastRentAnnouncement = _lastRentAnnouncement;
+    }
+
     public final static int MAX_JOB_RANK = 9;
     public final static int INITIAL_CASH = 200;
     public final static int CASUAL_CLOTHES_BASE_VALUE = 70;
@@ -59,7 +85,7 @@ public class PlayerState {
         _goals = new Goals();
         _possessions = new PossessionManager();
         WeekOfRent lowestHousingRentWeek = new WeekOfRent(map.getLowestHousing().pricePerWeek(), LOWEST_HOUSING);
-        RentPossesion baseRent = new RentPossesion(RentAgency.WEEKS_OF_RENT, lowestHousingRentWeek);
+        RentPossession baseRent = new RentPossession(RentAgency.WEEKS_OF_RENT_IN_A_MONTH, lowestHousingRentWeek);
         _possessions.setRentContract(new RentContract(baseRent));
         _possessions.add(baseRent);
         _possessions.add(new Possession(1, new CasualClothes(CASUAL_CLOTHES_BASE_VALUE)));
@@ -72,6 +98,7 @@ public class PlayerState {
         _happiness = new Happiness();
         _career = new Career(MAX_JOB_RANK, _weeks);
         _cash = INITIAL_CASH;
+        _rentDebt = 0;
     }
     
     public void recomputeGoals() {
@@ -129,7 +156,7 @@ public class PlayerState {
         return _job;
     }
 
-    public House getHouse() {
+    public final House getHouse() {
         return _possessions.getRentContract().getHouse();
     }
 
@@ -223,11 +250,24 @@ public class PlayerState {
     public void setRentContract(RentContract r) {
     	 _possessions.setRentContract(r);
     }
+	
+    public int getNumOfWeeksOfRent() {
+        return _possessions.getRentPossession().getUnits();	
+    }
 
-	public int getNumOfWeeksOfRent() {
-		
-		return _possessions.getRentPossession().getUnits();
-	}
+    void consume() {
+        _possessions.consume();              
+    }
+
+    int getRentDebt() {
+        return _rentDebt;        
+    }
+    
+     
+    void setRentDebt(int debt) {
+         _rentDebt = debt;        
+    }
+
 
     
 

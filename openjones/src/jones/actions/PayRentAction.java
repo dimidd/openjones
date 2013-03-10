@@ -4,7 +4,7 @@
  */
 package jones.actions;
 
-import jones.possessions.RentPossesion;
+import jones.possessions.RentPossession;
 import jones.general.Player;
 
 /**
@@ -15,7 +15,7 @@ import jones.general.Player;
      
 	 
 
-    public PayRentAction(RentPossesion rent) {
+    public PayRentAction(RentPossession rent) {
         _possession = rent;
     }
 

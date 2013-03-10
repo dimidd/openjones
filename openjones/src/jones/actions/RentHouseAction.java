@@ -6,7 +6,7 @@ package jones.actions;
 
 import jones.general.Player;
 import jones.map.House;
-import jones.possessions.RentPossesion;
+import jones.possessions.RentPossession;
 import jones.possessions.WeekOfRent;
 
 /**
@@ -17,7 +17,7 @@ public class RentHouseAction extends PurchaseAction {
 
     public RentHouseAction(House h, int numOfWeeks) {
         WeekOfRent rent = new WeekOfRent(h.pricePerWeek(), h);
-        _possession = (new RentPossesion(numOfWeeks, rent)) ;
+        _possession = (new RentPossession(numOfWeeks, rent)) ;
     }
 
     @Override

@@ -20,12 +20,14 @@ import net.vivin.GenericTreeNode;
  */
 public class RentAgency extends Building {
     private  List<House> _houses;
-        /**
+     
+    /**
      * Number of weeks in a month of rent
      */
-    public static final int WEEKS_OF_RENT = 4;
+    public static final int WEEKS_OF_RENT_IN_A_MONTH = 4;
     public static final int GROUNSKEEPER_BASE_WAGE = 5;
     public static final int APARTMENT_MANAGER_BASE_WAGE = 7;
+    //public static final int WEEK_OF_RENT;
 
     public RentAgency(Position pos, String name, List<House> houses) {
         super(pos,name);
@@ -41,7 +43,7 @@ public class RentAgency extends Building {
         }
         
         for (House h: _houses) {
-            root.addChild(new GenericTreeNode<Action> (new RentHouseAction(h, WEEKS_OF_RENT)));
+            root.addChild(new GenericTreeNode<Action> (new RentHouseAction(h, WEEKS_OF_RENT_IN_A_MONTH)));
         }                 
     }
 

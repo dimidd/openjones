@@ -4,6 +4,7 @@
  */
 package jones.possessions;
 
+import java.util.Objects;
 import jones.map.House;
 
 /**
@@ -13,6 +14,28 @@ import jones.map.House;
 public class WeekOfRent extends Commodity {
     
     private House _house;
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this._house);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final WeekOfRent other = (WeekOfRent) obj;
+        if (!Objects.equals(this._house, other._house)) {
+            return false;
+        }
+        return true;
+    }
 
     public House getHouse() {
         return _house;

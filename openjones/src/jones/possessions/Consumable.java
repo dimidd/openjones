@@ -25,6 +25,9 @@ public class Consumable extends Possession {
         if (_consuptionRate > 1.00 + EPSILON){
             int depleted = (int) _consuptionRate;
             _units -= depleted;
+            if (_units < 0) {
+                _units = 0;
+            }
             _consumed = 0.0;            
         }
     }

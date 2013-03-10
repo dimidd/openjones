@@ -16,10 +16,18 @@ public class WorkAction extends Action {
 
     protected Job _job;
     
+    
     /**
      * The period of the work action, if player has enough time
      */
     public static final int WORK_PERIOD_IN_TIME_UNITS = 60;    
+    
+    /**
+     * How much percent are garnished, to cover the rent debt
+     */  
+    public static final int GARNISH_PERCENTAGE = 30;    
+    private int _garnishedWage;
+
     
     public WorkAction(Job job) {
         _job = job;
@@ -28,6 +36,8 @@ public class WorkAction extends Action {
     @Override
     protected void doAction(Player player) {
         player.affectCash(cashEffect(player));
+        player.setRentDebt(player.getRentDebt() - _garnishedWage);
+        
         int timeEffect = timeEffect(player);
         player.affectTime(timeEffect);
         
@@ -57,7 +67,19 @@ public class WorkAction extends Action {
 
     @Override
     public int cashEffect(Player player) {
-        return timeEffect(player) + _job.getWagePerTimeUnit();
+        int baseWage = timeEffect(player) * _job.getWagePerTimeUnit();
+        int debt = player.getRentDebt();
+        
+        if ( debt > 0) {
+            int nettoWage = garnish(baseWage, debt);
+            _garnishedWage = baseWage - nettoWage;
+            
+            return nettoWage;
+        }
+        else {
+             _garnishedWage = 0;
+            return baseWage;
+        }
     }
 
     @Override
@@ -83,6 +105,17 @@ public class WorkAction extends Action {
     @Override
     public boolean isSubmenu() {
         return false;
+    }
+
+    /**
+     * Garnish money from the player's wage. 
+     * If the debt is large enough garnish GARNISH_PERCENTAGE percent
+     * Otherwise,subtract the debt 
+     * @param baseWage
+     * @return 
+     */
+    public int garnish(int baseWage, int debt) {                 
+        return  Math.max(baseWage - debt, baseWage * (100 - GARNISH_PERCENTAGE)/100);
     }
     
 }

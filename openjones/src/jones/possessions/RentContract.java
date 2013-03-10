@@ -11,13 +11,13 @@ import jones.map.House;
  * @author dimid
  */
 public class RentContract extends Contract {
-    public RentContract (RentPossesion rentPoss) {
+    public RentContract (RentPossession rentPoss) {
         super(rentPoss);
     }
     
     @Override
-    public RentPossesion getPossession() {
-        return (RentPossesion) _possession;
+    public RentPossession getPossession() {
+        return (RentPossession) _possession;
     }
 
     public House getHouse() {

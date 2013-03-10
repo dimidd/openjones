@@ -32,7 +32,7 @@ public class Player {
 
     }
     
-    void startTurn() {
+    void gotoStartPosition() {
         _state.advanceWeeks();
         House home = _state.getHouse();
         _state.setPos(home.getPosition(), false);
@@ -103,42 +103,60 @@ public class Player {
         _state.setRentContract(r);
     }
 
-	public boolean isRentDue() {		
-		return 0 == _state.getNumOfWeeksOfRent();
-	}
+    public boolean isRentDue() {		
+            return 0 == _state.getNumOfWeeksOfRent();
+    }
 
-	public boolean hasFoodSpoiled() {
-		// TODO Auto-generated method stub
+    public boolean hasFoodSpoiled() {
+            // TODO Auto-generated method stub
 
-		return false;
-	}
+            return false;
+    }
 
-	public boolean hasAllFoodSpoiled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public boolean hasAllFoodSpoiled() {
+            // TODO Auto-generated method stub
+            return false;
+    }
 
-	public boolean areClothesAboutToWare() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public boolean areClothesAboutToWare() {
+            // TODO Auto-generated method stub
+            return false;
+    }
 
-	public int getSumOfRescueFromRelative() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public int getSumOfRescueFromRelative() {
+            // TODO Auto-generated method stub
+            return 0;
+    }
 
-	public void removeNonContractRentPossesions() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void removeNonContractRentPossesions() {
+            // TODO Auto-generated method stub
 
-	public void setRentPossession(Possession possession) {
-		_state.getPossessions().setRentPossession(possession);
-		
-	}
+    }
 
-    
+    public void setRentPossession(Possession possession) {
+            _state.getPossessions().setRentPossession(possession);
+
+    }
+
+    int getlastRentAnnouncement() {
+        return _state.getLastRentAnnouncement();
+    }
+
+    /**
+     * Consume all possessions, Handle rent, food and clothes 
+     */
+    public void consume() {
+        _state.consume();
+    }
+
+    public int getRentDebt() {
+        return _state.getRentDebt();
+    }
+
+    public void setRentDebt(int i) {
+        _state.setRentDebt(i);    
+    }
+
     
     
             
