@@ -61,12 +61,22 @@ public class PossessionManager {
 	}
 	
 
-	public int sumRestHealthEffects() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	public int sumRestHealthEffects() {           
+            int sum = 0;                                   
+            for (Possession p: _poss) {            
+                sum += p.getRestHealthEffect();            
+            }                
+           
+            return sum;
 	}
 
-	public int sumRestHappinessEffects() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	public int sumRestHappinessEffects() {             
+            int sum = 0;                             
+            for (Possession p: _poss) {
+                    sum += p.getRestHappinessEffect();
+                }
+                               
+            return sum;
 	}
 
 	public RentPossession getRentPossession() {

@@ -41,6 +41,23 @@ public class Commodity {
 //			return false;
 		return true;
 	}
+
+    /**
+     * The effects of this commodity accumulate
+     * e.g. The more plants you have in your home, the happier will be a rest
+     * @return 
+     */ 
+    public boolean hasAccumulativeEffect() {
+        return false;
+    }
+
+    public int getRestHealthEffect() {
+        return 0;
+    }
+
+    public int getRestHappinessEffect() {
+        return 0;
+    }
 	
 
     

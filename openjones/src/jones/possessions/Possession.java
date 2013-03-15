@@ -63,5 +63,20 @@ public class Possession {
     }
 
  
+    public int getRestHealthEffect() {
+        if (_commodity.hasAccumulativeEffect()) {
+            return _units * _commodity.getRestHealthEffect();
+        }
+        else {
+            return _commodity.getRestHealthEffect();
+        }
+    }
    
+    public int getRestHappinessEffect() {       
+        if (_commodity.hasAccumulativeEffect())
+            return _units * _commodity.getRestHappinessEffect();
+        else
+            return _commodity.getRestHappinessEffect();
+    }
+    
 }
