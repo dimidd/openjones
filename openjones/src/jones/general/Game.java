@@ -311,10 +311,10 @@ public class Game {
 
     private void updateAnnouncements() {
     	weekendEvent();
-    	checkFood();
+    	//checkFood();
     	checkRent();
     	CheckClothes();
-    	checkRelative();
+    	//checkRelative();
     }
 
 	private void checkRelative() {

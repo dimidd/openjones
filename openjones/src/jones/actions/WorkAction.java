@@ -94,12 +94,22 @@ public class WorkAction extends Action {
 
     @Override
     protected ActionResponse checkConditions(Player player) {
-        return checkTime(player);
+        if (player.getClothesLevel() < _job.MIN_CLOTHES_LEVEL) {
+            return new ActionResponse(false, "You are'nt dressed properly");
+        }
+        else {
+            return checkTime(player);
+        }
     }
 
     @Override
     protected ActionResponse getPositiveResponse(Player player) {
-        return new ActionResponse(true, null);
+        if (_garnishedWage > 0) {
+            return new ActionResponse(true, "I had to garnish "+_garnishedWage+"$");
+        }
+        else {
+            return new ActionResponse(true, null);
+        }
     }
 
     @Override

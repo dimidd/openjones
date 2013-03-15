@@ -59,20 +59,8 @@ public class Player {
         return _graphics;
     }
     
-    public int clothesLevel () {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//    void move(int x, int y) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    void move(Movement move) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
     public Career getCareer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _state.getCareer();
     }
 
     public void affectCash(int cashEffect) {
@@ -109,7 +97,7 @@ public class Player {
     }
 
     public boolean isRentDue() {		
-            return 0 == _state.getNumOfWeeksOfRent();
+            return  _state.isRentDue();
     }
 
     public boolean hasFoodSpoiled() {
@@ -124,8 +112,8 @@ public class Player {
     }
 
     public boolean areClothesAboutToWare() {
-            // TODO Auto-generated method stub
-            return false;
+            
+        return _state.areClothesAboutToWare();
     }
 
     public int getSumOfRescueFromRelative() {
@@ -160,6 +148,10 @@ public class Player {
 
     public void setRentDebt(int i) {
         _state.setRentDebt(i);    
+    }
+
+    public int getClothesLevel() {
+        return _state.getClothesLevel();
     }
 
     

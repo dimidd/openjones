@@ -19,22 +19,25 @@ public class Job {
     protected int _wagePerTimeUnit;
     protected int _rank;
     protected Skills _skills;
+    
+    public final int MIN_CLOTHES_LEVEL;
     public final double EXPERIENCE_UNITS_PER_1_TIME_UNIT_OF_WORK;
     public static final int DEFAULT_EXPERIENCE_RATE = 1;
     
     
-    public Job (String name, Building build, int rank, int expuRate, int wagePerTimeUnit, Skills skillls) {
+    public Job (String name, Building build, int rank, int expuRate, int wagePerTimeUnit, Skills skillls, int clothesLevel) {
         _name = name;
         _building = build;
         _rank = rank;
         EXPERIENCE_UNITS_PER_1_TIME_UNIT_OF_WORK = expuRate;
         _wagePerTimeUnit = wagePerTimeUnit;
         _skills = skillls;
+        MIN_CLOTHES_LEVEL = clothesLevel;
     }
 
      
-    public Job (String name, Building build, int rank, int wagePerHour) {
-        this(name, build, rank, DEFAULT_EXPERIENCE_RATE, wagePerHour / Game.TIMEUNITS_PER_HOUR, null);
+    public Job (String name, Building build, int rank, int wagePerHour, int clothesLevel) {
+        this(name, build, rank, DEFAULT_EXPERIENCE_RATE, wagePerHour / Game.TIMEUNITS_PER_HOUR, null, clothesLevel);
     }
   
     

@@ -56,11 +56,21 @@ public abstract class House extends Building {
      * @return 
      */
     public int pricePerWeek() {
-        return pricePerMonth() / RentAgency.WEEKS_OF_RENT_IN_A_MONTH;
+        return _pricePerMonth / RentAgency.WEEKS_OF_RENT_IN_A_MONTH;
     }
 
-    private int pricePerMonth() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @return the _pricePerMonth
+     */
+    public int getPricePerMonth() {
+        return _pricePerMonth;
+    }
+
+    /**
+     * @param pricePerMonth the _pricePerMonth to set
+     */
+    public void setPricePerMonth(int pricePerMonth) {
+        this._pricePerMonth = pricePerMonth;
     }
 
     

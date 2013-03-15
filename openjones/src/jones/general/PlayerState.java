@@ -71,7 +71,7 @@ public class PlayerState {
 
     public final static int MAX_JOB_RANK = 9;
     public final static int INITIAL_CASH = 200;
-    public final static int CASUAL_CLOTHES_BASE_VALUE = 70;
+    //public final static int CASUAL_CLOTHES_BASE_VALUE = 70;
     
     
     /**
@@ -83,12 +83,12 @@ public class PlayerState {
         _clock = 0;
         _weeks = 1;
         _goals = new Goals();
-        _possessions = new PossessionManager();
+        _possessions = new PossessionManager(map);
         WeekOfRent lowestHousingRentWeek = new WeekOfRent(map.getLowestHousing().pricePerWeek(), LOWEST_HOUSING);
         RentPossession baseRent = new RentPossession(RentAgency.WEEKS_OF_RENT_IN_A_MONTH, lowestHousingRentWeek);
         _possessions.setRentContract(new RentContract(baseRent));
         _possessions.add(baseRent);
-        _possessions.add(new Possession(1, new CasualClothes(CASUAL_CLOTHES_BASE_VALUE)));
+        _possessions.add(new Possession(1, new CasualClothes()));
         _skills = new Skills();
         _job = new Unemployed();
         
@@ -270,6 +270,19 @@ public class PlayerState {
 
     boolean hasWon() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    int getClothesLevel() {
+        return _possessions.getClothesLevel();
+    }
+
+    boolean isRentDue() {
+        return _possessions.isRentDue();
+        
+     }
+
+    boolean areClothesAboutToWare() {
+        return _possessions.areClothesAboutToWare();
     }
 
 

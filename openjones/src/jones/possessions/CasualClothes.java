@@ -9,9 +9,10 @@ package jones.possessions;
  * @author dimid
  */
 public class CasualClothes extends Clothes {
+    public static final int  BASE_VALUE = 50;
     
-    public CasualClothes (int value) {
-        super(value,"Casual Clothes",1);
+    public CasualClothes () {
+        super(BASE_VALUE,"Casual Clothes",1);
     }
     
 }
