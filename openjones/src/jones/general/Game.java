@@ -31,6 +31,8 @@ public class Game {
     private int _curPlayerIndex;
     private Player _curPlayer;
     //private boolean [] _hasWon; //true if player met his goals
+    private int _clothesLevel; 
+    
     public final int MIN_PERIOD_BETWEEN_RENT_ANNOUNCEMENTS = 4;
     
     

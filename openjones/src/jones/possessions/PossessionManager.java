@@ -20,6 +20,7 @@ public class PossessionManager {
 	private ArrayList<Possession> _poss;
 	private int _rentDebt;
         private int _nOutfits;
+        //private int _clothesLevel;                
         private ConsumablePossession _bestClothesPossesion;
         /**
          * The number of WORs a player has at the beginning 
@@ -96,7 +97,10 @@ public class PossessionManager {
     public void consume() {
         //check rent debt
         RentPossession rentPoss = getRentPossession();
-        if (null != rentPoss && 0 == rentPoss.getUnits()) {
+        if (null == rentPoss 
+                ||
+           0 == rentPoss.getUnits()) {            
+         
             _rentDebt += rentPoss.getCommodity().getUnitValue();
         }
         
@@ -134,8 +138,9 @@ public class PossessionManager {
             }
         }       
        
-        if (null == bestClothesPossesion)
-            return 0; //naked       
+        if (null == bestClothesPossesion) {
+            return 0;
+        } //naked       
         else {               
             bestClothesPossesion.setIsAutoConsmuptionOn(true);
             _bestClothesPossesion = bestClothesPossesion;
@@ -180,10 +185,13 @@ public class PossessionManager {
      * @return 
      */
     public boolean areClothesAboutToWare() {
-        if (_nOutfits != 1) //no clothes or more than 1
-            return false; 
-        else
-            return _bestClothesPossesion.aboutToBeConsumed();
+        if (_nOutfits != 1) {
+            return false;
+        } 
+        else {
+            //we check for 2 turns, since the check is BEFORE consuming
+            return _bestClothesPossesion.isGoingToExhaustIn2Turns();
+        }
      }
 
 

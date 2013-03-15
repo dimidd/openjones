@@ -64,11 +64,20 @@ public class ConsumablePossession extends Possession {
     }
     
     /**
-     * Whether this possession will be entirely consumed next iteration
+     * Whether this possession will be exhausted next iteration
      * @return 
      */
-    public boolean aboutToBeConsumed() {
+    public boolean isGoingToExhaustIn1Turn() {
         return (_consumed + _consumptionRate > _units);
     }
     
+     
+    /**
+     * Whether this possession will be exhausted in 2 iterations
+     * @return 
+     */
+    public boolean isGoingToExhaustIn2Turns() {
+        return (_consumed + 2*_consumptionRate > _units);
+    }
+   
 }
