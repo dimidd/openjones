@@ -4,7 +4,6 @@
  */
 package jones.map;
 
-import jones.map.ApplianceStore;
 import java.util.ArrayList;
 import java.util.Iterator;
 import jones.general.Position;
@@ -19,6 +18,7 @@ public class MapManager {
     
     private Grid<Location> _grid;
     private ArrayList <Building> _buildings;
+    private ArrayList <Wall> _walls;   
     private ArrayList <Location> _nonBuildings;
     
     public static final int BASE_RENT_LOWCOST_HOUSING = 305;
@@ -51,6 +51,7 @@ public class MapManager {
         MapManager m  = new MapManager();
         m._buildings = new ArrayList<>();
         m._nonBuildings = new ArrayList<>();
+        m._walls = new ArrayList<>();
         m.addDefaultBuildings();
         m.addDefaultLocations();
        
@@ -149,12 +150,44 @@ public class MapManager {
         for (int i=1;i<=2;++i) {        
             for (int j=1;i<=3;++j) {
                 pos.setXY(i,j);
-                _nonBuildings.add(new Wall(pos));
+                _walls.add(new Wall(pos));
             }
         }
         
         addDefaultBuildings();
         
+    }
+
+    public Grid<Location> getGrid() {
+        return _grid;
+    }
+
+    public void setGrid(Grid<Location> grid) {
+        this._grid = grid;
+    }
+
+    public ArrayList <Building> getBuildings() {
+        return _buildings;
+    }
+
+    public void setBuildings(ArrayList <Building> buildings) {
+        this._buildings = buildings;
+    }
+
+    public ArrayList <Wall> getWalls() {
+        return _walls;
+    }
+
+    public void setWalls(ArrayList <Wall> walls) {
+        this._walls = walls;
+    }
+
+    public ArrayList <Location> getNonBuildings() {
+        return _nonBuildings;
+    }
+
+    public void setNonBuildings(ArrayList <Location> nonBuildings) {
+        this._nonBuildings = nonBuildings;
     }
 
 }
