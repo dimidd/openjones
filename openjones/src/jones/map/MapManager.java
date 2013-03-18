@@ -123,7 +123,7 @@ public class MapManager {
     }
 
     private static Grid<Location> getDefaultGrid(ArrayList<Building> buildings, ArrayList<Location> nonBuildings) {
-        Grid<Location> g = new Grid<>(3,5);
+        Grid<Location> g = new Grid<>(5,4);
         
         for (Building b: buildings)
             g.set(b.getPosition(), b);
@@ -148,7 +148,7 @@ public class MapManager {
         
         //add internal rectangle of walls
         for (int i=1;i<=2;++i) {        
-            for (int j=1;i<=3;++j) {
+            for (int j=1;j<=3;++j) {
                 pos.setXY(i,j);
                 _walls.add(new Wall(pos));
             }

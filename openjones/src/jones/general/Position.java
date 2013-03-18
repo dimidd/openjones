@@ -45,5 +45,32 @@ public class Position {
     public String toString () {
         return "("+_x+","+_y+")";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + this._x;
+        hash = 43 * hash + this._y;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+        final Position other = (Position) obj;
+        if (this._x != other._x) {
+            return false;
+        }
+        if (this._y != other._y) {
+            return false;
+        }
+        return true;
+    }
+    
  
 }

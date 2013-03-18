@@ -11,18 +11,39 @@ import jones.possessions.PossessionManager;
  * @author dimid
  */
 public class Goals {
-	
-	
-    public Goals(int wealth, int happiness, int education, int health) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.	
+    
+    public static final int DEFAULT_WEALTH_GOAL = 1000;
+    public static final int DEFAULT_HEALTH_GOAL = 100;
+    public static final int DEFAULT_HAPPINESS_GOAL = 100;
+    public static final int DEFAULT_CAREER_GOAL = 20;
+ 
+    
+    private int _wealth;
+    private int _health;
+    private int _happiness;
+    private int _career;
+
+    public Goals(int wealth, int happiness, int health, int career) {
+        _wealth = wealth;
+        _health = health;
+        _happiness = happiness;
+        _career = career;
     }
 
-    Goals() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Create a new Goals with default values
+     */
+    public Goals() {
+        this(DEFAULT_WEALTH_GOAL, DEFAULT_HAPPINESS_GOAL, DEFAULT_HEALTH_GOAL, DEFAULT_CAREER_GOAL);
     }
 
-    void recompute(PossessionManager _possessions, Skills _skills, Health _health, Happiness _happiness) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean recompute(PlayerState ps, Health health, Happiness happiness, Career career) {
+        boolean wealthGoalMet    = ps.getCash() + ps.getPossessions().totalValue() >= _wealth;
+        boolean healthGoalMet    = health.getScore() >= _health;
+        boolean happinessGoalMet = happiness.getScore() >= _happiness;
+        boolean careerGoalMet    = career.getScore() >= _career;
+        
+        return wealthGoalMet && healthGoalMet && happinessGoalMet && careerGoalMet;          
     }
     
 }

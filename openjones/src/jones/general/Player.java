@@ -28,6 +28,11 @@ public class Player {
         
     }
     
+       
+    public void setClock(int clock) {
+        _state.setClock(clock);
+    }
+
     boolean hasWon() {
         return _state.hasWon();
     }
@@ -152,6 +157,10 @@ public class Player {
 
     public int getClothesLevel() {
         return _state.getClothesLevel();
+    }
+
+    public PlayerPosition getPos() {
+        return _state.getPos();
     }
 
     

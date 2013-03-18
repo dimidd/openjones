@@ -180,10 +180,11 @@ public class PossessionManager {
         _rentContract = new RentContract(defaultRent);
         
         //clothes
-        Possession casualPoss = new Possession(1, new CasualClothes());
+        CasualClothes casual = new CasualClothes();
+        ConsumablePossession casualPoss = new ConsumablePossession(1, casual, 1 / casual.getLifeSpanWeeks() );
         _poss.add(casualPoss);
         ++_nOutfits;
-        _bestClothesPossesion = (ConsumablePossession) casualPoss;
+        _bestClothesPossesion =  casualPoss;
         
         
         //food TODO
@@ -203,6 +204,16 @@ public class PossessionManager {
             return _bestClothesPossesion.isGoingToExhaustIn2Turns();
         }
      }
+
+    public int totalValue() {
+             
+        int sum = 0;
+        for (Possession p : _poss) {
+            sum += p.worth();
+        }
+
+        return sum - _rentDebt;
+    }
 
 
 }

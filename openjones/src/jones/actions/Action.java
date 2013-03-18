@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.map.MapManager;
 
 /**
  *
@@ -55,7 +56,7 @@ public abstract class Action {
     public abstract String toString();
 
     protected ActionResponse checkTime(Player player) {
-        if (player.getState().timeLeft() < timeEffect(player)) {
+        if (player.getState().timeLeft() >= timeEffect(player)) {
             return new ActionResponse(true, null);
         }
         else {

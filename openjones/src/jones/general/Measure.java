@@ -12,7 +12,7 @@ public class Measure {
 
     protected int _score;
     
-    void add(int effect) {
+    public void add(int effect) {
         setScore(getScore() + effect);
     }
 

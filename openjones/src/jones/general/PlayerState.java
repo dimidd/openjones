@@ -102,7 +102,7 @@ public class PlayerState {
     }
     
     public void recomputeGoals() {
-        _goals.recompute(_possessions, _skills, _health, _happiness);
+        _goals.recompute(this, _health, _happiness, _career);
     }
     
     public void addPossession (Possession ps) {

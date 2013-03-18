@@ -43,7 +43,7 @@ public abstract  class Building extends Site {
     public static final int RELAX_ACTION_INDEX = 1;
     public static final int WORK_ACTION_INDEX = 2;
   
- 
+    
     
     
     /** Create a new Building
@@ -60,7 +60,8 @@ public abstract  class Building extends Site {
         root.setData(mainMenu);
         _actionsTree.setRoot(root);        
         _playerActionsParent = null;       
-        _actions = null;    
+        _actions = new ArrayList<>();
+        _jobs = new ArrayList<>();
         
         addJobs();       
     }

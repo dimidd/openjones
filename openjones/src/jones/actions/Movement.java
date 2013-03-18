@@ -7,6 +7,8 @@ package jones.actions;
 import jones.map.Grid;
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.map.Building;
+import jones.map.MapManager;
 
 /**
  *
@@ -32,7 +34,9 @@ public class Movement extends Action {
     @Override
     protected void doAction(Player player) {
         player.getState().setPos(getNewPos());
+                     
     }
+    
 
     @Override
     public int healthEffect(Player player) {

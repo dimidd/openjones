@@ -32,4 +32,14 @@ public class Clothes extends Commodity {
         this._level = level;
     }
 
+    
+    /**
+     * How many weeks this commodity will last
+     * @return 
+     */
+     public int getLifeSpanWeeks () {
+        return 8;
+    }
+
+    
 }

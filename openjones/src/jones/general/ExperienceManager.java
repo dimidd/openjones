@@ -26,7 +26,8 @@ class ExperienceManager {
         _exps = new HashMap<>();
     }
 
-    ExperienceManager(ExperienceManager other) {         
+    ExperienceManager(ExperienceManager other) {
+        _exps = new HashMap<>();
         Set<Entry<Integer, Experience>> othersEntries = other._exps.entrySet();    
         for (Entry<Integer, Experience> e : othersEntries) {
             Integer rank = new Integer(e.getKey());

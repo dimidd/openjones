@@ -21,20 +21,20 @@ public class Grid<T extends GridTile> {
     public final int WIDTH;  //cols
     private GridTile [][] _grid;
    
-    public  Grid ( int height, int width) {
+    public  Grid (int width, int height) {
         
         if (width <= 0 || height <=0) {
             throw new IllegalArgumentException("Dimensions must be positive");
         }
         WIDTH = width;
         HEIGTH = height;
-        _grid = new GridTile[height][width];
+        _grid = new GridTile[width][height];
     }
     
     public boolean checkRange(int x, int y) {
         
          
-        if (x < 0 || x >= HEIGTH || y <0 || y >= HEIGTH) {
+        if (x < 0 || x >=  WIDTH|| y <0 || y >= HEIGTH) {
             throw new IllegalArgumentException("Indices must be in range");
         }
         
