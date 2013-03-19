@@ -269,7 +269,7 @@ public class PlayerState {
     }
 
     boolean hasWon() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return _goals.recompute(this, _health, _happiness, _career);
     }
 
     int getClothesLevel() {
@@ -283,6 +283,14 @@ public class PlayerState {
 
     boolean areClothesAboutToWare() {
         return _possessions.areClothesAboutToWare();
+    }
+
+    int getScore() {
+        return _goals.score(this, _health, _happiness, _career);
+    }
+
+    String scoresString() {
+        return _goals.scoresString(this, _health, _happiness, _career);
     }
 
 

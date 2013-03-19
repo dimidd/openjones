@@ -4,9 +4,14 @@
  */
 package jones.general;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import jones.map.Grid;
-import jones.map.GridTile;
 import jones.map.Location;
 import jones.map.MapManager;
 
@@ -14,10 +19,12 @@ import jones.map.MapManager;
  *
  * @author dimid <dimidd@gmail.com>
  */
-public class GUI extends javax.swing.JFrame {
+public class GUI extends javax.swing.JFrame implements ActionListener {
 
+    private static final long serialVersionUID = 1L;
     private MapManager _map;
     private Game _game;
+    private final Image _jonesImg;
 
     /**
      * Creates new form GUI
@@ -25,6 +32,8 @@ public class GUI extends javax.swing.JFrame {
     public GUI(Game game) {
         _map = game.getMap();
         _game = game;
+        ImageIcon img = new ImageIcon("./images/jones.png");
+        _jonesImg = img.getImage().getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
         //initComponents();
         initComponents2();
     }
@@ -343,7 +352,7 @@ public class GUI extends javax.swing.JFrame {
         Player p1 = new Player("Player1", null, map);
         g.addPlayer(p1);
         g.startGame();
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -371,12 +380,47 @@ public class GUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new GUI(g).setVisible(true);
             }
         });
     }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        
+        Graphics2D g2d = (Graphics2D) g;
+        //g2d.drawImage(bg, 0, 0, null);
+        PlayerPosition curPos = _game.getCurPlayer().getPos();
+        javax.swing.JButton butt = _buttons[curPos.getY()][curPos.getX()];
+        butt.setText(convertToMultiline(butt.getText() +"\n\n"+curPos));
+//        int x = (int) (0.5 * (butt.getX() + butt.getWidth()));
+//        int y = (int) (0.5 * (butt.getY() + butt.getHeight()));
+//        g2d.drawImage(_jonesImg, x, y, null);
+        
+        playerText.setText(_game.getCurPlayer().toString());
+        scoreText.setText(_game.getCurPlayer().scoresString());
+        clothesLevelText.setText(new Integer(_game.getCurPlayer().getClothesLevel()).toString());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        repaint();
+    }
+    
     private javax.swing.JButton[][] _buttons;
+    
+        
+    public static String convertToMultiline(String orig) {
+    
+        return "<html>" + orig.replaceAll("\n", "<br>");
+
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel aboutPanel;
     private javax.swing.JLabel announcementsLabel;
@@ -435,7 +479,7 @@ public class GUI extends javax.swing.JFrame {
                 tile = (Location) grid.get(pos);
                 _buttons[row][col].setText(tile.toString());
                 if (tile.isEnterable()) {
-                    java.awt.event.MouseAdapter listener = new buildingListener(col, row, _game);
+                    java.awt.event.MouseAdapter listener = new buildingListener(col, row, _game, this);
                     _buttons[row][col].addMouseListener(listener);
                 }
             }
@@ -632,5 +676,9 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
 
+    }
+
+    javax.swing.JButton[][] getButtons() {
+        return _buttons;
     }
 }

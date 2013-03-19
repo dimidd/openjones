@@ -166,13 +166,20 @@ public class Player {
     
     @Override
     public String toString() {
-        return "name:"+_name +" clock:"+getHour()+" cash:"+getCash();
+        return "name:"+_name +" clock:"+getHour()+" weeks:"+getWeeks()+" cash:"+getCash();
     }
 
     private int getCash() {
         return _state.getCash();
     }
 
+    int getScore() {
+        return _state.getScore();
+    }
+
+     public String scoresString() {
+         return _state.scoresString();
+     }
     
     
             
