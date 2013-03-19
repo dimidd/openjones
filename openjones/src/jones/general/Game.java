@@ -321,4 +321,76 @@ public class Game {
         _curPlayer.setClock(0);
 
     }
+
+    public ArrayList<Player> getPlayers() {
+        return _players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this._players = players;
+    }
+
+    public EventManager getEventGen() {
+        return _eventGen;
+    }
+
+    public void setEventGen(EventManager eventGen) {
+        this._eventGen = eventGen;
+    }
+
+    public int getCurPlayerIndex() {
+        return _curPlayerIndex;
+    }
+
+    public void setCurPlayerIndex(int curPlayerIndex) {
+        this._curPlayerIndex = curPlayerIndex;
+    }
+
+    public int getClothesLevel() {
+        return _clothesLevel;
+    }
+
+    public void setClothesLevel(int clothesLevel) {
+        this._clothesLevel = clothesLevel;
+    }
+
+    public ArrayList<Player> getVictors() {
+        return _victors;
+    }
+
+    public void setVictors(ArrayList<Player> victors) {
+        this._victors = victors;
+    }
+
+    public MapManager getMap() {
+        return _map;
+    }
+
+    public void setMap(MapManager map) {
+        this._map = map;
+    }
+
+    public EconomyManager getEconomy() {
+        return _economy;
+    }
+
+    public void setEconomy(EconomyManager economy) {
+        this._economy = economy;
+    }
+
+    public ArrayList<GameAnnouncement> getAnnoncments() {
+        return _annoncments;
+    }
+
+    public void setAnnoncments(ArrayList<GameAnnouncement> annoncments) {
+        this._annoncments = annoncments;
+    }
+
+    public Action getWeekendEvent() {
+        return _weekendEvent;
+    }
+
+    public void setWeekendEvent(Action weekendEvent) {
+        this._weekendEvent = weekendEvent;
+    }
 }

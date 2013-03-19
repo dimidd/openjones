@@ -24,4 +24,8 @@ public abstract class Location implements GridTile {
         _pos = new Position(pos);
     }
     
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

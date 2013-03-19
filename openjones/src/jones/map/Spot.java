@@ -7,7 +7,7 @@ package jones.map;
 import jones.general.Position;
 
 /**
- *
+ * A Spot is a Location that can't be visited nor entered
  * @author dimid
  */
 public class Spot extends Passage {

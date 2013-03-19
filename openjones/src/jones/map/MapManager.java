@@ -55,7 +55,7 @@ public class MapManager {
         m.addDefaultBuildings();
         m.addDefaultLocations();
        
-        m._grid = getDefaultGrid(m._buildings, m._nonBuildings);
+        m._grid = getDefaultGrid(m._buildings, m._nonBuildings, m._walls);
         
         return m;
 
@@ -122,14 +122,21 @@ public class MapManager {
 
     }
 
-    private static Grid<Location> getDefaultGrid(ArrayList<Building> buildings, ArrayList<Location> nonBuildings) {
+    private static Grid<Location> getDefaultGrid(ArrayList<Building> buildings, ArrayList<Location> nonBuildings, ArrayList<Wall> walls) {
         Grid<Location> g = new Grid<>(5,4);
         
-        for (Building b: buildings)
+        for (Building b: buildings) {
             g.set(b.getPosition(), b);
+        }
       
-        for (Location l: nonBuildings)
+        for (Location l: nonBuildings) {
             g.set(l.getPosition(), l);
+        }
+      
+        for (Wall w: walls) {
+            g.set(w.getPosition(), w);
+        }
+       
         
         return g;
         
@@ -147,9 +154,9 @@ public class MapManager {
         _nonBuildings.add(new Spot (pos));
         
         //add internal rectangle of walls
-        for (int i=1;i<=2;++i) {        
-            for (int j=1;j<=3;++j) {
-                pos.setXY(i,j);
+        for (int col=1;col<=3;++col) {        
+            for (int row=1;row<=2;++row) {
+                pos.setXY(col,row);
                 _walls.add(new Wall(pos));
             }
         }

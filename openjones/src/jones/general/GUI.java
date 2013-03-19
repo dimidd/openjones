@@ -4,17 +4,29 @@
  */
 package jones.general;
 
+import javax.swing.JButton;
+import jones.map.Grid;
+import jones.map.GridTile;
+import jones.map.Location;
+import jones.map.MapManager;
+
 /**
  *
  * @author dimid <dimidd@gmail.com>
  */
 public class GUI extends javax.swing.JFrame {
 
+    private MapManager _map;
+    private Game _game;
+
     /**
      * Creates new form GUI
      */
-    public GUI() {
-        initComponents();
+    public GUI(Game game) {
+        _map = game.getMap();
+        _game = game;
+        //initComponents();
+        initComponents2();
     }
 
     /**
@@ -26,7 +38,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        mapPanel = new javax.swing.JPanel();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
@@ -47,18 +59,24 @@ public class GUI extends javax.swing.JFrame {
         jButton38 = new javax.swing.JButton();
         jButton39 = new javax.swing.JButton();
         jButton40 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        scorePanel = new javax.swing.JPanel();
+        scoreText = new javax.swing.JTextField();
+        clothesLevelText = new javax.swing.JTextField();
+        playerText = new javax.swing.JTextField();
+        player = new javax.swing.JLabel();
+        clothesLevel = new javax.swing.JLabel();
+        score = new javax.swing.JLabel();
+        buildingPanel1 = new javax.swing.JPanel();
+        buildingLabel = new javax.swing.JLabel();
+        announcementsPanel = new javax.swing.JPanel();
+        announcementsText = new javax.swing.JTextField();
+        announcementsLabel = new javax.swing.JLabel();
+        aboutPanel = new javax.swing.JPanel();
+        gameName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setLayout(new java.awt.GridLayout(4, 5));
+        mapPanel.setLayout(new java.awt.GridLayout(4, 5));
 
         jButton21.setText("jButton21");
         jButton21.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,137 +84,235 @@ public class GUI extends javax.swing.JFrame {
                 jButton21MouseClicked(evt);
             }
         });
-        jPanel2.add(jButton21);
+        mapPanel.add(jButton21);
 
         jButton22.setText("jButton22");
-        jPanel2.add(jButton22);
+        mapPanel.add(jButton22);
 
         jButton24.setText("jButton24");
-        jPanel2.add(jButton24);
+        mapPanel.add(jButton24);
 
         jButton25.setText("jButton25");
-        jPanel2.add(jButton25);
+        mapPanel.add(jButton25);
 
         jButton26.setText("jButton26");
-        jPanel2.add(jButton26);
+        mapPanel.add(jButton26);
 
         jButton27.setText("jButton27");
-        jPanel2.add(jButton27);
+        mapPanel.add(jButton27);
 
         jButton28.setText("jButton28");
-        jPanel2.add(jButton28);
+        mapPanel.add(jButton28);
 
         jButton23.setText("jButton23");
-        jPanel2.add(jButton23);
+        mapPanel.add(jButton23);
 
         jButton29.setText("jButton21");
-        jPanel2.add(jButton29);
+        mapPanel.add(jButton29);
 
         jButton30.setText("jButton22");
-        jPanel2.add(jButton30);
+        mapPanel.add(jButton30);
 
         jButton31.setText("jButton21");
-        jPanel2.add(jButton31);
+        mapPanel.add(jButton31);
 
         jButton32.setText("jButton22");
-        jPanel2.add(jButton32);
+        mapPanel.add(jButton32);
 
         jButton33.setText("jButton21");
-        jPanel2.add(jButton33);
+        mapPanel.add(jButton33);
 
         jButton34.setText("jButton22");
-        jPanel2.add(jButton34);
+        mapPanel.add(jButton34);
 
         jButton35.setText("jButton21");
-        jPanel2.add(jButton35);
+        mapPanel.add(jButton35);
 
         jButton36.setText("jButton22");
-        jPanel2.add(jButton36);
+        mapPanel.add(jButton36);
 
         jButton37.setText("jButton21");
-        jPanel2.add(jButton37);
+        mapPanel.add(jButton37);
 
         jButton38.setText("jButton22");
-        jPanel2.add(jButton38);
+        mapPanel.add(jButton38);
 
         jButton39.setText("jButton21");
-        jPanel2.add(jButton39);
+        mapPanel.add(jButton39);
 
         jButton40.setText("jButton22");
-        jPanel2.add(jButton40);
+        mapPanel.add(jButton40);
 
-        jTextField1.setText("jTextField1");
+        scoreText.setText("jTextField1");
+        scoreText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scoreTextActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField2");
+        clothesLevelText.setText("jTextField2");
+        clothesLevelText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clothesLevelTextActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("jTextField3");
+        playerText.setText("jTextField3");
 
-        jLabel1.setText("Player:");
+        player.setText("Player:");
 
-        jLabel2.setText("Clothes:");
+        clothesLevel.setText("Clothes:");
 
-        jLabel3.setText("Score:");
+        score.setText("Score:");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(272, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(474, 474, 474))
+        javax.swing.GroupLayout scorePanelLayout = new javax.swing.GroupLayout(scorePanel);
+        scorePanel.setLayout(scorePanelLayout);
+        scorePanelLayout.setHorizontalGroup(
+            scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, scorePanelLayout.createSequentialGroup()
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(scorePanelLayout.createSequentialGroup()
+                        .addComponent(player)
+                        .addGap(18, 18, 18)
+                        .addComponent(playerText, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(scorePanelLayout.createSequentialGroup()
+                        .addComponent(clothesLevel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clothesLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(score)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scoreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(118, 118, 118))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addContainerGap(38, Short.MAX_VALUE))
+        scorePanelLayout.setVerticalGroup(
+            scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(scorePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(scoreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clothesLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clothesLevel)
+                    .addComponent(score))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(player)
+                    .addComponent(playerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel4.setText("Open Jones");
+        buildingLabel.setText("Building Actions");
+
+        javax.swing.GroupLayout buildingPanel1Layout = new javax.swing.GroupLayout(buildingPanel1);
+        buildingPanel1.setLayout(buildingPanel1Layout);
+        buildingPanel1Layout.setHorizontalGroup(
+            buildingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buildingPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buildingLabel)
+                .addGap(65, 65, 65))
+        );
+        buildingPanel1Layout.setVerticalGroup(
+            buildingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buildingPanel1Layout.createSequentialGroup()
+                .addComponent(buildingLabel)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        announcementsText.setText("jTextField5");
+        announcementsText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                announcementsTextActionPerformed(evt);
+            }
+        });
+
+        announcementsLabel.setText("Announcements");
+
+        javax.swing.GroupLayout announcementsPanelLayout = new javax.swing.GroupLayout(announcementsPanel);
+        announcementsPanel.setLayout(announcementsPanelLayout);
+        announcementsPanelLayout.setHorizontalGroup(
+            announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(announcementsPanelLayout.createSequentialGroup()
+                .addGap(535, 535, 535)
+                .addComponent(announcementsLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(announcementsPanelLayout.createSequentialGroup()
+                    .addGap(164, 164, 164)
+                    .addComponent(announcementsText, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(165, Short.MAX_VALUE)))
+        );
+        announcementsPanelLayout.setVerticalGroup(
+            announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(announcementsPanelLayout.createSequentialGroup()
+                .addComponent(announcementsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 107, Short.MAX_VALUE))
+            .addGroup(announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(announcementsPanelLayout.createSequentialGroup()
+                    .addGap(17, 17, 17)
+                    .addComponent(announcementsText, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(18, Short.MAX_VALUE)))
+        );
+
+        gameName.setText("Open Jones");
+
+        javax.swing.GroupLayout aboutPanelLayout = new javax.swing.GroupLayout(aboutPanel);
+        aboutPanel.setLayout(aboutPanelLayout);
+        aboutPanelLayout.setHorizontalGroup(
+            aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+            .addGroup(aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(aboutPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        aboutPanelLayout.setVerticalGroup(
+            aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(aboutPanelLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(17, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buildingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(90, 90, 90))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(454, 454, 454))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scorePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 211, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(announcementsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(announcementsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buildingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scorePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,10 +322,28 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton21MouseClicked
 
+    private void announcementsTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_announcementsTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_announcementsTextActionPerformed
+
+    private void scoreTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoreTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scoreTextActionPerformed
+
+    private void clothesLevelTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clothesLevelTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clothesLevelTextActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        final MapManager map = MapManager.getDefaultMap();
+        final Game g = new Game(map);
+        Player p1 = new Player("Player1", null, map);
+        g.addPlayer(p1);
+        g.startGame();
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -233,14 +367,26 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        //jButton21.set
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI().setVisible(true);
+                new GUI(g).setVisible(true);
             }
         });
     }
+    private javax.swing.JButton[][] _buttons;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel aboutPanel;
+    private javax.swing.JLabel announcementsLabel;
+    private javax.swing.JPanel announcementsPanel;
+    private javax.swing.JTextField announcementsText;
+    private javax.swing.JLabel buildingLabel;
+    private javax.swing.JPanel buildingPanel1;
+    private javax.swing.JLabel clothesLevel;
+    private javax.swing.JTextField clothesLevelText;
+    private javax.swing.JLabel gameName;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
@@ -261,14 +407,230 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton38;
     private javax.swing.JButton jButton39;
     private javax.swing.JButton jButton40;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPanel mapPanel;
+    private javax.swing.JLabel player;
+    private javax.swing.JTextField playerText;
+    private javax.swing.JLabel score;
+    private javax.swing.JPanel scorePanel;
+    private javax.swing.JTextField scoreText;
     // End of variables declaration//GEN-END:variables
+
+    private void initComponents2() {
+        Grid grid = _map.getGrid();
+        int width = grid.WIDTH;
+        int height = grid.HEIGHT;
+        Position pos = new Position(0, 0);
+
+
+        _buttons = new JButton[height][width];
+        Location tile;
+
+        mapPanel = new javax.swing.JPanel();
+        mapPanel.setLayout(new java.awt.GridLayout(height, width));
+        for (int row = 0; row < height; ++row) {
+            for (int col = 0; col < width; ++col) {
+                _buttons[row][col] = new javax.swing.JButton();
+                mapPanel.add(_buttons[row][col]);
+                pos.setXY(col, row);
+                tile = (Location) grid.get(pos);
+                _buttons[row][col].setText(tile.toString());
+                if (tile.isEnterable()) {
+                    java.awt.event.MouseAdapter listener = new buildingListener(col, row, _game);
+                    _buttons[row][col].addMouseListener(listener);
+                }
+            }
+        }
+
+
+        scorePanel = new javax.swing.JPanel();
+        scoreText = new javax.swing.JTextField();
+        clothesLevelText = new javax.swing.JTextField();
+        playerText = new javax.swing.JTextField();
+        player = new javax.swing.JLabel();
+        clothesLevel = new javax.swing.JLabel();
+        score = new javax.swing.JLabel();
+        buildingPanel1 = new javax.swing.JPanel();
+        buildingLabel = new javax.swing.JLabel();
+        announcementsPanel = new javax.swing.JPanel();
+        announcementsText = new javax.swing.JTextField();
+        announcementsLabel = new javax.swing.JLabel();
+        aboutPanel = new javax.swing.JPanel();
+        gameName = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+
+
+//        jButton21.setText("jButton21");
+//        jButton21.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                jButton21MouseClicked(evt);
+//            }
+//        });
+
+        scoreText.setText("jTextField1");
+        scoreText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scoreTextActionPerformed(evt);
+            }
+        });
+
+        clothesLevelText.setText("jTextField2");
+        clothesLevelText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clothesLevelTextActionPerformed(evt);
+            }
+        });
+
+        playerText.setText("jTextField3");
+
+        player.setText("Player:");
+
+        clothesLevel.setText("Clothes:");
+
+        score.setText("Score:");
+
+        javax.swing.GroupLayout scorePanelLayout = new javax.swing.GroupLayout(scorePanel);
+        scorePanel.setLayout(scorePanelLayout);
+        scorePanelLayout.setHorizontalGroup(
+                scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, scorePanelLayout.createSequentialGroup()
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(scorePanelLayout.createSequentialGroup()
+                .addComponent(player)
+                .addGap(18, 18, 18)
+                .addComponent(playerText, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(scorePanelLayout.createSequentialGroup()
+                .addComponent(clothesLevel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clothesLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(score)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scoreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(118, 118, 118)));
+        scorePanelLayout.setVerticalGroup(
+                scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(scorePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(scoreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clothesLevelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clothesLevel)
+                .addComponent(score))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(player)
+                .addComponent(playerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))));
+
+        buildingLabel.setText("Building Actions");
+
+        javax.swing.GroupLayout buildingPanel1Layout = new javax.swing.GroupLayout(buildingPanel1);
+        buildingPanel1.setLayout(buildingPanel1Layout);
+        buildingPanel1Layout.setHorizontalGroup(
+                buildingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buildingPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buildingLabel)
+                .addGap(65, 65, 65)));
+        buildingPanel1Layout.setVerticalGroup(
+                buildingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buildingPanel1Layout.createSequentialGroup()
+                .addComponent(buildingLabel)
+                .addGap(0, 0, Short.MAX_VALUE)));
+
+        announcementsText.setText("jTextField5");
+        announcementsText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                announcementsTextActionPerformed(evt);
+            }
+        });
+
+        announcementsLabel.setText("Announcements");
+
+        javax.swing.GroupLayout announcementsPanelLayout = new javax.swing.GroupLayout(announcementsPanel);
+        announcementsPanel.setLayout(announcementsPanelLayout);
+        announcementsPanelLayout.setHorizontalGroup(
+                announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(announcementsPanelLayout.createSequentialGroup()
+                .addGap(535, 535, 535)
+                .addComponent(announcementsLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(announcementsPanelLayout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addComponent(announcementsText, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(165, Short.MAX_VALUE))));
+        announcementsPanelLayout.setVerticalGroup(
+                announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(announcementsPanelLayout.createSequentialGroup()
+                .addComponent(announcementsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 107, Short.MAX_VALUE))
+                .addGroup(announcementsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(announcementsPanelLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(announcementsText, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))));
+
+        gameName.setText("Open Jones");
+
+        javax.swing.GroupLayout aboutPanelLayout = new javax.swing.GroupLayout(aboutPanel);
+        aboutPanel.setLayout(aboutPanelLayout);
+        aboutPanelLayout.setHorizontalGroup(
+                aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 130, Short.MAX_VALUE)
+                .addGroup(aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(aboutPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
+        aboutPanelLayout.setVerticalGroup(
+                aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 100, Short.MAX_VALUE)
+                .addGroup(aboutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(aboutPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(gameName, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buildingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scorePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 211, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(announcementsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(announcementsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(buildingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scorePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+        pack();
+
+    }
 }

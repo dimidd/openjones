@@ -17,7 +17,7 @@ public class Grid<T extends GridTile> {
         return Math.abs(pos1.getX() - pos2.getX()) + Math.abs(pos1.getY() - pos2.getY());
     }
     
-    public final int HEIGTH; //rows
+    public final int HEIGHT; //rows
     public final int WIDTH;  //cols
     private GridTile [][] _grid;
    
@@ -27,14 +27,14 @@ public class Grid<T extends GridTile> {
             throw new IllegalArgumentException("Dimensions must be positive");
         }
         WIDTH = width;
-        HEIGTH = height;
+        HEIGHT = height;
         _grid = new GridTile[width][height];
     }
     
     public boolean checkRange(int x, int y) {
         
          
-        if (x < 0 || x >=  WIDTH|| y <0 || y >= HEIGTH) {
+        if (x < 0 || x >=  WIDTH|| y <0 || y >= HEIGHT) {
             throw new IllegalArgumentException("Indices must be in range");
         }
         

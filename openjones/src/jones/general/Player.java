@@ -164,6 +164,16 @@ public class Player {
     }
 
     
+    @Override
+    public String toString() {
+        return "name:"+_name +" clock:"+getHour()+" cash:"+getCash();
+    }
+
+    private int getCash() {
+        return _state.getCash();
+    }
+
+    
     
             
 }
