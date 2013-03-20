@@ -12,17 +12,21 @@ import jones.possessions.PossessionManager;
  */
 public class Goals {
     
-    public static final int DEFAULT_WEALTH_GOAL = 1000;
+    public static final int DEFAULT_WEALTH_GOAL = 10000;
     public static final int DEFAULT_HEALTH_GOAL = 100;
     public static final int DEFAULT_HAPPINESS_GOAL = 100;
     public static final int DEFAULT_CAREER_GOAL = 20;
     
     public static final int N_GOALS = 4;
+    public static final int  MAX_MEASURE_SCORE = 100;
+    public static final int  MAX_TOTAL_SCORE = 100;
+   
     
     private int _wealth;
     private int _health;
     private int _happiness;
     private int _career;
+    private Object ps;
 
     public Goals(int wealth, int happiness, int health, int career) {
         _wealth = wealth;
@@ -47,26 +51,51 @@ public class Goals {
         return wealthGoalMet && healthGoalMet && happinessGoalMet && careerGoalMet;          
     }
     
-    public int score (PlayerState ps, Health health, Happiness happiness, Career career) {
-        int wealthGoalMetPercent   = 100 *(ps.getCash() + ps.getPossessions().totalValue()) / _wealth;
-        int healthGoalMetPercent   = 100 *(health.getScore()) /  _health;
-        int happinessGoalMetPercent = 100 *(happiness.getScore() ) / _happiness;
-        int careerGoalMetPercent   = 100 *(career.getScore()) / _career;
-        
-        return (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent) / N_GOALS;          
+    public int getTotalScore (PlayerState ps, Health health, Happiness happiness, Career career) {
+         
+        int wealthGoalMetPercent    = wealthScore(ps);
+        int healthGoalMetPercent    = healthScore(health);
+        int happinessGoalMetPercent = happinessScore(happiness);
+        int careerGoalMetPercent    = careerScore(career);
+
+        int total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent) / N_GOALS;
+
+        return total;     
 
     }
     
    
-    public String scoresString (PlayerState ps, Health health, Happiness happiness, Career career) {
+    public String getScoresString (PlayerState ps, Health health, Happiness happiness, Career career) {
          
-        int wealthGoalMetPercent   = 100 *(ps.getCash() + ps.getPossessions().totalValue()) / _wealth;
-        int healthGoalMetPercent   = 100 *(health.getScore()) /  _health;
-        int happinessGoalMetPercent = 100 *(happiness.getScore() ) / _happiness;
-        int careerGoalMetPercent   = 100 *(career.getScore()) / _career;
+        int wealthGoalMetPercent    = wealthScore(ps);
+        int healthGoalMetPercent    = healthScore(health);
+        int happinessGoalMetPercent = happinessScore(happiness);
+        int careerGoalMetPercent    = careerScore(career);
+
         int total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent) / N_GOALS;
         
-        return "Total:"+total+"/100  Wealth:"+wealthGoalMetPercent+"/"+_wealth +" Health:"+healthGoalMetPercent+"/"+_health +" Happiness:" +
-              happinessGoalMetPercent+"/"+_happiness +" Career:" + careerGoalMetPercent+"/"+_career; 
+        return "Total:"+total+"/100  Wealth:"+(ps.getCash() + ps.getPossessions().totalValue())+"/"+_wealth +" Health:"+health.getScore()+"/"+_health +" Happiness:" +
+              happiness.getScore()+"/"+_happiness +" Career:" + career.getScore()+"/"+_career; 
     }
+    
+    public int wealthScore (PlayerState ps) {
+        return (int) Math.min(MAX_MEASURE_SCORE, 100 * (  ((double)ps.getCash() + ps.getPossessions().totalValue()) / _wealth));
+    }
+    
+     
+    public int healthScore (Health health) {
+        return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)health.getScore() /  _health));
+    }
+ 
+      
+    public int happinessScore (Happiness happiness) {
+        return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)happiness.getScore() /  _happiness));
+    }
+   
+    public int careerScore (Career career) {
+        return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)career.getScore() /  _career));
+    }
+ 
+ 
+    
 }

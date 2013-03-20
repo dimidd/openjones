@@ -78,38 +78,38 @@ public abstract  class Building extends Site {
     public  ArrayList<? extends Action> getPlayerActions(Player player) {
         assert(null != _playerActionsParent);
         _actions = new ArrayList<>();
-        GenericTreeNode<Action> root = getActionsTree().getRoot();
-        
-        Action doneAction;
-        if (root == _playerActionsParent) {           
-            doneAction = new ExitBuildingMovement(this.getPosition(), this); //exit            
-        }
-        else {
-            doneAction = new SubMenuAction(0, "back", _playerActionsParent.getParent()); //back
-        }
-        _actions.add(DONE_ACTION_INDEX,doneAction);
-                   
-        Action relaxAction =  null;
-        if (player.getState().getHouse() == this) {
-            relaxAction = new RelaxAction(player.getState().getHouse());
-        }
-        _actions.add(RELAX_ACTION_INDEX,relaxAction);
-               
-        Action workAction = null;
-        if (player.getState().getJob().getBuilding() == this) {
-            workAction =  new WorkAction(player.getState().getJob());
-        }
-        _actions.add(WORK_ACTION_INDEX,workAction);
+//        GenericTreeNode<Action> root = getActionsTree().getRoot();
+//        
+//        Action doneAction;
+//        if (root == _playerActionsParent) {           
+//            doneAction = new ExitBuildingMovement(this.getPosition(), this); //exit            
+//        }
+//        else {
+//            doneAction = new SubMenuAction(0, "back", _playerActionsParent.getParent()); //back
+//        }
+//        _actions.add(DONE_ACTION_INDEX,doneAction);
+//                   
+//        Action relaxAction =  null;
+//        if (player.getState().getHouse() == this) {
+//            relaxAction = new RelaxAction(player.getState().getHouse());
+//        }
+//        _actions.add(RELAX_ACTION_INDEX,relaxAction);
+//               
+//        Action workAction = null;
+//        if (player.getState().getJob().getBuilding() == this) {
+//            workAction =  new WorkAction(player.getState().getJob());
+//        }
+//        _actions.add(WORK_ACTION_INDEX,workAction);
 
-        _actions.addAll(getMenuActions(player));
-        
+  //      _actions.addAll(getMenuActions(player));
+         _actions.addAll(_playerActionsParent.getDataOfChildren());
         return _actions;
     }
 
     public void prepareForPlayerEntrance(Player player) {
         _playerActionsParent = getActionsTree().getRoot();
         _actions = null;
-        buildActionsTree(player);
+        buildAllActionsTree(player);
               
     }
 
@@ -127,13 +127,13 @@ public abstract  class Building extends Site {
     public ActionResponse performAction(int actionIndex, Player player) {
         assert(null != _actions);
         Action action;
-        if (isSpecialAction(actionIndex)) {
-            action = _actions.get(actionIndex);
-        }
-        else {             
+//        if (isSpecialAction(actionIndex)) {
+//            action = _actions.get(actionIndex);
+//        }
+//        else {             
             GenericTreeNode<Action> node = _playerActionsParent.getChildAt(actionIndex);        
             action = node.getData();
-        }
+  //      }
         
         
         ActionResponse response = action.perform(player);
@@ -144,7 +144,37 @@ public abstract  class Building extends Site {
         return response;
     }
 
-    protected abstract void buildActionsTree(Player player);
+    /**
+     * Add nodes for special actions, the subclass adds his specific actions
+     * @param player 
+     */
+    protected  void buildAllActionsTree(Player player) {
+        GenericTreeNode<Action> root = _actionsTree.getRoot();
+                
+        Action doneAction;
+        if (root == _playerActionsParent) {           
+            doneAction = new ExitBuildingMovement(this.getPosition(), this); //exit            
+        }
+        else {
+            doneAction = new SubMenuAction(0, "back", _playerActionsParent.getParent()); //back
+        }
+        root.addChildAt(DONE_ACTION_INDEX, new GenericTreeNode<>(doneAction));
+                       
+        Action relaxAction =  null;
+        if (player.getState().getHouse() == this) {
+            relaxAction = new RelaxAction(player.getState().getHouse());
+        }
+        root.addChildAt(RELAX_ACTION_INDEX, new GenericTreeNode<>(relaxAction));
+               
+        Action workAction = null;
+        if (player.getState().getJob().getBuilding() == this) {
+            workAction =  new WorkAction(player.getState().getJob());
+        }
+        root.addChildAt(WORK_ACTION_INDEX,new GenericTreeNode<>(workAction));
+
+        buildActionsTree(player);
+        
+    }
 
     private Collection<? extends Action> getMenuActions(Player player) {
         assert (null != _playerActionsParent);
@@ -201,5 +231,10 @@ public abstract  class Building extends Site {
 
     protected abstract void addJobs();
     
+    /**
+     * Add building specific actions to tree
+     * @param player 
+     */
+    protected abstract void buildActionsTree(Player player);
   
 }

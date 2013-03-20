@@ -53,5 +53,12 @@ public class RentHouseAction extends PurchaseAction {
         else
             return checkCash(player);
     }
+    
+     
+    @Override
+    public String toString () {
+        return "Rent "+getHouse().getName();
+    }
+
 
 }

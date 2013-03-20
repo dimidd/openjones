@@ -41,5 +41,10 @@ public class EnterBuildingMovement extends Movement {
         _build.prepareForPlayerEntrance(player);
         
     }
+    
+    @Override
+    public String toString () {
+        return "Enter";
+    }
 
 }

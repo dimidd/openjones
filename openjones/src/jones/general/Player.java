@@ -7,6 +7,7 @@ package jones.general;
 import jones.map.House;
 import jones.map.MapManager;
 import jones.possessions.Possession;
+import jones.possessions.PossessionManager;
 import jones.possessions.RentContract;
 
 /**
@@ -43,7 +44,7 @@ public class Player {
     }
     
     void gotoStartPosition() {
-        _state.advanceWeeks();
+        //_state.advanceWeeks();
         House home = _state.getHouse();
         _state.setPos(home.getPosition(), false);
     }
@@ -166,7 +167,7 @@ public class Player {
     
     @Override
     public String toString() {
-        return "name:"+_name +" clock:"+getHour()+" weeks:"+getWeeks()+" cash:"+getCash();
+        return "name:"+_name +" clock:"+getHour()+" weeks:"+getWeeks()+" cash:"+getCash()+" rentDebt:"+getRentDebt();
     }
 
     private int getCash() {
@@ -180,6 +181,15 @@ public class Player {
      public String scoresString() {
          return _state.scoresString();
      }
+
+    void advanceWeeks() {
+        _state.advanceWeeks();
+    }
+
+    PossessionManager getPossessions() {
+        return _state.getPossessions();
+    }
+    
     
     
             

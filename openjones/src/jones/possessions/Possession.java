@@ -79,4 +79,9 @@ public class Possession {
             return _commodity.getRestHappinessEffect();
     }
     
+        
+    @Override
+    public String toString () {
+        return _units +" X "+_commodity.toString();
+    }
 }

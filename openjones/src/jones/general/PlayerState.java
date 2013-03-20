@@ -43,7 +43,7 @@ public class PlayerState {
     //last time the player was annonced, that rent was due
     private int _lastRentAnnouncement;
     
-    private int _rentDebt;
+    //private int _rentDebt;
 
     public int getClock() {
         return _clock;
@@ -87,8 +87,8 @@ public class PlayerState {
         WeekOfRent lowestHousingRentWeek = new WeekOfRent(map.getLowestHousing().pricePerWeek(), LOWEST_HOUSING);
         RentPossession baseRent = new RentPossession(RentAgency.WEEKS_OF_RENT_IN_A_MONTH, lowestHousingRentWeek);
         _possessions.setRentContract(new RentContract(baseRent));
-        _possessions.add(baseRent);
-        _possessions.add(new Possession(1, new CasualClothes()));
+ //       _possessions.add(baseRent);
+ //       _possessions.add(new Possession(1, new CasualClothes()));
         _skills = new Skills();
         _job = new Unemployed();
         
@@ -98,7 +98,6 @@ public class PlayerState {
         _happiness = new Happiness();
         _career = new Career(MAX_JOB_RANK, _weeks);
         _cash = INITIAL_CASH;
-        _rentDebt = 0;
     }
     
     public void recomputeGoals() {
@@ -231,7 +230,7 @@ public class PlayerState {
     }
 
     void advanceWeeks() {
-        ++_weeks;
+        _weeks += 1;
     }
 
     
@@ -260,13 +259,15 @@ public class PlayerState {
     }
 
     int getRentDebt() {
-        return _rentDebt;        
+        return _possessions.getRentDebt();        
     }
     
-     
-    void setRentDebt(int debt) {
-         _rentDebt = debt;        
+        
+    void setRentDebt(int newRentDebt) {
+        _possessions.setRentDebt(newRentDebt);        
     }
+    
+
 
     boolean hasWon() {
         return _goals.recompute(this, _health, _happiness, _career);
@@ -286,11 +287,11 @@ public class PlayerState {
     }
 
     int getScore() {
-        return _goals.score(this, _health, _happiness, _career);
+        return _goals.getTotalScore(this, _health, _happiness, _career);
     }
 
     String scoresString() {
-        return _goals.scoresString(this, _health, _happiness, _career);
+        return _goals.getScoresString(this, _health, _happiness, _career);
     }
 
 

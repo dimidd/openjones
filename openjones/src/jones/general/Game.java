@@ -69,6 +69,7 @@ public class Game {
         _curPlayerIndex = -1;
         _curPlayer = null;
 
+        _annoncments = new ArrayList<>();
     }
 
     /**
@@ -127,22 +128,28 @@ public class Game {
      */
     public boolean endTurn() {
 
+        ArrayList<GameAnnouncement> vicorsAnnouncements = new ArrayList<>();
         // we check all players, even players who haven't this turn,
         // since they may win due to an economy change
         // (e.g. stocks rising, losing a job)
         for (Player p : _players) {
             if (p.hasWon()) {
                 _victors.add(p);
+                vicorsAnnouncements.add(new GameAnnouncement(p.getName()+" has won!"));
             }
         }
 
+        
         if (!_victors.isEmpty()) {
+            _annoncments.clear();
+            _annoncments.addAll(vicorsAnnouncements);
             return true;
         }
 
         _curPlayer = getNextPlayer();
         _curPlayer.gotoStartPosition();
         _curPlayer.setClock(0);
+        _curPlayer.advanceWeeks();
         
 //        _weekendEvent = _eventGen.getRandomWeekendEvent(_curPlayer);
 //        _weekendEvent.perform (_curPlayer);
@@ -188,6 +195,9 @@ public class Game {
     public ActionResponse performBuildingAction(int actionIndex) {
         Building build = (Building) getPlayerTile();
         ActionResponse result = build.performAction(actionIndex, _curPlayer);
+        if (null != result._message) {
+            _annoncments.add(new GameAnnouncement(result._message+"\n"));
+        }
         return result;
 
     }
@@ -258,7 +268,8 @@ public class Game {
     }
 
     private void updateAnnouncements() {
-        weekendEvent();
+        _annoncments.clear();
+        //weekendEvent();
         //checkFood();
         checkRent();
         CheckClothes();
@@ -319,6 +330,7 @@ public class Game {
         
         _curPlayer.gotoStartPosition();
         _curPlayer.setClock(0);
+        _annoncments.add(new GameAnnouncement("Good Luck!"));
 
     }
 
@@ -392,5 +404,18 @@ public class Game {
 
     public void setWeekendEvent(Action weekendEvent) {
         this._weekendEvent = weekendEvent;
+    }
+
+    
+    /**     
+     * Returns a string that contains all annoncements, each in a separate line;
+     */
+    public String getAllAnnouncements() {
+       StringBuilder result = new StringBuilder(); 
+       for (GameAnnouncement ga: _annoncments) {
+           result.append(ga._msg+"\n");
+       }
+       
+       return result.toString();
     }
 }

@@ -53,8 +53,8 @@ public class ConsumablePossession extends Possession {
             return;
         }
         _consumed += _consumptionRate;
-        if (_consumptionRate > 1.00 + EPSILON){
-            int depleted = (int) _consumptionRate;
+        if (Math.abs(_consumed - 1.00) < EPSILON){
+            int depleted = (int) _consumed;
             _units -= depleted;
             if (_units < 0) {
                 _units = 0;

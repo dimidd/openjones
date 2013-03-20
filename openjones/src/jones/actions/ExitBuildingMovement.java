@@ -48,4 +48,10 @@ public class ExitBuildingMovement extends Movement{
         
     }
 
+      
+    @Override
+    public String toString () {
+        return "Exit";
+    }
+
 }

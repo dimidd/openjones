@@ -111,17 +111,19 @@ public class PossessionManager {
                 ||
            0 == rentPoss.getUnits()) {            
          
-            _rentDebt += rentPoss.getCommodity().getUnitValue();
+            _rentDebt += _rentContract.getPossession().getCommodity().getUnitValue();
         }
         
         //TODO: food, clothes
-        
+        ArrayList<Possession> removeList = new ArrayList<>();
         for (Possession p: _poss) {
             p.consume();
             if (p.getUnits() <= 0) {
-                _poss.remove(p);
+                removeList.add(p);
             }
         }
+        _poss.removeAll(removeList);
+        
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -181,7 +183,7 @@ public class PossessionManager {
         
         //clothes
         CasualClothes casual = new CasualClothes();
-        ConsumablePossession casualPoss = new ConsumablePossession(1, casual, 1 / casual.getLifeSpanWeeks() );
+        ConsumablePossession casualPoss = new ConsumablePossession(1, casual, 1.0 / casual.getLifeSpanWeeks() );
         _poss.add(casualPoss);
         ++_nOutfits;
         _bestClothesPossesion =  casualPoss;
@@ -215,5 +217,24 @@ public class PossessionManager {
         return sum - _rentDebt;
     }
 
+        
+    @Override
+    public String toString () {
+        StringBuilder result = new StringBuilder();
+        for (Possession p : _poss) {
+            result.append(p.toString()+", ");
+        }
+        
+        return result.toString();
+    }
 
+    public int getRentDebt() {
+        return _rentDebt;
+    }
+
+    public void setRentDebt(int newRentDebt) {
+        _rentDebt = newRentDebt;
+    }
+
+    
 }

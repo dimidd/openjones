@@ -85,7 +85,7 @@ public class RelaxAction extends Action {
 
     @Override
     public int timeEffect(Player player) {
-        return Math.min(REST_DURATION, player.getState().timeLeft());
+        return getAvailiableTimeUpto(REST_DURATION, player);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class RelaxAction extends Action {
  
     @Override
     protected ActionResponse getPositiveResponse(Player player) {
-        return new ActionResponse(true, null);
+        return new ActionResponse(true, "zzzzz");
     }
 
     @Override
