@@ -109,7 +109,7 @@ public class MapManager {
 //        _buildings.add(new Spot (pos));        
       
         pos.setXY(1,3);
-        _buildings.add(new EmploymentAgency (pos,"employment"));  
+        _buildings.add(new EmploymentAgency (pos,"employment",this));  
          
         pos.setXY(0,3);
         _buildings.add(new Factory (pos,"factory"));
@@ -161,7 +161,7 @@ public class MapManager {
             }
         }
         
-        addDefaultBuildings();
+        //addDefaultBuildings();
         
     }
 

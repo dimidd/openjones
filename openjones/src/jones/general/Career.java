@@ -41,4 +41,7 @@ public class Career extends Measure {
         _score = Math.max(_score, _exp.maxExperience());
     }
     
+    public int getExperienceLevel (int rank) {
+        return _exp.getExperienceLevel(rank);
+    }
 }

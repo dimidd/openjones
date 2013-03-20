@@ -16,8 +16,7 @@ import jones.possessions.WeekOfRent;
 public class RentHouseAction extends PurchaseAction {
 
     public RentHouseAction(House h, int numOfWeeks) {
-        WeekOfRent rent = new WeekOfRent(h.pricePerWeek(), h);
-        _possession = (new RentPossession(numOfWeeks, rent)) ;
+        super (new RentPossession(numOfWeeks, new WeekOfRent(h.pricePerWeek(), h)));
     }
 
     @Override
@@ -48,16 +47,24 @@ public class RentHouseAction extends PurchaseAction {
         
     @Override
     protected ActionResponse checkConditions(Player player) {
-        if (getHouse() == player.getRentContract().getHouse())
+        if (getHouse() == player.getRentContract().getHouse()) {
             return new ActionResponse(false, "You are already renting this house");
-        else
+        }
+        else {
             return checkCash(player);
+        }
     }
     
      
     @Override
     public String toString () {
-        return "Rent "+getHouse().getName();
+        return "Rent "+getHouse().getName()+" "+getHouse().getPricePerMonth();
+    }
+
+      
+    @Override
+    public void clearCachedValues() {
+      
     }
 
 

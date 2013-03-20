@@ -34,6 +34,7 @@ public class Movement extends Action {
     @Override
     protected void doAction(Player player) {
         player.getState().setPos(getNewPos());
+        player.affectTime(_duration);
                      
     }
     
@@ -167,5 +168,10 @@ public class Movement extends Action {
         return false;
     }
      
-    
+      
+    @Override
+    public void clearCachedValues() {
+      
+    }
+
 }

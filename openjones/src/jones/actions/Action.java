@@ -13,6 +13,7 @@ import jones.map.MapManager;
  */
 public abstract class Action {
 
+    protected Integer _timeEffect = null;
     
     protected abstract ActionResponse checkConditions(Player player);
 
@@ -31,12 +32,14 @@ public abstract class Action {
             return preConditions;
         }
         doAction(player);
-        player.getState().affectHealth(healthEffect(player));
-        player.getState().affectHappiness(happinessEffect(player));
-        player.getState().affectCareer(careerEffect(player));
-        player.getState().affectCash(cashEffect(player));
-        player.getState().affectTime(timeEffect(player));
+        
+//        player.getState().affectHealth(healthEffect(player));
+//        player.getState().affectHappiness(happinessEffect(player));
+//        player.getState().affectCareer(careerEffect(player));
+//        player.getState().affectCash(cashEffect(player));
+//        player.getState().affectTime(timeEffect(player));
             
+        clearCachedValues();
         return getPositiveResponse(player);
     }
 
@@ -86,6 +89,8 @@ public abstract class Action {
         }
         return Math.min(limit, player.timeLeft());
     }
+
+    public abstract void clearCachedValues();
 
        
 }

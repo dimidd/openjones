@@ -63,7 +63,11 @@ public class Possession {
     }
 
  
-    public int getRestHealthEffect() {
+    /**
+     * Health units gained per 1 TU
+     * @return 
+     */
+    public int getRestHealthEffectPerTimeUnit() {
         if (_commodity.hasAccumulativeEffect()) {
             return _units * _commodity.getRestHealthEffect();
         }
@@ -72,7 +76,7 @@ public class Possession {
         }
     }
    
-    public int getRestHappinessEffect() {       
+    public int getRestHappinessEffectperTimeUnit() {       
         if (_commodity.hasAccumulativeEffect())
             return _units * _commodity.getRestHappinessEffect();
         else

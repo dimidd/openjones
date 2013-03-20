@@ -8,7 +8,7 @@ import jones.general.Player;
 import jones.map.House;
 
 /**
- *
+ * Relax
  * @author dimid
  */
 public class RelaxAction extends Action {
@@ -42,30 +42,32 @@ public class RelaxAction extends Action {
         return checkTime(player);
     }
 
+    
+    
     @Override
     protected void doAction(Player player) {
-        if (_cachedPlayer != player) {
+       // if (_cachedPlayer != player) {
             _happinessEffect = happinessEffect(player);
             _healthEffect    = healthEffect(player);
-        }       
+      //  }       
         
         player.getState().affectHappiness(_happinessEffect);
         player.getState().affectHealth(_healthEffect);
-       
+        player.affectTime(timeEffect(player));
     }
 
     @Override
     public int healthEffect(Player player) {
         _cachedPlayer = player;
-        _healthEffect = _house.getRelaxHealthEffect() + player.getState().getPossessions().sumRestHealthEffects();
-        return _healthEffect;
+        _healthEffect = _house.getRelaxHealthEffect() + player.getState().getPossessions().sumRestHealthEffectsPerTimeUnit();
+        return _healthEffect * timeEffect(player);
     }
 
     @Override
     public int happinessEffect(Player player) {
         _cachedPlayer = player;
-        _happinessEffect = _house.getRelaxHappinessEffect() + player.getState().getPossessions().sumRestHappinessEffects();
-        return _happinessEffect;
+        _happinessEffect = _house.getRelaxHappinessEffect() + player.getState().getPossessions().sumRestHappinessEffectsPerTimeUnit();
+        return _happinessEffect * timeEffect(player);
     }
 
 //    @Override
@@ -85,7 +87,10 @@ public class RelaxAction extends Action {
 
     @Override
     public int timeEffect(Player player) {
-        return getAvailiableTimeUpto(REST_DURATION, player);
+        if (null == _timeEffect)            
+            _timeEffect = getAvailiableTimeUpto(REST_DURATION, player);
+        
+        return _timeEffect;
     }
 
     @Override
@@ -102,6 +107,11 @@ public class RelaxAction extends Action {
     @Override
     public boolean isSubmenu() {
         return false;
+    }
+
+    @Override
+    public void clearCachedValues() {
+        _timeEffect = null;
     }
 
      

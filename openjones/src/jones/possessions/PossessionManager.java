@@ -61,19 +61,19 @@ public class PossessionManager {
 	}
 	
 
-	public int sumRestHealthEffects() {           
+	public int sumRestHealthEffectsPerTimeUnit() {           
             int sum = 0;                                   
             for (Possession p: _poss) {            
-                sum += p.getRestHealthEffect();            
+                sum += p.getRestHealthEffectPerTimeUnit();            
             }                
            
             return sum;
 	}
 
-	public int sumRestHappinessEffects() {             
+	public int sumRestHappinessEffectsPerTimeUnit() {             
             int sum = 0;                             
             for (Possession p: _poss) {
-                    sum += p.getRestHappinessEffect();
+                    sum += p.getRestHappinessEffectperTimeUnit();
                 }
                                
             return sum;

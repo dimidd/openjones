@@ -615,6 +615,9 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                     java.awt.event.MouseAdapter listener = new buildingListener(col, row, _game, this);
                     _buttons[row][col].addMouseListener(listener);
                 }
+                else {
+                    _buttons[row][col].setEnabled(false);
+                }
             }
         }
 

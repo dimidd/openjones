@@ -13,7 +13,9 @@ import jones.possessions.Possession;
  */
 public abstract class PurchaseAction extends Action {
     
-    
+    protected PurchaseAction (Possession poss) {
+        _possession = poss;
+    }
     
     protected Possession _possession;
 

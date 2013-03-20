@@ -35,7 +35,7 @@ public class WorkAction extends Action {
 
     @Override
     protected void doAction(Player player) {
-        player.affectCash(cashEffect(player));
+        player.affectCash(cashEffect(player)); //updates _garnishedWage
         player.setRentDebt(player.getRentDebt() - _garnishedWage);
         
         int timeEffect = timeEffect(player);
@@ -43,6 +43,9 @@ public class WorkAction extends Action {
         
         int addditionalEXPUs = (int) Math.round(timeEffect(player) * _job.EXPERIENCE_UNITS_PER_1_TIME_UNIT_OF_WORK);
         player.getCareer().gain(_job.getRank(), addditionalEXPUs, player);
+        
+        player.affectHealth(healthEffect(player));
+        player.affectHappiness(happinessEffect(player));
         
     }
 
@@ -67,7 +70,7 @@ public class WorkAction extends Action {
 
     @Override
     public int cashEffect(Player player) {
-        int baseWage = timeEffect(player) * _job.getWagePerTimeUnit();
+        int baseWage = (int) (timeEffect(player) * _job.getWagePerTimeUnit());
         int debt = player.getRentDebt();
         
         if ( debt > 0) {
@@ -84,7 +87,11 @@ public class WorkAction extends Action {
 
     @Override
     public int timeEffect(Player player) {
-        return getAvailiableTimeUpto(WORK_PERIOD_IN_TIME_UNITS, player);
+        if (null == _timeEffect)            
+            _timeEffect = getAvailiableTimeUpto(WORK_PERIOD_IN_TIME_UNITS, player);
+        
+        return _timeEffect;
+        
     }
 
     @Override
@@ -126,6 +133,11 @@ public class WorkAction extends Action {
      */
     public int garnish(int baseWage, int debt) {                 
         return  Math.max(baseWage - debt, baseWage * (100 - GARNISH_PERCENTAGE)/100);
+    }
+
+    @Override
+    public void clearCachedValues() {
+        _timeEffect = null;
     }
     
 }

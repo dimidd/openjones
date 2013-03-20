@@ -25,6 +25,7 @@ public class RentAgency extends Building {
      * Number of weeks in a month of rent
      */
     public static final int WEEKS_OF_RENT_IN_A_MONTH = 4;
+    
     public static final int GROUNSKEEPER_BASE_WAGE = 5;
     public static final int APARTMENT_MANAGER_BASE_WAGE = 7;
     //public static final int WEEK_OF_RENT;
@@ -36,7 +37,7 @@ public class RentAgency extends Building {
 
     @Override
     protected void buildActionsTree(Player player) {
-        GenericTreeNode<Action> root = _actionsTree.getRoot();
+        GenericTreeNode<Action> root = getActionsTree().getRoot();
         RentContract rentContract = player.getRentContract();
         if (null != rentContract) {
             root.addChild(new GenericTreeNode<Action> (new PayRentAction(rentContract.getPossession())));
@@ -49,8 +50,8 @@ public class RentAgency extends Building {
 
     @Override
     protected void addJobs() {
-        _jobs.add(new Job("Groundskeeper", this, 1, GROUNSKEEPER_BASE_WAGE,1));
-        _jobs.add(new Job("Apartment Manager", this, 1, APARTMENT_MANAGER_BASE_WAGE,2));      
+        getJobs().add(new Job("Groundskeeper", this, 1, GROUNSKEEPER_BASE_WAGE,1));
+        getJobs().add(new Job("Apartment Manager", this, 1, APARTMENT_MANAGER_BASE_WAGE,2));      
         
     }
     

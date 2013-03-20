@@ -4,6 +4,7 @@
  */
 package jones.general;
 
+import jones.jobs.Job;
 import jones.map.House;
 import jones.map.MapManager;
 import jones.possessions.Possession;
@@ -188,6 +189,18 @@ public class Player {
 
     PossessionManager getPossessions() {
         return _state.getPossessions();
+    }
+
+    public void setJob(Job job) {
+        _state.setJob(job);
+    }
+
+    public void affectHealth(int healthEffect) {
+        _state.affectHealth( healthEffect);
+    }
+
+    public void affectHappiness(int happinessEffect) {
+        _state.affectHappiness(happinessEffect);
     }
     
     

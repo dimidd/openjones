@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.map.Building;
 import net.vivin.GenericTreeNode;
 
 /**
@@ -17,17 +18,19 @@ public class SubMenuAction extends Action {
     protected int _duration;
     protected String _name;
     protected GenericTreeNode<Action> _node;
+    private final Building _building;
     
-    public SubMenuAction(int duration, String name, GenericTreeNode<Action> node) {
+    public SubMenuAction(int duration, String name, GenericTreeNode<Action> node, Building build) {
         _duration = duration;
         _name = name;
         _node = node;
+        _building = build;
     }
 
  
     @Override
     protected void doAction(Player player) {
-        //nothing
+        _building.setPlayerActionsParent(_node);
     }
 
     @Override
@@ -117,5 +120,11 @@ public class SubMenuAction extends Action {
         this._node = node;
     }
     
+      
+    @Override
+    public void clearCachedValues() {
+      
+    }
+
     
 }

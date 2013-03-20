@@ -56,7 +56,7 @@ public abstract  class Building extends Site {
         _actionsTree = new GenericTree<>();
         
         GenericTreeNode<Action> root = new GenericTreeNode<>(null);
-        SubMenuAction mainMenu = new SubMenuAction(0,"main",root); 
+        SubMenuAction mainMenu = new SubMenuAction(0,"main",root,this); 
         root.setData(mainMenu);
         _actionsTree.setRoot(root);        
         _playerActionsParent = null;       
@@ -76,8 +76,8 @@ public abstract  class Building extends Site {
     
     
     public  ArrayList<? extends Action> getPlayerActions(Player player) {
-        assert(null != _playerActionsParent);
-        _actions = new ArrayList<>();
+        assert(null != getPlayerActionsParent());
+        setActions(new ArrayList<Action>());
 //        GenericTreeNode<Action> root = getActionsTree().getRoot();
 //        
 //        Action doneAction;
@@ -102,19 +102,20 @@ public abstract  class Building extends Site {
 //        _actions.add(WORK_ACTION_INDEX,workAction);
 
   //      _actions.addAll(getMenuActions(player));
-         _actions.addAll(_playerActionsParent.getDataOfChildren());
-        return _actions;
+         getActions().addAll(getPlayerActionsParent().getDataOfChildren());
+        return getActions();
     }
 
     public void prepareForPlayerEntrance(Player player) {
-        _playerActionsParent = getActionsTree().getRoot();
-        _actions = null;
+        _actionsTree.getRoot().removeChildren();
+        setPlayerActionsParent(getActionsTree().getRoot());
+        setActions(null);
         buildAllActionsTree(player);
               
     }
 
     public void prepareForPlayerExit(Player player) {
-       _playerActionsParent = null;
+        setPlayerActionsParent(null);
        
     }
 
@@ -125,20 +126,20 @@ public abstract  class Building extends Site {
      * @return response
      */
     public ActionResponse performAction(int actionIndex, Player player) {
-        assert(null != _actions);
+        assert(null != getActions());
         Action action;
 //        if (isSpecialAction(actionIndex)) {
 //            action = _actions.get(actionIndex);
 //        }
 //        else {             
-            GenericTreeNode<Action> node = _playerActionsParent.getChildAt(actionIndex);        
+            GenericTreeNode<Action> node = getPlayerActionsParent().getChildAt(actionIndex);        
             action = node.getData();
   //      }
         
         
         ActionResponse response = action.perform(player);
         if (response._wasPerformed && action.isSubmenu()) {
-            _playerActionsParent = ((SubMenuAction) action).getNode();
+            setPlayerActionsParent(((SubMenuAction) action).getNode());
         }
         
         return response;
@@ -149,14 +150,14 @@ public abstract  class Building extends Site {
      * @param player 
      */
     protected  void buildAllActionsTree(Player player) {
-        GenericTreeNode<Action> root = _actionsTree.getRoot();
+        GenericTreeNode<Action> root = getActionsTree().getRoot();
                 
         Action doneAction;
-        if (root == _playerActionsParent) {           
+        if (root == getPlayerActionsParent()) {           
             doneAction = new ExitBuildingMovement(this.getPosition(), this); //exit            
         }
         else {
-            doneAction = new SubMenuAction(0, "back", _playerActionsParent.getParent()); //back
+            doneAction = new SubMenuAction(0, "back", getPlayerActionsParent().getParent(), this); //back
         }
         root.addChildAt(DONE_ACTION_INDEX, new GenericTreeNode<>(doneAction));
                        
@@ -177,8 +178,8 @@ public abstract  class Building extends Site {
     }
 
     private Collection<? extends Action> getMenuActions(Player player) {
-        assert (null != _playerActionsParent);
-        return _playerActionsParent.getDataOfChildren();
+        assert (null != getPlayerActionsParent());
+        return getPlayerActionsParent().getDataOfChildren();
     }
 
     /**
@@ -236,5 +237,33 @@ public abstract  class Building extends Site {
      * @param player 
      */
     protected abstract void buildActionsTree(Player player);
+
+    /**
+     * @return the _actions
+     */
+    public ArrayList<Action> getActions() {
+        return _actions;
+    }
+
+    /**
+     * @param actions the _actions to set
+     */
+    public void setActions(ArrayList<Action> actions) {
+        this._actions = actions;
+    }
+
+    /**
+     * @return the _playerActionsParent
+     */
+    public GenericTreeNode<Action> getPlayerActionsParent() {
+        return _playerActionsParent;
+    }
+
+    /**
+     * @param playerActionsParent the _playerActionsParent to set
+     */
+    public void setPlayerActionsParent(GenericTreeNode<Action> playerActionsParent) {
+        this._playerActionsParent = playerActionsParent;
+    }
   
 }

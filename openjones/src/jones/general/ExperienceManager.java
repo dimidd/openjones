@@ -111,5 +111,9 @@ class ExperienceManager {
         _exps.get(rank).gain(addditionalEXPUs, player);
     }
 
+    int getExperienceLevel(int rank) {
+        return _exps.get(rank).getValue();
+    }
+
     
 }

@@ -16,7 +16,7 @@ import jones.general.Player;
 	 
 
     public PayRentAction(RentPossession rent) {
-        _possession = rent;
+        super(rent);
     }
 
     @Override
@@ -48,5 +48,12 @@ import jones.general.Player;
     protected void purchaseEffects(Player player) {
         
     }
+    
+      
+    @Override
+    public void clearCachedValues() {
+      
+    }
+
     
 }

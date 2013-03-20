@@ -73,5 +73,6 @@ public abstract class House extends Building {
         this._pricePerMonth = pricePerMonth;
     }
 
+   
     
 }
