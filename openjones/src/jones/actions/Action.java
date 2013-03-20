@@ -28,7 +28,7 @@ public abstract class Action {
      */
     public final ActionResponse perform(Player player) {
         ActionResponse preConditions = checkConditions(player);
-        if (!preConditions._wasPerformed) {
+        if (!preConditions._isPositive) {
             return preConditions;
         }
         doAction(player);

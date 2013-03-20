@@ -11,6 +11,10 @@ package jones.jobs;
 public class Unemployed extends Job {
     
     public Unemployed () {
-        super("unemployed",null,0,0,0,null,0,0);
+        super("unemployed",null,0,0,0,null,0,0,0);
+    }
+    
+    public String toString() {
+        return "unemployed";
     }
 }

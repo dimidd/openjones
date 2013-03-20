@@ -18,7 +18,7 @@ import java.util.Set;
  * 
  * @author dimid
  */
-class ExperienceManager {
+public class ExperienceManager {
     private HashMap<Integer, Experience> _exps;
     private static final int CAP_PER_RANK = 100;
     
@@ -111,9 +111,17 @@ class ExperienceManager {
         _exps.get(rank).gain(addditionalEXPUs, player);
     }
 
-    int getExperienceLevel(int rank) {
+    public int getExperienceLevel(int rank) {
         return _exps.get(rank).getValue();
     }
 
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (Integer i: _exps.keySet()) {
+            result.append(i+":"+_exps.get(i)._value+" ");
+        }
+        
+        return result.toString();
+    }
     
 }

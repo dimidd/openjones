@@ -44,4 +44,14 @@ public class Career extends Measure {
     public int getExperienceLevel (int rank) {
         return _exp.getExperienceLevel(rank);
     }
+
+    public ExperienceManager getExp() {
+        return _exp;
+    }
+
+    public void setExp(ExperienceManager _exp) {
+        this._exp = _exp;
+    }
+    
+    
 }

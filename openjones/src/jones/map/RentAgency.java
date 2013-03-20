@@ -12,6 +12,7 @@ import jones.jobs.Job;
 import jones.actions.Action;
 import jones.general.Player;
 import jones.general.Position;
+import jones.possessions.RentPossession;
 import net.vivin.GenericTreeNode;
 
 /**
@@ -40,7 +41,7 @@ public class RentAgency extends Building {
         GenericTreeNode<Action> root = getActionsTree().getRoot();
         RentContract rentContract = player.getRentContract();
         if (null != rentContract) {
-            root.addChild(new GenericTreeNode<Action> (new PayRentAction(rentContract.getPossession())));
+            root.addChild(new GenericTreeNode<Action> (new PayRentAction(new RentPossession(rentContract.getPossession()))));
         }
         
         for (House h: _houses) {

@@ -6,6 +6,7 @@ package jones.actions;
 
 import jones.general.Player;
 import jones.map.House;
+import jones.possessions.Possession;
 import jones.possessions.RentPossession;
 import jones.possessions.WeekOfRent;
 
@@ -35,8 +36,9 @@ public class RentHouseAction extends PurchaseAction {
 
     @Override
     protected void purchaseEffects(Player player) {
-    	player.setRentPossession(_possession);
-    	player.getRentContract().setPossession(_possession);
+        player.getState().getPossessions().remove(player.getState().getPossessions().getRentPossession());
+    	//player.setRentPossession(_possession);
+    	player.getRentContract().setPossession(new RentPossession (_possession));
     }
 
     @Override

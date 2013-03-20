@@ -10,12 +10,12 @@ package jones.actions;
  */
 public class ActionResponse {
     
-    public final boolean _wasPerformed;
+    public final boolean _isPositive;
     public final String _message;
     
     
     public ActionResponse (boolean wasPerformed, String message) {
-        _wasPerformed = wasPerformed;
+        _isPositive = wasPerformed;
         _message = message;
     }
 }

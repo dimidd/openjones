@@ -12,6 +12,16 @@ import jones.possessions.Possession;
  * @author dimid
  */
 public abstract class PurchaseAction extends Action {
+
+    static ActionResponse checkCash(Player player, int cashEffect) {
+                
+        if (player.getState().getCash() < cashEffect) {
+            return new ActionResponse(false, "Not enough money");
+        } else {
+            return new ActionResponse(true, null);
+        }
+
+    }
     
     protected PurchaseAction (Possession poss) {
         _possession = poss;
@@ -76,11 +86,7 @@ public abstract class PurchaseAction extends Action {
     }
 
     protected ActionResponse checkCash(Player player) {
-        if (player.getState().getCash() < _possession.worth()) {
-            return new ActionResponse(false, "Not enough money");
-        } else {
-            return new ActionResponse(true, null);
-        }
+        return checkCash(player, _possession.worth());
     }
 
     

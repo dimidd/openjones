@@ -4,7 +4,6 @@
  */
 package jones.general;
 
-import jones.possessions.CasualClothes;
 import jones.possessions.Possession;
 import jones.possessions.PossessionManager;
 import jones.possessions.RentPossession;
@@ -38,6 +37,7 @@ public class PlayerState {
     private Health _health;
     private Happiness _happiness;
     private Career _career;
+    private Education _education;
     private int _cash;
 
     //last time the player was annonced, that rent was due
@@ -98,10 +98,11 @@ public class PlayerState {
         _happiness = new Happiness();
         _career = new Career(MAX_JOB_RANK, _weeks);
         _cash = INITIAL_CASH;
+        _education = new Education();
     }
     
     public void recomputeGoals() {
-        _goals.recompute(this, _health, _happiness, _career);
+        _goals.recompute(this, _health, _happiness, _career,_education);
     }
     
     public void addPossession (Possession ps) {
@@ -229,7 +230,7 @@ public class PlayerState {
         return _cash;
     }
 
-    void advanceWeeks() {
+    public void advanceWeeks() {
         _weeks += 1;
     }
 
@@ -254,44 +255,60 @@ public class PlayerState {
         return _possessions.getRentPossession().getUnits();	
     }
 
-    void consume() {
+    public void consume() {
         _possessions.consume();              
     }
 
-    int getRentDebt() {
+    public int getRentDebt() {
         return _possessions.getRentDebt();        
     }
     
         
-    void setRentDebt(int newRentDebt) {
+    public void setRentDebt(int newRentDebt) {
         _possessions.setRentDebt(newRentDebt);        
     }
     
 
 
-    boolean hasWon() {
-        return _goals.recompute(this, _health, _happiness, _career);
+    public boolean hasWon() {
+        return _goals.recompute(this, _health, _happiness, _career, _education);
     }
 
-    int getClothesLevel() {
+    public Education getEducation() {
+        return _education;
+    }
+
+    public void setEducation(Education education) {
+        this._education = education;
+    }
+
+    public int getClothesLevel() {
         return _possessions.getClothesLevel();
     }
 
-    boolean isRentDue() {
+    public boolean isRentDue() {
         return _possessions.isRentDue();
         
      }
 
-    boolean areClothesAboutToWare() {
+    public boolean areClothesAboutToWare() {
         return _possessions.areClothesAboutToWare();
     }
 
-    int getScore() {
-        return _goals.getTotalScore(this, _health, _happiness, _career);
+    public int getScore() {
+        return _goals.getTotalScore(this, _health, _happiness, _career, _education);
     }
 
-    String scoresString() {
-        return _goals.getScoresString(this, _health, _happiness, _career);
+    public String scoresString() {
+        return _goals.getScoresString(this, _health, _happiness, _career, _education);
+    }
+
+    public ExperienceManager getExpriences() {
+        return _career.getExp();
+    }
+
+    public void affectEducation(int EDUCATION_POINTS_GAIN) {
+        _education.add(EDUCATION_POINTS_GAIN);               
     }
 
 

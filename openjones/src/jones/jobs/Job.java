@@ -6,6 +6,7 @@ package jones.jobs;
 
 import jones.actions.ActionResponse;
 import jones.general.Career;
+import jones.general.Education;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.Skills;
@@ -27,10 +28,18 @@ public class Job {
     /**
      * Minimum clothes level required for work
      */
-    public final int MIN_CLOTHES_LEVEL;
-  
-    public final int MIN_EXPERIENCE_LEVEL;
+    public final int MIN_CLOTHES_LEVEL;  
     
+    /**
+     * Minimum experience level required to apply
+     */  
+    public final int MIN_EXPERIENCE_LEVEL;    
+    
+    /**
+     * Minimum education level required to apply
+     */ 
+    public final int MIN_EDUCATION_LEVEL;
+  
  
     public final double EXPERIENCE_UNITS_PER_1_TIME_UNIT_OF_WORK;
     public static final int DEFAULT_EXPERIENCE_RATE = 1;
@@ -41,7 +50,7 @@ public class Job {
      */
     public static final int LOWER_EXPERIENCE_RANKS_ACCEPTABLE = 1;
     
-    public Job (String name, Building build, int rank, int expuRate, double wagePerTimeUnit, Skills skillls, int clothesLevel, int expLevel) {
+    public Job (String name, Building build, int rank, int expuRate, double wagePerTimeUnit, Skills skillls, int clothesLevel, int expLevel, int eduLevel) {
         assert(clothesLevel <= ClothesStore.MAX_CLOTHES_LEVEL);
         _name = name;
         _building = build;
@@ -51,16 +60,17 @@ public class Job {
         _skills = skillls;
         MIN_CLOTHES_LEVEL = clothesLevel;
         MIN_EXPERIENCE_LEVEL = expLevel;
+        MIN_EDUCATION_LEVEL = eduLevel;
     }
 
      
     public Job (String name, Building build, int rank, int wagePerHour, int clothesLevel) {
-        this(name, build, rank, DEFAULT_EXPERIENCE_RATE, (double)wagePerHour / Game.TIMEUNITS_PER_HOUR, null, clothesLevel, 10*rank);
+        this(name, build, rank, DEFAULT_EXPERIENCE_RATE, (double)wagePerHour / Game.TIMEUNITS_PER_HOUR, null, clothesLevel, 10*rank, 5*rank);
     }
     
      
     public Job (String name, Building build, int rank, int wagePerHour, int clothesLevel, int exp) {
-        this(name, build, rank, DEFAULT_EXPERIENCE_RATE, (double)wagePerHour / Game.TIMEUNITS_PER_HOUR, null, clothesLevel, exp);
+        this(name, build, rank, DEFAULT_EXPERIENCE_RATE, (double)wagePerHour / Game.TIMEUNITS_PER_HOUR, null, clothesLevel, exp, 5*rank);
     }
 
     
@@ -152,11 +162,14 @@ public class Job {
     }
 
     private boolean hasEnoughEducation(Player player) {
-        return true;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Education education = player.getEducation();
+        
+        return education.getScore() >= MIN_EDUCATION_LEVEL;
     }
     
-    
+    public String toString () {
+        return _name+" at "+_building.toString() +", wage:"+ (int) (_wagePerTimeUnit * Game.TIMEUNITS_PER_HOUR);
+    }
 
 
    

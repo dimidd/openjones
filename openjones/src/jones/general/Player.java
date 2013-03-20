@@ -30,7 +30,15 @@ public class Player {
         
     }
     
-       
+    
+    public Education getEducation() {
+        return _state.getEducation();
+    }
+
+    public void setEducation(Education education) {
+        _state.setEducation(education);
+    }
+  
     public void setClock(int clock) {
         _state.setClock(clock);
     }
@@ -202,7 +210,19 @@ public class Player {
     public void affectHappiness(int happinessEffect) {
         _state.affectHappiness(happinessEffect);
     }
+
+   public Job getJob() {
+       return _state.getJob();
+    }
     
+    public ExperienceManager getExperiences() {
+        return _state.getExpriences();
+    }
+
+    public void affectEducation(int EDUCATION_POINTS_GAIN) {
+        _state.affectEducation(EDUCATION_POINTS_GAIN);
+    }
+
     
     
             

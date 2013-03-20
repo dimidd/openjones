@@ -13,4 +13,8 @@ public class RentPossession extends ConsumablePossession {
     public RentPossession(int numOfWeeks, WeekOfRent rent) {
         super(numOfWeeks, rent, 1.00);
     }
+
+    public RentPossession(Possession possession) {
+        this(possession._units, (WeekOfRent)possession._commodity);
+    }
 }

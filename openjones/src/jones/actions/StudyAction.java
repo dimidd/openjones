@@ -5,87 +5,79 @@
 package jones.actions;
 
 import jones.general.Player;
-import jones.jobs.Job;
 
 /**
  *
  * @author dimid <dimidd@gmail.com>
  */
-public class ApplyForJobAction extends Action {
-    /**
-     * Number of TU it takes to apply
-     */
-    public static final int APPLY_DURATION = 5;
+public class StudyAction extends Action {
     
-    private final Job _job;
+    public static final int STUDY_DURATION = 20;
+    public static final int STUDY_COST = 8;
+    public static final int EDUCATION_POINTS_GAIN = 1;
     
-    public ApplyForJobAction (Job job) {
-        _job = job;
-    }
-
     @Override
     protected ActionResponse checkConditions(Player player) {
         ActionResponse checkTime = checkTime(player);
-        if (!checkTime._isPositive) {
-            return checkTime;
+        if (checkTime._isPositive) { 
+            return PurchaseAction.checkCash(player, cashEffect(player));
         }
         else {
-            return _job.checkQualifications(player);
-        }             
+            return checkTime;
+        }
     }
 
     @Override
     protected void doAction(Player player) {
-        player.setJob(_job);
-        player.affectTime(APPLY_DURATION);
+        player.affectCash( -STUDY_COST);
+        player.affectTime(STUDY_DURATION);
+        player.affectEducation(EDUCATION_POINTS_GAIN);
+       
     }
 
     @Override
     public int healthEffect(Player player) {
-       return 0;
+        return 0;
     }
 
     @Override
     public int happinessEffect(Player player) {
-       return 0;
+         return 0;
     }
 
     @Override
     public int careerEffect(Player player) {
          return 0;
-         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int cashEffect(Player player) {
-         return 0;
+        return STUDY_COST;
     }
 
     @Override
     public int timeEffect(Player player) {
-        return APPLY_DURATION;
+        return STUDY_DURATION;
     }
 
     @Override
     public String toString() {
-        return _job.getName();
+        return "Study "+STUDY_COST;
     }
 
     @Override
     protected ActionResponse getPositiveResponse(Player player) {
-        return new ActionResponse(true, "You got the job");
+        return new ActionResponse(true, "Another brick in the wall");
     }
 
     @Override
     public boolean isSubmenu() {
-        return false;
-    }
-    
-   
-    @Override
-    public void clearCachedValues() {
-      
+       return false;
     }
 
+    @Override
+    public void clearCachedValues() {
+        //nothing
+    }
     
 }

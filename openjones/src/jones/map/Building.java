@@ -138,7 +138,7 @@ public abstract  class Building extends Site {
         
         
         ActionResponse response = action.perform(player);
-        if (response._wasPerformed && action.isSubmenu()) {
+        if (response._isPositive && action.isSubmenu()) {
             setPlayerActionsParent(((SubMenuAction) action).getNode());
         }
         
