@@ -68,7 +68,7 @@ public class ApplyForJobAction extends Action {
 
     @Override
     public String toString() {
-        return _job.getName();
+        return _job.getName() + " "+_job.getWagePerHour()+"$ per hour";
     }
 
     @Override

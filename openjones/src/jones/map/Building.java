@@ -142,6 +142,9 @@ public abstract  class Building extends Site {
             setPlayerActionsParent(((SubMenuAction) action).getNode());
         }
         
+        if (action.shouldRebuildActions()) {
+            prepareForPlayerEntrance(player);
+        }
         return response;
     }
 
@@ -149,7 +152,7 @@ public abstract  class Building extends Site {
      * Add nodes for special actions, the subclass adds his specific actions
      * @param player 
      */
-    protected  void buildAllActionsTree(Player player) {
+    public  void buildAllActionsTree(Player player) {
         GenericTreeNode<Action> root = getActionsTree().getRoot();
                 
         Action doneAction;

@@ -92,5 +92,12 @@ public abstract class Action {
 
     public abstract void clearCachedValues();
 
+    /**
+     * Should building rebuild his actions tree after performing this action
+     * @return 
+     */
+    public boolean shouldRebuildActions () {
+        return false;
+    }
        
 }

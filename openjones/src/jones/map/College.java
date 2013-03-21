@@ -39,7 +39,7 @@ class College extends Building {
     protected void addJobs() {
         getJobs().add(new Job("Janitor", this, 1, JANITOR_BASE_WAGE, 1));
         getJobs().add(new Job("Teacher", this, 4, TEACHER_BASE_WAGE, 2));
-        getJobs().add(new Job("Proffesor", this, 2, PROFESSOR_BASE_WAGE, 3));
+        getJobs().add(new Job("Proffesor", this, 9, PROFESSOR_BASE_WAGE, 3));
 
     }
 }

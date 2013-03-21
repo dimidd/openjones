@@ -66,8 +66,16 @@ public class RentHouseAction extends PurchaseAction {
       
     @Override
     public void clearCachedValues() {
+        
       
     }
+    
+     
+    @Override
+    public boolean shouldRebuildActions () {
+        return true;
+    }
+  
 
 
 }

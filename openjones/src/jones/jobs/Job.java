@@ -141,10 +141,12 @@ public class Job {
     public ActionResponse checkQualifications(Player player) {
         StringBuilder response = new StringBuilder();
         
-        if (!hasEnoughExperience(player)) 
+        if (!hasEnoughExperience(player)) {
             response.append("Not enough experience\n");
-        if (!hasEnoughEducation(player)) 
+        }
+        if (!hasEnoughEducation(player)) {
             response.append("Not enough education\n");
+        }
        
         return new ActionResponse(response.length() == 0, response.toString());
     }
@@ -154,8 +156,9 @@ public class Job {
         
         int lowestExpLevel = Math.max(_rank - LOWER_EXPERIENCE_RANKS_ACCEPTABLE, 1);
         for (int i = lowestExpLevel; i <=_rank; ++i) {
-            if (career.getExperienceLevel(i) >= MIN_EXPERIENCE_LEVEL)
-                return true;            
+            if (career.getExperienceLevel(i) >= MIN_EXPERIENCE_LEVEL) {
+                return true;
+            }            
         }
         
         return false;
@@ -167,8 +170,13 @@ public class Job {
         return education.getScore() >= MIN_EDUCATION_LEVEL;
     }
     
+    @Override
     public String toString () {
         return _name+" at "+_building.toString() +", wage:"+ (int) (_wagePerTimeUnit * Game.TIMEUNITS_PER_HOUR);
+    }
+
+    public int getWagePerHour() {
+       return (int) (_wagePerTimeUnit * Game.TIMEUNITS_PER_HOUR);
     }
 
 
