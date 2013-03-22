@@ -4,6 +4,10 @@
  */
 package jones.general;
 
+import jones.measures.Goals;
+import jones.measures.ExperienceManager;
+import jones.measures.Career;
+import jones.measures.Education;
 import jones.jobs.Job;
 import jones.map.House;
 import jones.map.MapManager;
@@ -179,11 +183,11 @@ public class Player {
         return "name:"+_name +" clock:"+getHour()+" weeks:"+getWeeks()+" cash:"+getCash()+" rentDebt:"+getRentDebt();
     }
 
-    private int getCash() {
+    public int getCash() {
         return _state.getCash();
     }
 
-    int getScore() {
+    public int getScore() {
         return _state.getScore();
     }
 
@@ -195,7 +199,7 @@ public class Player {
         _state.advanceWeeks();
     }
 
-    PossessionManager getPossessions() {
+    public PossessionManager getPossessions() {
         return _state.getPossessions();
     }
 

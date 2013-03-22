@@ -29,6 +29,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
     private MapManager _map;
     private Game _game;
     private final Image _jonesImg;
+    private int _lastSelectedBuildingActionIndex;
 
     /**
      * Creates new form GUI
@@ -535,16 +536,22 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         clothesLevelText.setText(new Integer(_game.getCurPlayer().getClothesLevel()).toString());
         announcementsText.setText(_game.getAllAnnouncements());
 
+        //_buildingActionLabels = null;
+        
         //populate building panel
-        if (curPos.isInBuilding()) {
+        if (curPos.isInBuilding()) {           
             ArrayList<? extends Action> possibletActions = _game.getPossibletActions();
+            //_buildingActionLabels = new JLabel
             int actionID = 0;
             for (Action a : possibletActions) {
                 javax.swing.JLabel label = new javax.swing.JLabel();
                 if (null != a) {
                     label.setText(a.toString());
                     label.setForeground(Color.blue);
-                    BuildingActionListener listener = new BuildingActionListener(_game, this, actionID);
+                    if (_lastSelectedBuildingActionIndex == actionID) {
+                        label.setForeground(Color.YELLOW);
+                    }
+                    BuildingActionListener listener = new BuildingActionListener(_game, this, actionID, label, a);
                     label.addMouseListener(listener);
                 } else {
                     label.setText("N\\A");
@@ -560,13 +567,24 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                    
             vertSequentialGroup.addGap(0, 316, Short.MAX_VALUE);
 
-        } 
+        }
+        else {
+            _lastSelectedBuildingActionIndex = -1;
+        }
         
         
 
         possessionsText.setText(_game.getCurPlayer().getPossessions().toString());
         jobText.setText(_game.getCurPlayer().getJob().toString());
         experiencesText.setText(_game.getCurPlayer().getExperiences().toString());
+    }
+
+    public int getLastSelectedBuildingActionIndex() {
+        return _lastSelectedBuildingActionIndex;
+    }
+
+    public void setLastSelectedBuildingActionIndex(int _lastSelectedBuildingActionIndex) {
+        this._lastSelectedBuildingActionIndex = _lastSelectedBuildingActionIndex;
     }
 
     @Override

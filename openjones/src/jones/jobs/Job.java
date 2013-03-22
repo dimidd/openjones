@@ -5,11 +5,11 @@
 package jones.jobs;
 
 import jones.actions.ActionResponse;
-import jones.general.Career;
-import jones.general.Education;
+import jones.measures.Career;
+import jones.measures.Education;
 import jones.general.Game;
 import jones.general.Player;
-import jones.general.Skills;
+import jones.measures.Skills;
 import jones.map.Building;
 import jones.map.ClothesStore;
 

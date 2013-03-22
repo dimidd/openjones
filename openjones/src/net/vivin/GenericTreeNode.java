@@ -18,7 +18,7 @@ public class GenericTreeNode<T> {
 
     public GenericTreeNode() {
         super();
-        children = new ArrayList<GenericTreeNode<T>>();
+        children = new ArrayList<>();
     }
 
     public GenericTreeNode(T data) {
@@ -33,16 +33,47 @@ public class GenericTreeNode<T> {
     public List<GenericTreeNode<T>> getChildren() {
         return this.children;
     }
+    
+    public List<GenericTreeNode<T>> getChildren(int from, int to) {
+        return this.children.subList(from, to);
+    }
+
+    
+    public List<GenericTreeNode<T>> getChildrenFrom(int from) {
+        return this.children.subList(from, this.children.size() - 1);
+    }
+
+     
+    public List<GenericTreeNode<T>> getChildrenTo(int to) {
+        return this.children.subList(0, to);
+    }
+  
 
     public List<T> getDataOfChildren() {
+        return getDataOfChildren(0, this.children.size() - 1);
+    }
+ 
+       
+    public List<T> getDataOfChildrenFrom (int from) {
+        return getDataOfChildren(from, this.children.size() - 1);
+    }
+ 
+      
+    public List<T> getDataOfChildrenTo (int to) {
+        return getDataOfChildren(0, to);
+    }
+ 
+       
+    public List<T> getDataOfChildren(int from, int to) {
         List<T> result = new ArrayList<>();
-        for (GenericTreeNode<T> child: this.children) {
-            result.add(child.data);
+        for (int i = from; i <= to; ++i) {
+                //GenericTreeNode<T> child: this.children) {
+            result.add(children.get(i).data);
         }
         
         return result;
     }
-    
+ 
     public int getNumberOfChildren() {
         return getChildren().size();
     }
@@ -70,7 +101,7 @@ public class GenericTreeNode<T> {
     }
 
     public void removeChildren() {
-        this.children = new ArrayList<GenericTreeNode<T>>();
+        this.children = new ArrayList<>();
     }
 
     public void removeChildAt(int index) throws IndexOutOfBoundsException {

@@ -23,6 +23,14 @@ public class ApplyForJobAction extends Action {
         _job = job;
     }
 
+    public static int getAPPLY_DURATION() {
+        return APPLY_DURATION;
+    }
+
+    public Job getJob() {
+        return _job;
+    }
+
     @Override
     protected ActionResponse checkConditions(Player player) {
         ActionResponse checkTime = checkTime(player);

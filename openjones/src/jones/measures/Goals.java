@@ -2,8 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package jones.measures;
 
+import jones.general.PlayerState;
+import jones.measures.Health;
+import jones.measures.Happiness;
+import jones.measures.Career;
+import jones.measures.Education;
 import jones.possessions.PossessionManager;
 
 /**

@@ -8,6 +8,7 @@ import jones.actions.WorkAction;
 import jones.actions.SubMenuAction;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
 import jones.actions.ExitBuildingMovement;
@@ -43,7 +44,7 @@ public abstract  class Building extends Site {
     public static final int RELAX_ACTION_INDEX = 1;
     public static final int WORK_ACTION_INDEX = 2;
   
-    
+    public static final int LAST_INDEX_OF_SPECIAL_ACTION = 2;
     
     
     /** Create a new Building
@@ -74,6 +75,16 @@ public abstract  class Building extends Site {
 
     //protected abstract ArrayList<? extends Action> getBuildinSpecificgActions(Player player);
     
+    
+    /**
+     * Return all  specific (i.e. not special) actions from main menu  
+     * @param player
+     * @return 
+     */
+    public  List<Action> getPlayerBuildingSpecificActions(Player player) {
+        assert(_actionsTree.getRoot() == getPlayerActionsParent());
+        return getPlayerActionsParent().getDataOfChildrenFrom(LAST_INDEX_OF_SPECIAL_ACTION + 1);
+    }
     
     public  ArrayList<? extends Action> getPlayerActions(Player player) {
         assert(null != getPlayerActionsParent());
@@ -134,6 +145,9 @@ public abstract  class Building extends Site {
 //        else {             
             GenericTreeNode<Action> node = getPlayerActionsParent().getChildAt(actionIndex);        
             action = node.getData();
+            if (null == action) {
+            return new ActionResponse(false, "Null Action");
+        }
   //      }
         
         

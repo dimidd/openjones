@@ -42,7 +42,7 @@ public class Route {
         return sum;
     }
 
-    ArrayList<Movement> getMovementSequence() {
+    public ArrayList<Movement> getMovementSequence() {
         return _movements;
     }
 
@@ -112,7 +112,7 @@ public class Route {
 //            ++i;
 //        }
 
-        ArrayList<Position> foundPath = AStarPos.findPath(src, dest, map);
+        ArrayList<Position> foundPath = AStarPos.findPath(new Position(src.getX(),src.getY()), new Position(dest.getX(),dest.getY()), map);
         //O[] path = (Node[]) foundPath.toArray();
 
         PlayerPosition lastPos = src;
@@ -128,7 +128,8 @@ public class Route {
         }
 
         //Movement m
-        for (Position pos: foundPath) {
+        for (int i = 1; i < foundPath.size(); ++i) {
+            Position pos = foundPath.get(i);
             lastPos = curPos;
             curPos = new PlayerPosition(pos, false);
             Movement m = new Movement(lastPos, curPos);

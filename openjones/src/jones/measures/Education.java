@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package jones.measures;
 
 /**
  * Basic education model. A player has an edu. score, that is increased after studying.

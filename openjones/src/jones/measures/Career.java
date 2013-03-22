@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package jones.measures;
+
+import jones.general.Player;
 
 /**
  * The career score is determined by the maximum experience ever gained.

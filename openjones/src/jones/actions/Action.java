@@ -99,5 +99,25 @@ public abstract class Action {
     public boolean shouldRebuildActions () {
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Action other = (Action) obj;
+        return true;
+    }
+    
+    
        
 }

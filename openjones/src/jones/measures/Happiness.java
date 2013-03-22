@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package jones.measures;
 
 /**
  *
  * @author dimid
  */
-public class Skill {
+public class Happiness extends Measure {
     
 }

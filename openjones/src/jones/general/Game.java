@@ -30,6 +30,8 @@ public class Game {
     //private boolean [] _hasWon; //true if player met his goals
     private int _clothesLevel;
     public final int MIN_PERIOD_BETWEEN_RENT_ANNOUNCEMENTS = 4;
+    private boolean _hasStarted;
+    private boolean _hasEnded;
 
     public Player getCurPlayer() {
         return _curPlayer;
@@ -51,7 +53,10 @@ public class Game {
     /**
      * Initializes the game. Adds Default buildings
      */
-    public Game(MapManager map) {// Grid<Location> grid, ArrayList <Building> buildings) {
+    public Game(MapManager map) {
+        this._hasStarted = false;
+        this._hasEnded = false;      
+        
         if (null == map) {
             _map = MapManager.getDefaultMap();
         } else {
@@ -60,15 +65,10 @@ public class Game {
 
         _players = new ArrayList<>();
         _victors = new ArrayList<>();
-
         _eventGen = new EventManager();
-
         _economy = new ConstantEconomyModel();
-
-
         _curPlayerIndex = -1;
         _curPlayer = null;
-
         _annoncments = new ArrayList<>();
     }
 
@@ -90,9 +90,10 @@ public class Game {
      * Move player to a different position. If there's not enough time, end
      * turn.
      *
+     * @return True iff the move was completed
      * @param pos new position
      */
-    public void movePlayer(PlayerPosition pos) {
+    public ActionResponse movePlayer(PlayerPosition pos) {
 //        Action event = _eventGen.getRandomRoadEvent(_curPlayer);
 //        event.perform (_curPlayer);
 
@@ -102,11 +103,17 @@ public class Game {
         while (hasTime() && iter.hasNext()) {
             Movement move = iter.next();
             move.perform(_curPlayer);//updates player state and calls 
-            if (!hasTime()) {
-                endTurn();
-            }
+//            if (!hasTime()) {
+//                endTurn();
+//            }
 
         }
+        
+        if (!hasTime() && iter.hasNext())
+            return new ActionResponse(false, "Not enough time to complete move");
+        else
+            return new ActionResponse(true, null);
+        
     }
 
     public void enterBuilding() {
@@ -324,13 +331,14 @@ public class Game {
 
     }
 
-    void startGame() {
+    public void startGame() {
         _curPlayerIndex = 0;
         _curPlayer = _players.get(_curPlayerIndex);
         
         _curPlayer.gotoStartPosition();
         _curPlayer.setClock(0);
         _annoncments.add(new GameAnnouncement("Good Luck!"));
+        _hasStarted = true;
 
     }
 
@@ -417,5 +425,13 @@ public class Game {
        }
        
        return result.toString();
+    }
+
+    /**
+     * Has this game started
+     * @return 
+     */
+    public boolean hasStarted() {
+       return _hasStarted;
     }
 }

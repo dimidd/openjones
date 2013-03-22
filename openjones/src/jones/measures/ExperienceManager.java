@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jones.general;
+package jones.measures;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import jones.general.Player;
 
 /**
  * Experience is measured in Experience Units (EXPU). The experience model consists of a set of experiences at different jobs.

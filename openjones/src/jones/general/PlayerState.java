@@ -4,6 +4,14 @@
  */
 package jones.general;
 
+import jones.measures.Skill;
+import jones.measures.Skills;
+import jones.measures.Goals;
+import jones.measures.ExperienceManager;
+import jones.measures.Health;
+import jones.measures.Happiness;
+import jones.measures.Career;
+import jones.measures.Education;
 import jones.possessions.Possession;
 import jones.possessions.PossessionManager;
 import jones.possessions.RentPossession;

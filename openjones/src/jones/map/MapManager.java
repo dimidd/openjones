@@ -197,4 +197,20 @@ public class MapManager {
         this._nonBuildings = nonBuildings;
     }
 
+    public Position getBuildingPositionByName(String name) {
+     
+        return getBuildingByName(name).getPosition();
+    }
+
+      
+    public  Building getBuildingByName(String name) {
+        for (Building b: _buildings) {
+            if (b.getName().equals(name)) {
+                return b;
+            }
+        }
+        
+        return null;
+    }
+
 }

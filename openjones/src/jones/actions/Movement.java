@@ -4,6 +4,7 @@
  */
 package jones.actions;
 
+import java.util.Objects;
 import jones.map.Grid;
 import jones.general.Player;
 import jones.general.PlayerPosition;
@@ -172,6 +173,32 @@ public class Movement extends Action {
     @Override
     public void clearCachedValues() {
       
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this._oldPos);
+        hash = 83 * hash + Objects.hashCode(this._newPos);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Movement other = (Movement) obj;
+        if (!Objects.equals(this._oldPos, other._oldPos)) {
+            return false;
+        }
+        if (!Objects.equals(this._newPos, other._newPos)) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -4,7 +4,7 @@
  */
 package jones.actions;
 
-import jones.general.Career;
+import jones.measures.Career;
 import jones.jobs.Job;
 import jones.general.Player;
 
