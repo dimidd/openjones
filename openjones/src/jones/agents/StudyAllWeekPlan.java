@@ -26,13 +26,15 @@ public class StudyAllWeekPlan extends Plan {
         Player player = _agent.getPlayer();
         Game game = _agent.getGame();
         
-        PlayerPosition work = new PlayerPosition(game.getMap().getBuildingPositionByName("HI-TECH U"), true);
-        Plan move = new MoveToPlan(_agent, work);
-        setPlan(move);
+        PlayerPosition college = new PlayerPosition(game.getMap().getBuildingPositionByName("HI-TECH U"), true);
+        //Plan move = new MoveToPlan(_agent, work);
+        _actions.add(new MoveMarker(this, null, college));
+        //setPlan(move);
         
         //after the last movement (i.e. enter building), we study repetetively
-        _actions.add(new SetRepetetiveMarker(this, null, true));        
-        _actions.add(new NoOpMarker(this, new StudyAction()));
+        //until we run out of cash or time
+        _actions.add(new SetRepetetiveMarker(this, null, true));                        
+        _actions.add(new StopPlanOnResponseMarker(this, new StudyAction(), false));
 
     }
     

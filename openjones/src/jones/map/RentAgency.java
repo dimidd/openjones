@@ -52,7 +52,7 @@ public class RentAgency extends Building {
     @Override
     protected void addJobs() {
         getJobs().add(new Job("Groundskeeper", this, 1, GROUNSKEEPER_BASE_WAGE,1));
-        getJobs().add(new Job("Apartment Manager", this, 1, APARTMENT_MANAGER_BASE_WAGE,2));      
+        getJobs().add(new Job("Apartment Manager", this, 2, APARTMENT_MANAGER_BASE_WAGE,2));      
         
     }
     

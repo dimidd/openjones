@@ -69,22 +69,15 @@ class GetABetterJobPlan extends Plan {
         assert (employmentAgency != null);
         
         Position employmentAgencyPos = employmentAgency.getPosition();   
-        PlayerPosition dest = new PlayerPosition(employmentAgencyPos, true);
-        Plan move = new MoveToPlan(_agent, dest);
-        setPlan(move);
+        PlayerPosition employment = new PlayerPosition(employmentAgencyPos, true);
+        _actions.add(new MoveMarker(this, null, employment));
         
         //submenu actions of buildings
         //List<Action> buildingSpecificActions = employmentAgency.getPlayerBuildingSpecificActions(player);
-        ArrayList<? extends Action> possibletActions = game.getPossibletActions();
-        SubMenuAction buildingJobs;
+        _actions.add(new UpdatePossibleActionsMarker(this, null));
+        _actions.add(new AddBuildingsWithJobsMarker(this, null));
         
-        for (int buildingIndex = Building.LAST_INDEX_OF_SPECIAL_ACTION + 1; buildingIndex < possibletActions.size(); ++buildingIndex) {
-        //for (Integer buildingIndex : buildingsWithProfitableJobs) {
-            //assert (buildingIndex > Building.LAST_INDEX_OF_SPECIAL_ACTION);
-            buildingJobs = (SubMenuAction) possibletActions.get(buildingIndex);
-            _actions.add(new PushJobsMarker(this, buildingJobs));
-        }
-        
+          
     }
 
     

@@ -17,10 +17,12 @@ import jones.general.Route;
  */
 public class MoveToPlan extends Plan {
     private final PlayerPosition _dest;
+    private final PlayerPosition _src;
 
-    public MoveToPlan(Agent agent, PlayerPosition dest) {
+    public MoveToPlan(Agent agent, PlayerPosition src, PlayerPosition dest) {
         super(agent);
         _dest = dest;
+        _src = src;
         build();
     }
 
@@ -32,8 +34,8 @@ public class MoveToPlan extends Plan {
         Game game = _agent.getGame();
         //Plan result = new Plan(agent);
 
-        PlayerPosition curPos = player.getPos();
-        Route route = Route.findRoute(curPos, _dest, game.getMap());
+        //PlayerPosition curPos = player.getPos();
+        Route route = Route.findRoute(_src, _dest, game.getMap());
         ArrayList<Movement> path = route.getMovementSequence();
 
         //make sure we aren't repeating movements

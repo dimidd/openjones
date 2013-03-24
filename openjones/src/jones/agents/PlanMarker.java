@@ -14,7 +14,7 @@ import jones.actions.Action;
  */
 public abstract class PlanMarker {
     protected final Plan _plan;
-    protected final Action _action;
+    protected  Action _action;
     
     public Action getAction() {
         return _action;
@@ -30,6 +30,6 @@ public abstract class PlanMarker {
     
     @Override
     public String toString () {
-        return getClass().getSimpleName()+" action:"+_action.toString();
+        return getClass().getSimpleName()+" action:"+((_action != null)?_action.toString() : "null");
     }
 }

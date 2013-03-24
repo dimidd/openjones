@@ -18,4 +18,9 @@ public class ActionResponse {
         _isPositive = wasPerformed;
         _message = message;
     }
+    
+    @Override
+    public String toString() {
+        return _isPositive+" msg:"+_message;
+    }
 }

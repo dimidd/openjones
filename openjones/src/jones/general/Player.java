@@ -11,6 +11,7 @@ import jones.measures.Education;
 import jones.jobs.Job;
 import jones.map.House;
 import jones.map.MapManager;
+import jones.measures.Health;
 import jones.possessions.Possession;
 import jones.possessions.PossessionManager;
 import jones.possessions.RentContract;
@@ -34,6 +35,13 @@ public class Player {
         
     }
     
+    public int getWealthscore() {
+        return _state.getGoals().wealthScore(_state);
+    }
+    
+    public Health getHealth() {
+        return _state.getHealth();
+    }
     
     public Education getEducation() {
         return _state.getEducation();
@@ -226,6 +234,22 @@ public class Player {
     public void affectEducation(int EDUCATION_POINTS_GAIN) {
         _state.affectEducation(EDUCATION_POINTS_GAIN);
     }
+
+    public int getEducationScore() {
+        return _state.getGoals().educationScore(getEducation());        
+    }
+  
+    public int getHealthScore() {
+        return _state.getGoals().healthScore(getHealth());        
+    }
+    
+    public int getCareerScore() {
+        return _state.getGoals().careerScore(getCareer());        
+    }
+    
+    
+
+    
 
     
     

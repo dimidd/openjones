@@ -9,6 +9,33 @@ package jones.possessions;
  * @author dimid
  */
 public class ConsumablePossession extends Possession {
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this._consumptionRate) ^ (Double.doubleToLongBits(this._consumptionRate) >>> 32) + _commodity.hashCode());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ConsumablePossession other = (ConsumablePossession) obj;
+        if (Double.doubleToLongBits(this._consumptionRate) != Double.doubleToLongBits(other._consumptionRate)) {
+            return false;
+        }
+        
+        if (!this._commodity.equals(other._commodity)) {
+            return false;
+        }
+            
+        return true;
+    }
     
     private double _consumptionRate;
     private double _consumed;

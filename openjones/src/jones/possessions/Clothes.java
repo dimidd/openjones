@@ -9,6 +9,28 @@ package jones.possessions;
  * @author dimid
  */
 public class Clothes extends Commodity {
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + this._level;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clothes other = (Clothes) obj;
+        if (this._level != other._level) {
+            return false;
+        }
+        return true;
+    }
     
     protected int _level;
     	

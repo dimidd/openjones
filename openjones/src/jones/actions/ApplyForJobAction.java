@@ -4,6 +4,7 @@
  */
 package jones.actions;
 
+import java.util.Objects;
 import jones.general.Player;
 import jones.jobs.Job;
 
@@ -12,6 +13,28 @@ import jones.jobs.Job;
  * @author dimid <dimidd@gmail.com>
  */
 public class ApplyForJobAction extends Action {
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this._job);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ApplyForJobAction other = (ApplyForJobAction) obj;
+        if (!this._job.equals(other._job)) {
+            return false;
+        }
+        return true;
+    }
     /**
      * Number of TU it takes to apply
      */

@@ -15,8 +15,10 @@ import jones.general.Player;
  * @author dimid <dimidd@gmail.com>
  */
 public abstract class Agent {
-    private final Player _player;
-
+    
+    protected final Player _player;
+    protected final Game _game;
+    
     public Player getPlayer() {
         return _player;
     }
@@ -24,7 +26,7 @@ public abstract class Agent {
     public Game getGame() {
         return _game;
     }
-    private final Game _game;
+    
     
     public Agent (Player player, Game game) { 
         assert (null != player);

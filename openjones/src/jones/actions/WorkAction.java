@@ -101,12 +101,12 @@ public class WorkAction extends Action {
 
     @Override
     protected ActionResponse checkConditions(Player player) {
-        if (player.getClothesLevel() < _job.MIN_CLOTHES_LEVEL) {
-            return new ActionResponse(false, "You are'nt dressed properly");
-        }
-        else {
+//        if (player.getClothesLevel() < _job.MIN_CLOTHES_LEVEL) {
+//            return new ActionResponse(false, "You are'nt dressed properly");
+//        }
+//        else {
             return checkTime(player);
-        }
+//        }
     }
 
     @Override

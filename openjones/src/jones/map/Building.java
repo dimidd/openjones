@@ -146,8 +146,10 @@ public abstract  class Building extends Site {
             GenericTreeNode<Action> node = getPlayerActionsParent().getChildAt(actionIndex);        
             action = node.getData();
             if (null == action) {
-            return new ActionResponse(false, "Null Action");
-        }
+            
+                return new ActionResponse(false, "Null Action");
+        
+            }
   //      }
         
         

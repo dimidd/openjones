@@ -19,7 +19,7 @@ import jones.map.GridTile;
  * @author dimid
  */
 public class Game {
-
+    public static final int NOOP_ACTION_INDEX = -1;
     public final int MAX_PLAYERS = 4;
     public final static int TIMEUNITS_PER_WEEK = 600;
     public final static int TIMEUNITS_PER_HOUR = 5;
@@ -32,6 +32,14 @@ public class Game {
     public final int MIN_PERIOD_BETWEEN_RENT_ANNOUNCEMENTS = 4;
     private boolean _hasStarted;
     private boolean _hasEnded;
+
+    public boolean hasStarted() {
+        return _hasStarted;
+    }
+
+    public boolean hasEnded() {
+        return _hasEnded;
+    }
 
     public Player getCurPlayer() {
         return _curPlayer;
@@ -427,11 +435,5 @@ public class Game {
        return result.toString();
     }
 
-    /**
-     * Has this game started
-     * @return 
-     */
-    public boolean hasStarted() {
-       return _hasStarted;
-    }
+ 
 }

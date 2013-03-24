@@ -4,6 +4,7 @@
  */
 package jones.jobs;
 
+import java.util.Objects;
 import jones.actions.ActionResponse;
 import jones.measures.Career;
 import jones.measures.Education;
@@ -61,6 +62,32 @@ public class Job {
         MIN_CLOTHES_LEVEL = clothesLevel;
         MIN_EXPERIENCE_LEVEL = expLevel;
         MIN_EDUCATION_LEVEL = eduLevel;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this._name);
+        hash = 47 * hash + Objects.hashCode(this._building);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Job other = (Job) obj;
+        if (!Objects.equals(this._name, other._name)) {
+            return false;
+        }
+        if (!Objects.equals(this._building, other._building)) {
+            return false;
+        }
+        return true;
     }
 
      
@@ -142,10 +169,10 @@ public class Job {
         StringBuilder response = new StringBuilder();
         
         if (!hasEnoughExperience(player)) {
-            response.append("Not enough experience\n");
+            response.append("Not enough experience "+"for " +this.toString()+"\n");
         }
         if (!hasEnoughEducation(player)) {
-            response.append("Not enough education\n");
+            response.append("Not enough education "+"for " +this.toString()+"\n");
         }
        
         return new ActionResponse(response.length() == 0, response.toString());

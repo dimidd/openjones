@@ -5,6 +5,7 @@
 package jones.agents;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import jones.actions.Action;
@@ -20,6 +21,7 @@ import jones.general.Position;
 import jones.general.Route;
 import jones.jobs.Job;
 import jones.map.Building;
+import jones.map.House;
 
 /**
  *
@@ -31,7 +33,29 @@ public abstract class Plan {
     protected boolean _isRepetetive;
     protected int _duration;
     protected ActionResponse _lastResponse;
+    protected Job _lastJob;
+    protected House _lastHome;
 
+    public Player getPlayer() {
+        return _agent.getPlayer();
+    }
+    
+    public House getLastHome() {
+        return _lastHome;
+    }
+
+    public void setLastHome(House _lastHome) {
+        this._lastHome = _lastHome;
+    }
+
+    public ArrayList<? extends Action> getPossibletActions() {
+        return _possibletActions;
+    }
+
+    public void setPossibletActions(ArrayList<? extends Action> _possibletActions) {
+        this._possibletActions = _possibletActions;
+    }
+    protected ArrayList<? extends Action>  _possibletActions;
     public int getDuration() {
         return _duration;
     }
@@ -76,26 +100,36 @@ public abstract class Plan {
         _actions = new LinkedList<>();
         build();
     }
+
+    public Job getLastJob() {
+        return _lastJob;
+    }
+
+    public void setLastJob(Job job) {
+        this._lastJob = job;
+    }
     
     public Action getNextAction() {
-        PlanMarker marker;
-        Action result;
-        if (!_isRepetetive) {
-            marker = _actions.remove();
-        }
-        else {
-            marker = _actions.peek();
+        Player player = _agent.getPlayer();
+        int timeLeft = player.timeLeft();
+        PlanMarker marker = _actions.peek();
+        Action result = marker.getAction();
+        int timeEffect = Integer.MAX_VALUE;
+        if (null != result) {
+            timeEffect = result.timeEffect(player);
         }
         
+        if (!_isRepetetive) {  
+            _actions.remove();
+        }
+        else
+            if (timeEffect >= timeLeft) {
+                _actions.remove();
+            }
         marker.changeState();
         result = marker.getAction();
-        if (null != result) {
-            return result;
-        }
-        else {
-            return getNextAction();
-        }
-        
+            
+        return result;
     }
 
     /**
@@ -108,6 +142,23 @@ public abstract class Plan {
         _duration += other._duration;
     }
     
+      
+    /**
+     * concatenate another Plan to this one.
+     * i.e. add the other's actions to the end of the FIFO queue
+     * @param other 
+     */
+    public void push (Plan other) {
+        Iterator<PlanMarker> actionsReversedIterator = other._actions.descendingIterator();
+        while (actionsReversedIterator.hasNext()) {
+ //       for (PlanMarker m: other._actions) {
+            _actions.push(actionsReversedIterator.next());
+        }
+        _duration += other._duration;
+    }
+    
+    
+ 
      
    
     

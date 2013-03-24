@@ -20,16 +20,22 @@ import jones.general.Player;
  */
 class PlannerAgent extends Agent {
 
-    private Queue<Plan> _schedule;
+    protected Queue<Plan> _schedule;
     
     public PlannerAgent(Player p1, Game g) {
         super(p1, g);
         _schedule = new LinkedList<>();
+     }
+
+    private void testPlans() {
+        
         _schedule.add(new StudyAllWeekPlan(this));
         _schedule.add(new GetABetterJobPlan(this));
-        _schedule.add(new WorkAllWeekPlan(this));        
+        _schedule.add(new WorkAllWeekPlan(this));
+        _schedule.add(new RestAllWeekPlan(this));
+ 
     }
-
+    
     protected Plan getCurPlan() {
         return _schedule.peek();
     }
@@ -50,6 +56,8 @@ class PlannerAgent extends Agent {
     public int selectAction(ArrayList<? extends Action> actions) {
         Action nextAction;
         nextAction = getCurPlan().getNextAction();
+        if (null == nextAction)
+            return Game.NOOP_ACTION_INDEX;
         
         int indexInPossibleActions = actions.indexOf(nextAction);
         if (-1 == indexInPossibleActions) {

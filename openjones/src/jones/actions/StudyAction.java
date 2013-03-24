@@ -13,7 +13,7 @@ import jones.general.Player;
 public class StudyAction extends Action {
     
     public static final int STUDY_DURATION = 20;
-    public static final int STUDY_COST = 8;
+    public static final int STUDY_COST = 15;
     public static final int EDUCATION_POINTS_GAIN = 1;
     
     @Override

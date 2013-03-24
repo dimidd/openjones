@@ -107,7 +107,7 @@ public class Goals {
         return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)career.getScore() /  _career));
     }
 
-    private int educationScore(Education education) {
+    public int educationScore(Education education) {
         return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)education.getScore() /  _education));
     }
  

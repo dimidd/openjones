@@ -22,6 +22,7 @@ class StopPlanOnResponseMarker extends PlanMarker {
     @Override
     public void changeState() {
         if (_plan.getLastResponse()._isPositive == _responseStopValue) {
+            _action = null;
             _plan.getActions().clear();
         }
     }

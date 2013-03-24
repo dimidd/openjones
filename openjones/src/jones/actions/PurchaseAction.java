@@ -4,6 +4,7 @@
  */
 package jones.actions;
 
+import java.util.Objects;
 import jones.general.Player;
 import jones.possessions.Possession;
 
@@ -12,6 +13,36 @@ import jones.possessions.Possession;
  * @author dimid
  */
 public abstract class PurchaseAction extends Action {
+
+    public Possession getPossession() {
+        return _possession;
+    }
+
+    public void setPossession(Possession _possession) {
+        this._possession = _possession;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + this._possession.hashCode();
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PurchaseAction other = (PurchaseAction) obj;
+        if (!this._possession.equals(other._possession)) {
+            return false;
+        }
+        return true;
+    }
 
     static ActionResponse checkCash(Player player, int cashEffect) {
                 

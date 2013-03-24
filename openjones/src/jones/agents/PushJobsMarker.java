@@ -35,7 +35,7 @@ class PushJobsMarker extends PlanMarker {
         //only then we need to check the response and stop if positive (i.e. got the job)
         for (int i= 1; i< possibletActions.size() - 1; ++i) {
             ApplyForJobAction apply = (ApplyForJobAction) possibletActions.get(i);
-            if (apply.getJob().getWagePerTimeUnit() >= agent.getPlayer().getJob().getWagePerTimeUnit()) {
+            if (apply.getJob().getWagePerTimeUnit() > agent.getPlayer().getJob().getWagePerTimeUnit()) {
                 _plan.getActions().push(new StopPlanOnResponseMarker(_plan, apply, true));
             }
         }                

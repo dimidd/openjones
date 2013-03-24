@@ -10,14 +10,14 @@ import jones.map.Location;
  *
  * @author dimid <dimidd@gmail.com>
  */
-public class buildingListener extends java.awt.event.MouseAdapter {
+public class BuildingListener extends java.awt.event.MouseAdapter {
 
     private final int _row;
     private final int _col;
     private final Game _game;
     private final GUI _gui;
 
-    public buildingListener(int col, int row, Game game, GUI gui) {
+    public BuildingListener(int col, int row, Game game, GUI gui) {
         super();
         _row = row;
         _col = col;
@@ -30,14 +30,7 @@ public class buildingListener extends java.awt.event.MouseAdapter {
         //System.out.println("before:"+_game.getCurPlayer().getPos());
         
         PlayerPosition ppos = new PlayerPosition(0, 0, false);
-        
-        //remove player text from old position
-        PlayerPosition curPos = _game.getCurPlayer().getPos();
-        javax.swing.JButton butt = _gui.getButtons()[curPos.getY()][curPos.getX()];        
-        Location tile = (Location) _game.getMap().getGrid().get(curPos);        
-        butt.setText(tile.toString());
-
-       
+        updateMapPanelBeforeMoving(_game, _gui);      
       
         //move to new position
         ppos.setXY(_col, _row);
@@ -48,4 +41,15 @@ public class buildingListener extends java.awt.event.MouseAdapter {
         _gui.repaint();
     }
     
+    
+    public static void updateMapPanelBeforeMoving(Game game, GUI gui) {
+               PlayerPosition ppos = new PlayerPosition(0, 0, false);
+        
+        //remove player text from old position
+        PlayerPosition curPos = game.getCurPlayer().getPos();
+        javax.swing.JButton butt = gui.getButtons()[curPos.getY()][curPos.getX()];        
+        Location tile = (Location) game.getMap().getGrid().get(curPos);        
+        butt.setText(tile.toString());        
+
+    }
 }

@@ -14,6 +14,33 @@ import jones.map.Building;
  * @author dimid
  */
 public class ExitBuildingMovement extends Movement{
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExitBuildingMovement other = (ExitBuildingMovement) obj;
+          
+        if (!this._oldPos.equals( other._oldPos)) {
+            return false;
+        }
+        if (!this._newPos.equals( other._newPos)) {
+            return false;
+        }
+
+        
+        return true;
+    }
     /**
      * The time it takes to exit a building
      */

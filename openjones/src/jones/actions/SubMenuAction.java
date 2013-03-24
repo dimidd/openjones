@@ -4,6 +4,7 @@
  */
 package jones.actions;
 
+import java.util.Objects;
 import jones.general.Player;
 import jones.map.Building;
 import net.vivin.GenericTreeNode;
@@ -14,6 +15,40 @@ import net.vivin.GenericTreeNode;
  * @author dimid
  */
 public class SubMenuAction extends Action {
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + this._duration;
+        hash = 17 * hash + this._name.hashCode();
+        hash = 17 * hash + this._node.hashCode();
+        hash = 17 * hash + this._building.hashCode();
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SubMenuAction other = (SubMenuAction) obj;
+        if (this._duration != other._duration) {
+            return false;
+        }
+        if (!this._name.equals(other._name)) {
+            return false;
+        }
+        if (!(this._node == other._node)) {
+            return false;
+        }
+        if (!(this._building == other._building)) {
+            return false;
+        }
+        return true;
+    }
 
     protected int _duration;
     protected String _name;
