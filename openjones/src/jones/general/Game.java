@@ -156,6 +156,7 @@ public class Game {
 
         
         if (!_victors.isEmpty()) {
+            _hasEnded = true;
             _annoncments.clear();
             _annoncments.addAll(vicorsAnnouncements);
             return true;

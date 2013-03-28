@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
 import jones.actions.Movement;
-import jones.general.AgentGUI;
 import jones.general.GUI;
 import jones.general.Game;
 import jones.general.Player;
@@ -47,8 +46,13 @@ public class AgentSimulation {
         g.addPlayer(p1);
         g.startGame();
 
+        //final Agent agent = new PlannerAgent(p1, g);
         //final Agent agent = new RandomPlanner(p1, g);
-        final Agent agent = new OrderedOnDemandPlanner(p1, g);
+        //final Agent agent = new OrderedOnDemandPlanner(p1, g);
+        //final Agent agent = new RandomOnDemandPlanner(p1, g);
+        //final Agent agent = new GreedyPlanner(p1, g);
+        final Agent agent = new GreedyOnDemandPlanner(p1, g);
+        
         final GUI gui;
         _gui = new GUI(g);
         _gui.setVisible(true);
@@ -136,6 +140,6 @@ public class AgentSimulation {
     }
 
     public static void main(String args[]) {
-        System.out.println("Simulating Random for " + N_WEEKS + " weeks:" + simulatePlanner());
+        System.out.println("Simulating Planner for " + N_WEEKS + " weeks:" + simulatePlanner());
     }
 }

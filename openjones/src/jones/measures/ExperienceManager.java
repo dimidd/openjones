@@ -109,11 +109,19 @@ public class ExperienceManager {
      * @param player The player who gained it. (uses player`s current weeks)
      */
     public void gain (int rank, int addditionalEXPUs, Player player) {
-        _exps.get(rank).gain(addditionalEXPUs, player);
+        Experience rankExp = _exps.get(rank);
+        if (null != rankExp) 
+            _exps.get(rank).gain(addditionalEXPUs, player);
     }
 
     public int getExperienceLevel(int rank) {
-        return _exps.get(rank).getValue();
+        Experience rankExp = _exps.get(rank);
+        if (null != rankExp) {
+            return rankExp.getValue();
+        }
+        else {
+            return -1;
+        }
     }
 
     public String toString() {

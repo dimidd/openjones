@@ -27,6 +27,8 @@ class GoToWorkMarker extends PlanMarker {
         _plan.setLastJob(job);
         if(job.getRank() == 0) {
             //unemployed
+            _plan._actions.remove();
+            _plan._actions.remove();
             return;
         }
         

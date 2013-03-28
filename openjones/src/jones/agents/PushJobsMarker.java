@@ -6,6 +6,7 @@ package jones.agents;
 
 import java.util.ArrayList;
 import jones.actions.Action;
+import jones.actions.ActionResponse;
 import jones.actions.ApplyForJobAction;
 import jones.actions.SubMenuAction;
 import jones.general.Game;
@@ -25,7 +26,13 @@ class PushJobsMarker extends PlanMarker {
         Agent agent = _plan.getAgent();
         Game game = agent.getGame();
          ArrayList<? extends Action> possibletActions = game.getPossibletActions();
-        
+         
+         //we set the last response to false (currently it is true because of the submenu action of the building),
+         //so it would change to true only after being hired
+         ActionResponse dummy = new ActionResponse(false, null);
+//         _plan.getActions().push(new SetLastResponseMarker(_plan, null, dummy));       
+         _plan.setLastResponse(dummy);
+         
          //the first action is "back"             
         _plan.getActions().push(new StopPlanOnResponseMarker(_plan, possibletActions.get(0), true));
         
@@ -33,13 +40,16 @@ class PushJobsMarker extends PlanMarker {
         //we push all actions with StopPlan, save the last. 
         //it's because the last one would be executed (i.e. remove-ed) first.
         //only then we need to check the response and stop if positive (i.e. got the job)
+        ApplyForJobAction apply;
         for (int i= 1; i< possibletActions.size() - 1; ++i) {
-            ApplyForJobAction apply = (ApplyForJobAction) possibletActions.get(i);
+            apply = (ApplyForJobAction) possibletActions.get(i);
             if (apply.getJob().getWagePerTimeUnit() > agent.getPlayer().getJob().getWagePerTimeUnit()) {
                 _plan.getActions().push(new StopPlanOnResponseMarker(_plan, apply, true));
             }
-        }                
-        _plan.getActions().push(new NoOpMarker(_plan, possibletActions.get(possibletActions.size() - 1)));
+        }
+        apply = (ApplyForJobAction) possibletActions.get(possibletActions.size() - 1);
+        if (apply.getJob().getWagePerTimeUnit() > agent.getPlayer().getJob().getWagePerTimeUnit())
+            _plan.getActions().push(new NoOpMarker(_plan, apply));
                                 
     }
     

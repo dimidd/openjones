@@ -20,8 +20,8 @@ public class Goals {
     public static final int DEFAULT_WEALTH_GOAL = 10000;
     public static final int DEFAULT_HEALTH_GOAL = 100;
     public static final int DEFAULT_HAPPINESS_GOAL = 100;
-    public static final int DEFAULT_CAREER_GOAL = 150;
-    public static final int DEFAULT_EDUCATION_GOAL = 50;
+    public static final int DEFAULT_CAREER_GOAL = 850;
+    public static final int DEFAULT_EDUCATION_GOAL = 100;
   
     public static final int N_GOALS = 5;
     public static final int  MAX_MEASURE_SCORE = 100;

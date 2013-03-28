@@ -13,12 +13,6 @@ import jones.general.Player;
  * @author dimid <dimidd@gmail.com>
  */
 public class RandomPlanner extends PlannerAgent {
-
-    public static final int N_PLANS = 4;
-    public static final int STUDY_PLAN_INDEX = 0;
-    public static final int WORK_PLAN_INDEX = 1;
-    public static final int JOB_PLAN_INDEX = 2;
-    public static final int REST_PLAN_INDEX = 3;
  
     
     public RandomPlanner(Player p1, Game g) {
@@ -41,7 +35,7 @@ public class RandomPlanner extends PlannerAgent {
       return true;
     }
 
-    private Plan getRandomPlan() {
+    protected Plan getRandomPlan() {
                 
         Random random = new Random();
         int choice = random.nextInt(N_PLANS);

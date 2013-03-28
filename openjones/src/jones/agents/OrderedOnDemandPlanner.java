@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import jones.general.Game;
 import jones.general.Player;
+import jones.general.PlayerState;
+import jones.measures.ExperienceManager;
 import jones.measures.Goals;
 
 /**
@@ -37,7 +39,7 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
     @Override
     protected List<Plan> getOrderedPlans() {
 
-
+        boolean hasAddedWork = false;
         ArrayList<Plan> result = new ArrayList<>();
         int eduScore = _player.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
@@ -51,13 +53,26 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
 
         int careerScore = _player.getCareerScore();
         if (careerScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new GetABetterJobPlan(this));
+            int rank = _player.getJob().getRank();
+            if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
+                int experienceLevel = _player.getCareer().getExperienceLevel(rank);
+                int cap = _player.getCareer().getExp().getCapByRank(rank);
+                if (experienceLevel >= cap) {
+                    result.add(new GetABetterJobPlan(this));
+                } else {
+                    result.add(new WorkAllWeekPlan(this));
+                    hasAddedWork = true;
+                }
+            }
+            else if (0 == rank) {
+                result.add(new GetABetterJobPlan(this));
+            }
         }
-        
+
 //        _player.setJob(_game.getMap().getBuildingByName("Monolith Burgers").getJobs().get(0));
-        
+
         int wealthScore = _player.getWealthscore();
-        if (wealthScore < Goals.MAX_MEASURE_SCORE) {
+        if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new WorkAllWeekPlan(this));
         }
 

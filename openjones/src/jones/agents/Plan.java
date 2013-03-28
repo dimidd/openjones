@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
 import jones.actions.Movement;
@@ -60,6 +61,29 @@ public abstract class Plan {
         return _duration;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this._agent);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Plan other = (Plan) obj;
+        if (!Objects.equals(this._agent, other._agent)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     public void setPlan (Plan other) {
         _actions = other._actions;
         _agent = other._agent;
@@ -187,6 +211,8 @@ public abstract class Plan {
         return _actions.size();
     }
     
-    
+    public String toString() {
+        return getClass().getSimpleName()+" actions:"+_actions.toString();
+    }
     
 }
