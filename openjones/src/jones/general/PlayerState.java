@@ -4,6 +4,7 @@
  */
 package jones.general;
 
+import jones.agents.Plan;
 import jones.measures.Skill;
 import jones.measures.Skills;
 import jones.measures.Goals;
@@ -27,8 +28,13 @@ import jones.map.RentAgency;
  *
  * @author dimid
  */
-public class PlayerState {
+public class PlayerState extends AbstractPlayerState {
     
+    
+    public final static int MAX_JOB_RANK = 9;
+    public final static int INITIAL_CASH = 200;
+    //public final static int CASUAL_CLOTHES_BASE_VALUE = 70;
+
     /**
      * Lowest possible housing type
      */
@@ -53,36 +59,7 @@ public class PlayerState {
     
     //private int _rentDebt;
 
-    public int getClock() {
-        return _clock;
-    }
-
-    public void setClock(int _clock) {
-        this._clock = _clock;
-    }
-
-    public Career getCareer() {
-        return _career;
-    }
-
-    public void setCareer(Career _career) {
-        this._career = _career;
-    }
-
-    public int getLastRentAnnouncement() {
-        return _lastRentAnnouncement;
-    }
-
-    public void setLastRentAnnouncement(int _lastRentAnnouncement) {
-        this._lastRentAnnouncement = _lastRentAnnouncement;
-    }
-
-    public final static int MAX_JOB_RANK = 9;
-    public final static int INITIAL_CASH = 200;
-    //public final static int CASUAL_CLOTHES_BASE_VALUE = 70;
-    
-    
-    /**
+       /**
      * Creates a new PlayerState with default values
      * @param map
      */
@@ -108,7 +85,53 @@ public class PlayerState {
         _cash = INITIAL_CASH;
         _education = new Education();
     }
+
+    public PlayerState (PlayerState o) {
+        LOWEST_HOUSING = o.LOWEST_HOUSING;
+        _clock = o._clock;
+        _weeks = o._weeks;
+        
+        //Goals gets a shallow copy since it's not likely to change
+        _goals = o._goals;
+        _possessions = new PossessionManager(o._possessions);
+        _skills = new Skills();
+        
+        //Goals gets a shallow copy since it could only be repointed, and doestn't modify the internal state.   
+        _job = o._job;
+        _pos = new PlayerPosition(o._pos);
+        _health = new Health(o.getHealth().getScore());
+        _happiness = new Happiness(o.getHappiness().getScore());
+        _career = new Career(o._career);
+        _cash = o._cash;
+        _education = new Education(o.getEducation().getScore());
+    }
     
+    public int getClock() {
+        return _clock;
+    }
+
+    public void setClock(int _clock) {
+        this._clock = _clock;
+    }
+
+    public Career getCareer() {
+        return _career;
+    }
+
+    public void setCareer(Career _career) {
+        this._career = _career;
+    }
+
+    public int getLastRentAnnouncement() {
+        return _lastRentAnnouncement;
+    }
+
+    public void setLastRentAnnouncement(int _lastRentAnnouncement) {
+        this._lastRentAnnouncement = _lastRentAnnouncement;
+    }
+    
+    
+     
     public void recomputeGoals() {
         _goals.recompute(this, _health, _happiness, _career,_education);
     }
@@ -320,9 +343,56 @@ public class PlayerState {
     }
 
 
+        
+    @Override
+    public int getEducationScore() {
+        return getGoals().educationScore(getEducation());        
+    }
+  
+    @Override
+    public int getHealthScore() {
+        return getGoals().healthScore(getHealth());        
+    }
     
+    @Override
+    public int getCareerScore() {
+        return getGoals().careerScore(getCareer());        
+    }
+    
+    
+    @Override
+    public int getHappinessScore() {
+        return getGoals().happinessScore(getHappiness());        
+    }
 
      
+    @Override
+    public int getWealthscore() {
+        return getGoals().wealthScore(this);
+    }
+
+    @Override
+    public int getPossessionsWorth() {
+        return getPossessions().totalValue();
+    }
+
+    void startWeek() {
+        setPos(getHouse().getPosition(), false);
+        setClock(0);
+        ++_weeks;       
+    }
+ 
+    /**
+     * start a new turn without updating Game
+     */
+    void newTurn() {
+        startWeek();
+        consume();
+    }  
+
+    public void simulatePlan(Plan plan) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

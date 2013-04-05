@@ -10,5 +10,12 @@ package jones.measures;
  */
 public class Health extends Measure {
 
+    public Health() {
+    }
+
+    public Health(int score) {
+        super(score);
+    }
+
      
 }

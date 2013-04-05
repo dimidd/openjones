@@ -15,6 +15,8 @@ import jones.actions.Movement;
 import jones.actions.StudyAction;
 import jones.actions.SubMenuAction;
 import jones.actions.WorkAction;
+import jones.general.AbstractPlayer;
+import jones.general.AbstractPlayerState;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerPosition;
@@ -57,9 +59,8 @@ public abstract class Plan {
         this._possibletActions = _possibletActions;
     }
     protected ArrayList<? extends Action>  _possibletActions;
-    public int getDuration() {
-        return _duration;
-    }
+    
+    public abstract int getDuration(AbstractPlayerState state);
 
     @Override
     public int hashCode() {

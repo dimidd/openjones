@@ -12,6 +12,14 @@ public class Measure {
 
     protected int _score;
     
+    protected Measure (int score) {
+        _score = score;
+    }
+    
+    protected Measure () {
+        _score = 0;
+    }
+    
     public void add(int effect) {
         setScore(getScore() + effect);
     }

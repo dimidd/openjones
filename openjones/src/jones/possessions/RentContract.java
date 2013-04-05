@@ -11,6 +11,17 @@ import jones.map.House;
  * @author dimid
  */
 public class RentContract extends Contract {
+
+//    @Override
+//    public RentContract clone() {
+//        return new RentContract(_possession.clone()); 
+//    }
+
+     
+    public RentContract (RentContract other) {
+        super(other);
+    }
+    
     public RentContract (RentPossession rentPoss) {
         super(rentPoss);
     }

@@ -10,6 +10,19 @@ package jones.possessions;
  * @author dimid
  */
 public class Possession {
+
+    
+    public Possession (Possession other)  {
+        this(other._units, new Commodity(other._commodity));
+    }
+    
+       
+    public Possession (int units, Commodity commod) {
+        _units = units;
+        _commodity = commod;
+    }
+
+    
     
     protected int _units;
     protected Commodity _commodity;
@@ -23,12 +36,7 @@ public class Possession {
         this._commodity = _commodity;
     }
     
-    
-    public Possession (int units, Commodity commod) {
-        _units = units;
-        _commodity = commod;
-    }
-    
+     
     public int worth () {
         return getUnits() * _commodity.getUnitValue();
     }

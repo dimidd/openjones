@@ -2,16 +2,12 @@ package external;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.PriorityQueue;
 import jones.general.Position;
 import jones.general.Route;
 import jones.map.Grid;
 import jones.map.MapManager;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -133,7 +129,7 @@ public class AStarPos {
             path.add(current);
             return path;
         } else {
-            ArrayList<Position> path = new ArrayList<Position>();
+            ArrayList<Position> path = new ArrayList<>();
             path.add(current);
             return path;
         }
@@ -188,3 +184,4 @@ class FScoreNode implements Comparable<FScoreNode> {
         return true;
     }
 }
+

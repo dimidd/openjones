@@ -10,6 +10,25 @@ package jones.possessions;
  */
 public class ConsumablePossession extends Possession {
 
+       
+    private double _consumptionRate;
+    private double _consumed;
+    private boolean _isAutoConsmuptionOn;
+    
+    public final double EPSILON = 0.001;
+  
+    public ConsumablePossession (int units, Commodity comm, double rate) {
+        super(units, comm);
+        _consumptionRate = rate;
+        _consumed = 0;
+        _isAutoConsmuptionOn = true;
+    }
+    
+    public ConsumablePossession (ConsumablePossession other) {
+        this(other._units, other._commodity, other._consumptionRate);
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -37,19 +56,8 @@ public class ConsumablePossession extends Possession {
         return true;
     }
     
-    private double _consumptionRate;
-    private double _consumed;
-    private boolean _isAutoConsmuptionOn;
-    
-    public final double EPSILON = 0.001;
-    
-    public ConsumablePossession (int units, Commodity comm, double rate) {
-        super(units, comm);
-        _consumptionRate = rate;
-        _consumed = 0;
-        _isAutoConsmuptionOn = true;
-    }
-
+     
+  
     public double getConsumptionRate() {
         return _consumptionRate;
     }

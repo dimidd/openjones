@@ -1,6 +1,11 @@
 package jones.possessions;
 
 public class Commodity {
+
+    @Override
+    public Commodity clone()  {
+        return new Commodity(_unitValue, _name);
+    }
 	
 	protected int _unitValue;
 	protected String _name;
@@ -9,7 +14,13 @@ public class Commodity {
 		_unitValue = value;
 		_name = name;
 	}
+        
 
+        public Commodity (Commodity other) {
+		this(other._unitValue, other._name);
+	}
+
+        
 	public int getUnitValue() {
 		return _unitValue;
 	}

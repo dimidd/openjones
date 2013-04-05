@@ -10,5 +10,12 @@ package jones.measures;
  * @author dimid <dimidd@gmail.com>
  */
 public class Education extends Measure{
+
+    public Education() {
+    }
+
+    public Education(int score) {
+        super(score);
+    }
     
 }

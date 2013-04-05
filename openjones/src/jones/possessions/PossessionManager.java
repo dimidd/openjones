@@ -32,6 +32,17 @@ public class PossessionManager {
                 addDefaultPossessions(map);
 	}
 
+        public PossessionManager (PossessionManager other) {
+            _rentContract = new RentContract(other._rentContract);
+            _poss = new ArrayList<>();
+            for (Possession p: other._poss)
+                _poss.add(new Possession(p));
+            _rentDebt = other._rentDebt;
+            _nOutfits = other._nOutfits;
+            //shallow copy, since it's used only as a pointer
+            _bestClothesPossesion = other._bestClothesPossesion;        
+        }
+        
 	public Possession find(Possession newPos) {
 
 		for (Possession p: _poss) {

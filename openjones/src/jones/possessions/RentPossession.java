@@ -9,6 +9,11 @@ package jones.possessions;
  * @author dimid
  */
 public class RentPossession extends ConsumablePossession {
+
+    public RentPossession (RentPossession other) {
+        super(other);
+    }
+  
     
     public RentPossession(int numOfWeeks, WeekOfRent rent) {
         super(numOfWeeks, rent, 1.00);

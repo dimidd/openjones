@@ -15,15 +15,27 @@ import jones.general.Player;
  * @author dimid
  */
 public class Career extends Measure {
+
+    public Career() {
+    }
+
+   
     private ExperienceManager _exp;
+     
+    public Career( int score) {
+        super(score);
+        //this._exp = _exp;
+    }
     
     public Career (int maxJobRank, int weeks) {
+        super(0);
         _exp = new ExperienceManager();
         _exp.addAllExperiences(maxJobRank, weeks);
     }
 
     public Career(Career other) {
-        _score = other._score;
+        
+        super(other._score);
         _exp = new ExperienceManager(other._exp);
     }
     

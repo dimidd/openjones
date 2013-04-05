@@ -163,9 +163,11 @@ public class Game {
         }
 
         _curPlayer = getNextPlayer();
-        _curPlayer.gotoStartPosition();
-        _curPlayer.setClock(0);
-        _curPlayer.advanceWeeks();
+        
+        _curPlayer.startWeek();
+//        _curPlayer.gotoStartPosition();
+//        _curPlayer.setClock(0);
+//        _curPlayer.advanceWeeks();
         
 //        _weekendEvent = _eventGen.getRandomWeekendEvent(_curPlayer);
 //        _weekendEvent.perform (_curPlayer);

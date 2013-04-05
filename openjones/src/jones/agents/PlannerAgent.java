@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
+import jones.general.AbstractPlayerState;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerState;
@@ -21,7 +22,7 @@ import jones.measures.Goals;
  *
  * @author dimid <dimidd@gmail.com>
  */
-class PlannerAgent extends Agent {
+public class PlannerAgent extends Agent {
 
     public static final int JOB_PLAN_INDEX = 2;
     public static final int N_PLANS = 4;
@@ -142,6 +143,47 @@ class PlannerAgent extends Agent {
         return result;
     }
 
+     public List<Plan> getNeededPlans(AbstractPlayerState state) {
+                
+        
+        ArrayList<Plan> result = new ArrayList<>();
+        int eduScore = state.getEducationScore();
+        if (eduScore < Goals.MAX_MEASURE_SCORE) {
+            result.add(new StudyAllWeekPlan(this));
+        }
+
+        int healthScore = state.getHealthScore();
+        if (healthScore < Goals.MAX_MEASURE_SCORE) {
+            result.add(new RestAllWeekPlan(this));
+        }
+
+        boolean hasAddedWork = false;
+        int careerScore = state.getCareerScore();
+        if (careerScore < Goals.MAX_MEASURE_SCORE) {
+            int rank = state.getJob().getRank();
+            if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
+                int experienceLevel = state.getCareer().getExperienceLevel(rank);
+                int cap = state.getCareer().getExp().getCapByRank(rank);
+                if (experienceLevel >= cap) {
+                    result.add(new GetABetterJobPlan(this));
+                } else {
+                    result.add(new WorkAllWeekPlan(this));
+                    hasAddedWork = true;
+                }
+            } else if (0 == rank) {
+                result.add(new GetABetterJobPlan(this));
+            }
+        }
+
+        int wealthScore = state.getWealthscore();
+        if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
+            result.add(new WorkAllWeekPlan(this));
+        }
+
+        return result;
+
+     }
+    
     /**
      * Return all possible PlanScores
      * @return 

@@ -13,7 +13,17 @@ import jones.possessions.Possession;
  */
 public class Contract {
     protected Possession _possession;
+
+//    @Override
+//    public Contract clone()  {
+//        return new Contract(_possession.clone());
+//    }
+//    
     
+    public Contract(Contract other) {
+        this(new Possession(other._possession));
+    }
+
     public Contract (Possession poss) {
         _possession = poss;
     }

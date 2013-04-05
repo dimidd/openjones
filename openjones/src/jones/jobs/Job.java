@@ -63,6 +63,10 @@ public class Job {
         MIN_EXPERIENCE_LEVEL = expLevel;
         MIN_EDUCATION_LEVEL = eduLevel;
     }
+    
+//       public Job (Job o) {
+//           this (o._name, o._building, o._rank, o.EXP)
+//       }
 
     @Override
     public int hashCode() {

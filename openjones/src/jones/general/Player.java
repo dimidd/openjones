@@ -11,6 +11,7 @@ import jones.measures.Education;
 import jones.jobs.Job;
 import jones.map.House;
 import jones.map.MapManager;
+import jones.measures.Happiness;
 import jones.measures.Health;
 import jones.possessions.Possession;
 import jones.possessions.PossessionManager;
@@ -20,7 +21,7 @@ import jones.possessions.RentContract;
  *
  * @author dimid
  */
-public class Player {
+public class Player extends AbstractPlayer {
     
     private int _id;
     private String _name;
@@ -35,10 +36,7 @@ public class Player {
         
     }
     
-    public int getWealthscore() {
-        return _state.getGoals().wealthScore(_state);
-    }
-    
+   
     public Health getHealth() {
         return _state.getHealth();
     }
@@ -247,8 +245,23 @@ public class Player {
         return _state.getGoals().careerScore(getCareer());        
     }
     
-    
+     public int getHappinessScore() {
+        return _state.getGoals().happinessScore(getHappiness());        
+    }
 
+    public Happiness getHappiness() {
+        return _state.getHappiness();
+    }
+    
+    public int getWealthscore() {
+        return _state.getGoals().wealthScore(_state);
+    }
+
+    
+    void startWeek() {
+        _state.startWeek();
+    }
+ 
     
 
     
