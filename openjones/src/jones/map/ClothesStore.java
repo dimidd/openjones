@@ -8,6 +8,7 @@ import jones.actions.Action;
 import jones.actions.PurchaseAction;
 import jones.actions.PurchaseClothesAction;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.jobs.Job;
 import jones.possessions.BusinessSuit;
@@ -46,7 +47,7 @@ public class ClothesStore extends Building {
     }
 
 	@Override
-	protected void buildActionsTree(Player player) {
+	protected void buildActionsTree(PlayerState player) {
 		   
             GenericTreeNode<Action> root = getActionsTree().getRoot();
             

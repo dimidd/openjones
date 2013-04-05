@@ -6,6 +6,7 @@ package jones.actions;
 
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.map.Building;
 
@@ -62,17 +63,17 @@ public class ExitBuildingMovement extends Movement{
     }
    
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState playerState) {
             return EXIT_BUILDING_DURATION;
         
     }
 
      
     @Override
-    protected void doAction(Player player) {
-        player.getState().setPos(getNewPos());
-        _build.prepareForPlayerExit(player);
-        player.affectTime(EXIT_BUILDING_DURATION);
+    protected void doAction(PlayerState playerState) {
+        playerState.setPos(getNewPos());
+        _build.prepareForPlayerExit();
+        playerState.affectTime(EXIT_BUILDING_DURATION);
         
     }
 

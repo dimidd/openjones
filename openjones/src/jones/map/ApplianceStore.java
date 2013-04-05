@@ -5,6 +5,7 @@
 package jones.map;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 
 /**
@@ -19,7 +20,7 @@ class ApplianceStore extends Building {
     }
 
 	@Override
-	protected void buildActionsTree(Player player) {
+	protected void buildActionsTree(PlayerState player) {
 		// TODO Auto-generated method stub
 		
 	}

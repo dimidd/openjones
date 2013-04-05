@@ -60,7 +60,7 @@ public abstract class Plan {
     }
     protected ArrayList<? extends Action>  _possibletActions;
     
-    public abstract int getDuration(AbstractPlayerState state);
+    //public abstract int getDuration(AbstractPlayerState state);
 
     @Override
     public int hashCode() {
@@ -138,10 +138,12 @@ public abstract class Plan {
         Player player = _agent.getPlayer();
         int timeLeft = player.timeLeft();
         PlanMarker marker = _actions.peek();
+        if (null == marker)
+            return null;
         Action result = marker.getAction();
         int timeEffect = Integer.MAX_VALUE;
         if (null != result) {
-            timeEffect = result.timeEffect(player);
+            timeEffect = result.timeEffect(player.getState());
         }
         
         if (!_isRepetetive) {  

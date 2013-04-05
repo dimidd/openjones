@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.possessions.ConsumablePossession;
 
 /**
@@ -18,22 +19,22 @@ public class PurchaseClothesAction extends PurchaseAction {
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState player) {
        return 0;
     }
 
     @Override
-    protected void purchaseEffects(Player player) {
+    protected void purchaseEffects(PlayerState player) {
         
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
         return new ActionResponse(true, "Great outfit!");
     }
 

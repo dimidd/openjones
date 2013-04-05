@@ -4,6 +4,8 @@
  */
 package jones.general;
 
+import java.util.ArrayList;
+import jones.actions.Action;
 import jones.measures.Goals;
 import jones.measures.ExperienceManager;
 import jones.measures.Career;
@@ -264,6 +266,11 @@ public class Player extends AbstractPlayer {
  
     
 
+    public ArrayList<? extends Action> getPossibletActions(MapManager map) {
+        return _state.getPossibleActions(map);
+    }
+
+   
     
     
             

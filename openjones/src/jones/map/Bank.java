@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import jones.possessions.Stock;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 
 /**
@@ -43,7 +44,7 @@ class Bank extends Building {
  	}
 
 	@Override
-	protected void buildActionsTree(Player player) {
+	protected void buildActionsTree(PlayerState player) {
 		// TODO Auto-generated method stub
 		
 	}

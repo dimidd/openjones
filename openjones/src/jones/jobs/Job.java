@@ -10,6 +10,7 @@ import jones.measures.Career;
 import jones.measures.Education;
 import jones.general.Game;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.measures.Skills;
 import jones.map.Building;
 import jones.map.ClothesStore;
@@ -169,21 +170,21 @@ public class Job {
         return 0;
     }
 
-    public ActionResponse checkQualifications(Player player) {
+    public ActionResponse checkQualifications(PlayerState playerState) {
         StringBuilder response = new StringBuilder();
         
-        if (!hasEnoughExperience(player)) {
+        if (!hasEnoughExperience(playerState)) {
             response.append("Not enough experience "+"for " +this.toString()+"\n");
         }
-        if (!hasEnoughEducation(player)) {
+        if (!hasEnoughEducation(playerState)) {
             response.append("Not enough education "+"for " +this.toString()+"\n");
         }
        
         return new ActionResponse(response.length() == 0, response.toString());
     }
 
-    private boolean hasEnoughExperience(Player player) {
-        Career career = player.getCareer();
+    private boolean hasEnoughExperience(PlayerState playerState) {
+        Career career = playerState.getCareer();
         
         int lowestExpLevel = Math.max(_rank - LOWER_EXPERIENCE_RANKS_ACCEPTABLE, 1);
         for (int i = lowestExpLevel; i <=_rank; ++i) {
@@ -195,8 +196,8 @@ public class Job {
         return false;
     }
 
-    private boolean hasEnoughEducation(Player player) {
-        Education education = player.getEducation();
+    private boolean hasEnoughEducation(PlayerState playerState) {
+        Education education = playerState.getEducation();
         
         return education.getScore() >= MIN_EDUCATION_LEVEL;
     }

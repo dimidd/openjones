@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.map.House;
 import jones.possessions.Possession;
 import jones.possessions.RentPossession;
@@ -21,7 +22,7 @@ public class RentHouseAction extends PurchaseAction {
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState player) {
         return 0;
     }
 
@@ -30,25 +31,25 @@ public class RentHouseAction extends PurchaseAction {
     }
     
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState player) {
     	return 0;
     }
 
     @Override
-    protected void purchaseEffects(Player player) {
-        player.getState().getPossessions().remove(player.getState().getPossessions().getRentPossession());
+    protected void purchaseEffects(PlayerState player) {
+        player.getPossessions().remove(player.getPossessions().getRentPossession());
     	//player.setRentPossession(_possession);
     	player.getRentContract().setPossession(new RentPossession (_possession));
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
     	return new ActionResponse(true, "Tell all your rich friends about us");
     }
     
         
     @Override
-    protected ActionResponse checkConditions(Player player) {
+    protected ActionResponse checkConditions(PlayerState player) {
         if (getHouse() == player.getRentContract().getHouse()) {
             return new ActionResponse(false, "You are already renting this house");
         }

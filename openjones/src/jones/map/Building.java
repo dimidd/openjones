@@ -15,6 +15,7 @@ import jones.actions.ExitBuildingMovement;
 import jones.actions.RelaxAction;
 import jones.jobs.Job;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 import net.vivin.GenericTree;
 import net.vivin.GenericTreeNode;
@@ -73,7 +74,7 @@ public abstract  class Building extends Site {
         return true;
     }
 
-    //protected abstract ArrayList<? extends Action> getBuildinSpecificgActions(Player player);
+    //protected abstract ArrayList<? extends Action> getBuildinSpecificgActions(PlayerState player);
     
     
     /**
@@ -81,12 +82,12 @@ public abstract  class Building extends Site {
      * @param player
      * @return 
      */
-    public  List<Action> getPlayerBuildingSpecificActions(Player player) {
+    public  List<Action> getPlayerBuildingSpecificActions(PlayerState player) {
         assert(_actionsTree.getRoot() == getPlayerActionsParent());
         return getPlayerActionsParent().getDataOfChildrenFrom(LAST_INDEX_OF_SPECIAL_ACTION + 1);
     }
     
-    public  ArrayList<? extends Action> getPlayerActions(Player player) {
+    public  ArrayList<? extends Action> getPlayerActions() {
         assert(null != getPlayerActionsParent());
         setActions(new ArrayList<Action>());
 //        GenericTreeNode<Action> root = getActionsTree().getRoot();
@@ -117,15 +118,15 @@ public abstract  class Building extends Site {
         return getActions();
     }
 
-    public void prepareForPlayerEntrance(Player player) {
+    public void prepareForPlayerEntrance(PlayerState playerState) {
         _actionsTree.getRoot().removeChildren();
         setPlayerActionsParent(getActionsTree().getRoot());
         setActions(null);
-        buildAllActionsTree(player);
+        buildAllActionsTree(playerState);
               
     }
 
-    public void prepareForPlayerExit(Player player) {
+    public void prepareForPlayerExit() {
         setPlayerActionsParent(null);
        
     }
@@ -136,7 +137,7 @@ public abstract  class Building extends Site {
      * @param player the player who will carry out the action
      * @return response
      */
-    public ActionResponse performAction(int actionIndex, Player player) {
+    public ActionResponse performAction(int actionIndex, PlayerState player) {
         assert(null != getActions());
         Action action;
 //        if (isSpecialAction(actionIndex)) {
@@ -168,7 +169,7 @@ public abstract  class Building extends Site {
      * Add nodes for special actions, the subclass adds his specific actions
      * @param player 
      */
-    public  void buildAllActionsTree(Player player) {
+    public  void buildAllActionsTree(PlayerState playerState) {
         GenericTreeNode<Action> root = getActionsTree().getRoot();
                 
         Action doneAction;
@@ -181,22 +182,22 @@ public abstract  class Building extends Site {
         root.addChildAt(DONE_ACTION_INDEX, new GenericTreeNode<>(doneAction));
                        
         Action relaxAction =  null;
-        if (player.getState().getHouse() == this) {
-            relaxAction = new RelaxAction(player.getState().getHouse());
+        if (playerState.getHouse() == this) {
+            relaxAction = new RelaxAction(playerState.getHouse());
         }
         root.addChildAt(RELAX_ACTION_INDEX, new GenericTreeNode<>(relaxAction));
                
         Action workAction = null;
-        if (player.getState().getJob().getBuilding() == this) {
-            workAction =  new WorkAction(player.getState().getJob());
+        if (playerState.getJob().getBuilding() == this) {
+            workAction =  new WorkAction(playerState.getJob());
         }
         root.addChildAt(WORK_ACTION_INDEX,new GenericTreeNode<>(workAction));
 
-        buildActionsTree(player);
+        buildActionsTree(playerState);
         
     }
 
-    private Collection<? extends Action> getMenuActions(Player player) {
+    private Collection<? extends Action> getMenuActions(PlayerState player) {
         assert (null != getPlayerActionsParent());
         return getPlayerActionsParent().getDataOfChildren();
     }
@@ -255,7 +256,7 @@ public abstract  class Building extends Site {
      * Add building specific actions to tree
      * @param player 
      */
-    protected abstract void buildActionsTree(Player player);
+    protected abstract void buildActionsTree(PlayerState player);
 
     /**
      * @return the _actions

@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.map.House;
 
 /**
@@ -17,7 +18,7 @@ public class RelaxAction extends Action {
     private House _house;
     private int _healthEffect;
     private int _happinessEffect;
-    private Player _cachedPlayer;
+    private PlayerState _cachedPlayerState;
     
     private static RelaxAction _instance;
     
@@ -26,7 +27,7 @@ public class RelaxAction extends Action {
         _house = house;
         _healthEffect = Integer.MIN_VALUE;
         _happinessEffect = Integer.MIN_VALUE;
-        _cachedPlayer = null;
+        _cachedPlayerState = null;
     }
     
 //    public static RelaxAction getInstance() {
@@ -38,55 +39,55 @@ public class RelaxAction extends Action {
 
     
     @Override
-    protected ActionResponse checkConditions(Player player) {
+    protected ActionResponse checkConditions(PlayerState player) {
         return checkTime(player);
     }
 
     
     
     @Override
-    protected void doAction(Player player) {
-       // if (_cachedPlayer != player) {
+    protected void doAction(PlayerState player) {
+       // if (_cachedPlayerState != player) {
             _happinessEffect = happinessEffect(player);
             _healthEffect    = healthEffect(player);
       //  }       
         
-        player.getState().affectHappiness(_happinessEffect);
-        player.getState().affectHealth(_healthEffect);
+        player.affectHappiness(_happinessEffect);
+        player.affectHealth(_healthEffect);
         player.affectTime(timeEffect(player));
     }
 
     @Override
-    public int healthEffect(Player player) {
-        _cachedPlayer = player;
-        _healthEffect = _house.getRelaxHealthEffect() + player.getState().getPossessions().sumRestHealthEffectsPerTimeUnit();
+    public int healthEffect(PlayerState player) {
+        _cachedPlayerState = player;
+        _healthEffect = _house.getRelaxHealthEffect() + player.getPossessions().sumRestHealthEffectsPerTimeUnit();
         return _healthEffect * timeEffect(player);
     }
 
     @Override
-    public int happinessEffect(Player player) {
-        _cachedPlayer = player;
-        _happinessEffect = _house.getRelaxHappinessEffect() + player.getState().getPossessions().sumRestHappinessEffectsPerTimeUnit();
+    public int happinessEffect(PlayerState player) {
+        _cachedPlayerState = player;
+        _happinessEffect = _house.getRelaxHappinessEffect() + player.getPossessions().sumRestHappinessEffectsPerTimeUnit();
         return _happinessEffect * timeEffect(player);
     }
 
 //    @Override
-//    public int WealthEffect(Player player) {
+//    public int WealthEffect(PlayerState player) {
 //        return 0;
 //    }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState player) {
          return 0;
     }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState player) {
         if (null == _timeEffect)            
             _timeEffect = getAvailiableTimeUpto(REST_DURATION, player);
         
@@ -100,7 +101,7 @@ public class RelaxAction extends Action {
 
  
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
         return new ActionResponse(true, "zzzzz");
     }
 

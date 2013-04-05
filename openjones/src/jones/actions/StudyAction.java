@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 
 /**
  *
@@ -17,7 +18,7 @@ public class StudyAction extends Action {
     public static final int EDUCATION_POINTS_GAIN = 1;
     
     @Override
-    protected ActionResponse checkConditions(Player player) {
+    protected ActionResponse checkConditions(PlayerState player) {
         ActionResponse checkTime = checkTime(player);
         if (checkTime._isPositive) { 
             return PurchaseAction.checkCash(player, cashEffect(player));
@@ -28,7 +29,7 @@ public class StudyAction extends Action {
     }
 
     @Override
-    protected void doAction(Player player) {
+    protected void doAction(PlayerState player) {
         player.affectCash( -STUDY_COST);
         player.affectTime(STUDY_DURATION);
         player.affectEducation(EDUCATION_POINTS_GAIN);
@@ -36,27 +37,27 @@ public class StudyAction extends Action {
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState player) {
          return 0;
     }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState player) {
          return 0;
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState player) {
         return STUDY_COST;
     }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState player) {
         return STUDY_DURATION;
     }
 
@@ -66,7 +67,7 @@ public class StudyAction extends Action {
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
         return new ActionResponse(true, "Another brick in the wall");
     }
 

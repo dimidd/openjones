@@ -6,6 +6,7 @@ package jones.actions;
 
 import java.util.Objects;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.possessions.Possession;
 
 /**
@@ -44,9 +45,9 @@ public abstract class PurchaseAction extends Action {
         return true;
     }
 
-    static ActionResponse checkCash(Player player, int cashEffect) {
+    static ActionResponse checkCash(PlayerState player, int cashEffect) {
                 
-        if (player.getState().getCash() < cashEffect) {
+        if (player.getCash() < cashEffect) {
             return new ActionResponse(false, "Not enough money");
         } else {
             return new ActionResponse(true, null);
@@ -61,40 +62,40 @@ public abstract class PurchaseAction extends Action {
     protected Possession _possession;
 
     @Override
-    protected ActionResponse checkConditions(Player player) {
+    protected ActionResponse checkConditions(PlayerState player) {
         return checkCash(player);
     }
 
     @Override
-    protected void doAction(Player player) {
-        player.getState().affectCash(-_possession.worth());
-        player.getState().getPossessions().add(_possession);
+    protected void doAction(PlayerState player) {
+        player.affectCash(-_possession.worth());
+        player.getPossessions().add(_possession);
         purchaseEffects(player);
     }
 
     @Override
-    public abstract int healthEffect(Player player);
+    public abstract int healthEffect(PlayerState player);
 
     @Override
-    public abstract int happinessEffect(Player player);
+    public abstract int happinessEffect(PlayerState player);
 
 //    @Override
-//    public int WealthEffect(Player player) {
+//    public int WealthEffect(PlayerState player) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState player) {
         return -_possession.worth();
     }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState player) {
         return 0;
     }
 
@@ -108,7 +109,7 @@ public abstract class PurchaseAction extends Action {
      * e.g. Rent may change player`s home. Clothes may change player`s clothes
      * @param player 
      */
-    protected abstract void purchaseEffects(Player player); 
+    protected abstract void purchaseEffects(PlayerState player); 
     
     
     @Override
@@ -116,7 +117,7 @@ public abstract class PurchaseAction extends Action {
         return false;
     }
 
-    protected ActionResponse checkCash(Player player) {
+    protected ActionResponse checkCash(PlayerState player) {
         return checkCash(player, _possession.worth());
     }
 

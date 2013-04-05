@@ -102,25 +102,26 @@ public class Game {
      * @param pos new position
      */
     public ActionResponse movePlayer(PlayerPosition pos) {
+        return _curPlayer.getState().movePlayer(pos, _map);
 //        Action event = _eventGen.getRandomRoadEvent(_curPlayer);
 //        event.perform (_curPlayer);
 
-        Route route = Route.findRoute(_curPlayer.getState().getPos(), pos, _map);
-        ArrayList<Movement> path = route.getMovementSequence();
-        Iterator<Movement> iter = path.iterator();
-        while (hasTime() && iter.hasNext()) {
-            Movement move = iter.next();
-            move.perform(_curPlayer);//updates player state and calls 
-//            if (!hasTime()) {
-//                endTurn();
-//            }
-
-        }
-        
-        if (!hasTime() && iter.hasNext())
-            return new ActionResponse(false, "Not enough time to complete move");
-        else
-            return new ActionResponse(true, null);
+//        Route route = Route.findRoute(_curPlayer.getState().getPos(), pos, _map);
+//        ArrayList<Movement> path = route.getMovementSequence();
+//        Iterator<Movement> iter = path.iterator();
+//        while (hasTime() && iter.hasNext()) {
+//            Movement move = iter.next();
+//            move.perform(_curPlayer.getState());//updates player state and calls 
+////            if (!hasTime()) {
+////                endTurn();
+////            }
+//
+//        }
+//        
+//        if (!hasTime() && iter.hasNext())
+//            return new ActionResponse(false, "Not enough time to complete move");
+//        else
+//            return new ActionResponse(true, null);
         
     }
 
@@ -211,8 +212,8 @@ public class Game {
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
     public ActionResponse performBuildingAction(int actionIndex) {
-        Building build = (Building) getPlayerTile();
-        ActionResponse result = build.performAction(actionIndex, _curPlayer);
+        
+        ActionResponse result =  _curPlayer.getState().performBuildingAction(actionIndex, _map);
         if (null != result._message) {
             _annoncments.add(new GameAnnouncement(result._message+"\n"));
         }
@@ -231,44 +232,11 @@ public class Game {
      *
      * @return
      */
-    public ArrayList<? extends Action> getPossibletActions() {
-        PlayerPosition curPos = _curPlayer.getState().getPos();
-        if (curPos.isInBuilding()) {
-            Building curBuild = (Building) _map.getTile(curPos);
-            return curBuild.getPlayerActions(_curPlayer);
-        } else {
-            return getPossibleMovements();
-        }
+    public ArrayList<? extends Action> getPossibletActions() {        
+            return _curPlayer.getPossibletActions(_map);      
     }
 
-    /**
-     * Return all possible movements to adjacent locations of the current
-     * player. Checks the adjacent locations: North, East, South, West. If they
-     * are passable, adds them to the list. If the current tile is enterable,
-     * also adds the Enter movement.
-     *
-     * @return List of movements
-     */
-    private ArrayList<Movement> getPossibleMovements() {
-        ArrayList<Movement> result = new ArrayList<>();
-        PlayerPosition curPos = _curPlayer.getState().getPos();
-        assert (!curPos.isInBuilding());
-        Position test = new Position(curPos);
-        GridTile tile;
-        ArrayList<Position> neigbours = Route.getNeigbours(test, _map);
-        for (Position neighbour: neigbours) {
-            result.add(new Movement(curPos, new PlayerPosition(neighbour, false)));
-        }
-        
-        if (_map.getTile(curPos).isEnterable()) {
-            Building build = (Building) _map.getTile(curPos);
-            result.add(new EnterBuildingMovement(curPos, build));
-        }
-
-        return result;
-
-    }
-
+ 
     public int getTime() {
         return _curPlayer.getState().getHour();
     }
@@ -281,9 +249,7 @@ public class Game {
         return _curPlayer.getState().getPos().isInBuilding();
     }
 
-    public GridTile getPlayerTile() {
-        return _map.getTile(_curPlayer.getState().getPos());
-    }
+    
 
     private void updateAnnouncements() {
         _annoncments.clear();

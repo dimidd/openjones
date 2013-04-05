@@ -11,7 +11,7 @@ import jones.actions.Action;
  *
  * @author dimid <dimidd@gmail.com>
  */
-class IllegalActionException extends Exception {
+public class IllegalActionException extends Exception {
     private static final long serialVersionUID = 1L;
 
     public IllegalActionException(Action nextAction, ArrayList<? extends Action> actions) {

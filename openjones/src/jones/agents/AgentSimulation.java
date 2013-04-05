@@ -87,7 +87,7 @@ public class AgentSimulation {
                 response = game.performBuildingAction(choice);
             } else {
                 Movement move = (Movement) possibletActions.get(choice);
-                if (move.timeEffect(agent.getPlayer()) > agent.getPlayer().timeLeft()) {
+                if (move.timeEffect(agent.getPlayer().getState()) > agent.getPlayer().timeLeft()) {
                     if (null != gui) {
                         BuildingListener.updateMapPanelBeforeMoving(game, gui);
                     }

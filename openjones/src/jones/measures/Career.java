@@ -5,6 +5,7 @@
 package jones.measures;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 
 /**
  * The career score is determined by the maximum experience ever gained.
@@ -46,7 +47,7 @@ public class Career extends Measure {
      * @param rank the rank that gained the experience
      * @param player The player who gained it. (uses player`s current weeks)
      */
-    public void gain (int rank, int addditionalEXPUs, Player player) {
+    public void gain (int rank, int addditionalEXPUs, PlayerState player) {
         _exp.gain(rank,addditionalEXPUs, player);
         computeScore();
     }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import jones.actions.Action;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.possessions.Possession;
 
@@ -37,7 +38,7 @@ class PawnShop extends Building {
 
  
 	@Override
-	protected void buildActionsTree(Player player) {
+	protected void buildActionsTree(PlayerState player) {
 		// TODO Auto-generated method stub
 		
 	}

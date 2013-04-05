@@ -6,6 +6,7 @@ package jones.actions;
 
 import java.util.Objects;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.map.Building;
 import net.vivin.GenericTreeNode;
 
@@ -64,32 +65,32 @@ public class SubMenuAction extends Action {
 
  
     @Override
-    protected void doAction(Player player) {
+    protected void doAction(PlayerState player) {
         _building.setPlayerActionsParent(_node);
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState player) {
         return getDuration();
     }
 
@@ -99,12 +100,12 @@ public class SubMenuAction extends Action {
     }
 
     @Override
-    protected  ActionResponse checkConditions(Player player) {
+    protected  ActionResponse checkConditions(PlayerState player) {
         return checkTime(player);
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
         return new ActionResponse(true, null);
     }
 

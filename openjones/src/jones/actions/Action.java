@@ -5,6 +5,7 @@
 package jones.actions;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.map.MapManager;
 
 /**
@@ -15,9 +16,9 @@ public abstract class Action {
 
     protected Integer _timeEffect = null;
     
-    protected abstract ActionResponse checkConditions(Player player);
+    protected abstract ActionResponse checkConditions(PlayerState playerState);
 
-    protected abstract void doAction(Player player);
+    protected abstract void doAction(PlayerState playerState);
 
     /**
      * If possible, performs the action.
@@ -26,12 +27,12 @@ public abstract class Action {
      * @return Returns null iff the action performed.
      *          otherwise returns a String with an explanation
      */
-    public final ActionResponse perform(Player player) {
-        ActionResponse preConditions = checkConditions(player);
+    public final ActionResponse perform(PlayerState playerState) {
+        ActionResponse preConditions = checkConditions(playerState);
         if (!preConditions._isPositive) {
             return preConditions;
         }
-        doAction(player);
+        doAction(playerState);
         
 //        player.getState().affectHealth(healthEffect(player));
 //        player.getState().affectHappiness(happinessEffect(player));
@@ -40,26 +41,26 @@ public abstract class Action {
 //        player.getState().affectTime(timeEffect(player));
             
         clearCachedValues();
-        return getPositiveResponse(player);
+        return getPositiveResponse(playerState);
     }
 
-    public abstract int healthEffect(Player player); 
+    public abstract int healthEffect(PlayerState playerState); 
 
-    public abstract int happinessEffect(Player player);
+    public abstract int happinessEffect(PlayerState playerState);
 
     //public abstract int WealthEffect(Player player);
 
-    public abstract int careerEffect(Player player);
+    public abstract int careerEffect(PlayerState playerState);
      
-    public abstract int cashEffect(Player player);
+    public abstract int cashEffect(PlayerState playerState);
     
-    public abstract int timeEffect(Player player);
+    public abstract int timeEffect(PlayerState playerState);
    
     @Override
     public abstract String toString();
 
-    protected ActionResponse checkTime(Player player) {
-        if (player.getState().timeLeft() >= timeEffect(player)) {
+    protected ActionResponse checkTime(PlayerState playerState) {
+        if (playerState.timeLeft() >= timeEffect(playerState)) {
             return new ActionResponse(true, null);
         }
         else {
@@ -67,7 +68,7 @@ public abstract class Action {
         }
     }
 
-    protected abstract ActionResponse getPositiveResponse(Player player);
+    protected abstract ActionResponse getPositiveResponse(PlayerState playerState);
     
     /**
      * Return true iff this action leads to a menu of other actions
@@ -83,11 +84,11 @@ public abstract class Action {
      *          Otherwise, return the max period the player has upto a limit
      *
      */
-    protected int getAvailiableTimeUpto(int limit, Player player) {
-        if (!player.hasTime()) {
+    protected int getAvailiableTimeUpto(int limit, PlayerState playerState) {
+        if (!playerState.hasTime()) {
             return Integer.MAX_VALUE;
         }
-        return Math.min(limit, player.timeLeft());
+        return Math.min(limit, playerState.timeLeft());
     }
 
     public abstract void clearCachedValues();

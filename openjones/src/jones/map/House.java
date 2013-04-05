@@ -7,6 +7,7 @@ package jones.map;
 import jones.actions.Action;
 import jones.actions.RelaxAction;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 
 /**
@@ -47,7 +48,7 @@ public abstract class House extends Building {
     }
 
     @Override
-    protected void buildActionsTree(Player player) {
+    protected void buildActionsTree(PlayerState player) {
         //no actions
     }
 

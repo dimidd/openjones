@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import jones.general.Player;
+import jones.general.PlayerState;
 
 /**
  * Experience is measured in Experience Units (EXPU). The experience model consists of a set of experiences at different jobs.
@@ -54,7 +55,7 @@ public class ExperienceManager {
      * Check if there are old experiences, if so reduce their value
      * @param player 
      */
-    public void update (Player player) {
+    public void update (PlayerState player) {
         for (Experience exp: _exps.values()) {
             exp.updateExperience(player);
         }
@@ -108,7 +109,7 @@ public class ExperienceManager {
      * @param rank the rank that gained the experience
      * @param player The player who gained it. (uses player`s current weeks)
      */
-    public void gain (int rank, int addditionalEXPUs, Player player) {
+    public void gain (int rank, int addditionalEXPUs, PlayerState player) {
         Experience rankExp = _exps.get(rank);
         if (null != rankExp) 
             _exps.get(rank).gain(addditionalEXPUs, player);

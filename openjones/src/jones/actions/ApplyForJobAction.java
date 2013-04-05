@@ -6,6 +6,7 @@ package jones.actions;
 
 import java.util.Objects;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.jobs.Job;
 
 /**
@@ -55,45 +56,45 @@ public class ApplyForJobAction extends Action {
     }
 
     @Override
-    protected ActionResponse checkConditions(Player player) {
-        ActionResponse checkTime = checkTime(player);
+    protected ActionResponse checkConditions(PlayerState playerState) {
+        ActionResponse checkTime = checkTime(playerState);
         if (!checkTime._isPositive) {
             return checkTime;
         }
         else {
-            return _job.checkQualifications(player);
+            return _job.checkQualifications(playerState);
         }             
     }
 
     @Override
-    protected void doAction(Player player) {
-        player.setJob(_job);
-        player.affectTime(APPLY_DURATION);
+    protected void doAction(PlayerState playerState) {
+        playerState.setJob(_job);
+        playerState.affectTime(APPLY_DURATION);
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState playerState) {
        return 0;
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState playerState) {
        return 0;
     }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState playerState) {
          return 0;
          //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState playerState) {
          return 0;
     }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState playerState) {
         return APPLY_DURATION;
     }
 
@@ -103,7 +104,7 @@ public class ApplyForJobAction extends Action {
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState playerState) {
         return new ActionResponse(true, "You got the job");
     }
 

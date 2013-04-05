@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import jones.actions.Action;
 import jones.actions.SubMenuAction;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.jobs.Job;
 import net.vivin.GenericTreeNode;
@@ -27,7 +28,7 @@ class EmploymentAgency extends Building {
     }
 
 	@Override
-	protected void buildActionsTree(Player player) {
+	protected void buildActionsTree(PlayerState player) {
             GenericTreeNode<Action> root = getActionsTree().getRoot();
             for (Building b : _map.getBuildings()) {
                 ArrayList<Job> jobs = b.getJobs();

@@ -7,6 +7,7 @@ package jones.map;
 import jones.actions.Action;
 import jones.actions.StudyAction;
 import jones.general.Player;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.jobs.Job;
 import net.vivin.GenericTreeNode;
@@ -28,7 +29,7 @@ class College extends Building {
     }
 
     @Override
-    protected void buildActionsTree(Player player) {
+    protected void buildActionsTree(PlayerState player) {
         Action study = new StudyAction();
         GenericTreeNode<Action> studyNode = new GenericTreeNode<>(study);
         _actionsTree.getRoot().addChild(studyNode);

@@ -7,6 +7,7 @@ package jones.actions;
 import jones.measures.Career;
 import jones.jobs.Job;
 import jones.general.Player;
+import jones.general.PlayerState;
 
 /**
  * A general work action.
@@ -34,7 +35,7 @@ public class WorkAction extends Action {
     }
 
     @Override
-    protected void doAction(Player player) {
+    protected void doAction(PlayerState player) {
         player.affectCash(cashEffect(player)); //updates _garnishedWage
         player.setRentDebt(player.getRentDebt() - _garnishedWage);
         
@@ -50,17 +51,17 @@ public class WorkAction extends Action {
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState player) {
         return _job.healthEffect();
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState player) {
         return _job.happinessEffect();       
     }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState player) {
         Career preChange = player.getCareer();
         Career postChange = new Career(preChange);
         int addditionalEXPUs = (int) Math.round(timeEffect(player) * _job.EXPERIENCE_UNITS_PER_1_TIME_UNIT_OF_WORK);
@@ -69,7 +70,7 @@ public class WorkAction extends Action {
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState player) {
         int baseWage = (int) (timeEffect(player) * _job.getWagePerTimeUnit());
         int debt = player.getRentDebt();
         
@@ -86,7 +87,7 @@ public class WorkAction extends Action {
     }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState player) {
         if (null == _timeEffect)            
             _timeEffect = getAvailiableTimeUpto(WORK_PERIOD_IN_TIME_UNITS, player);
         
@@ -100,7 +101,7 @@ public class WorkAction extends Action {
     }
 
     @Override
-    protected ActionResponse checkConditions(Player player) {
+    protected ActionResponse checkConditions(PlayerState player) {
 //        if (player.getClothesLevel() < _job.MIN_CLOTHES_LEVEL) {
 //            return new ActionResponse(false, "You are'nt dressed properly");
 //        }
@@ -110,7 +111,7 @@ public class WorkAction extends Action {
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
         if (_garnishedWage > 0) {
             return new ActionResponse(true, "I had to garnish "+_garnishedWage+"$");
         }

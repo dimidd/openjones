@@ -5,6 +5,7 @@
 package jones.measures;
 
 import jones.general.Player;
+import jones.general.PlayerState;
 
 /**
  * Experience can be gained upto a CAP.
@@ -72,7 +73,7 @@ class Experience {
      * @param addditionalEXPUs units of experience to add
      * @param player The player who gained it. (uses player`s current weeks)
      */
-    public void gain (int addditionalEXPUs, Player player) {
+    public void gain (int addditionalEXPUs, PlayerState player) {
         gain( addditionalEXPUs, player.getWeeks());
     }
    
@@ -80,8 +81,8 @@ class Experience {
      * Check if the experience is old, if so reduce its value
      * @param player 
      */
-    public void updateExperience (Player player) {
-        int curWeeks = player.getState().getWeeks();
+    public void updateExperience (PlayerState player) {
+        int curWeeks = player.getWeeks();
         if (curWeeks - _timestamp >= OLD_EXPERIENCE_AGE_THRESHOLD_IN_WEEKS) {
             _value -= OLD_EXPERIENCE_VALUE_LOSS_PER_WEEK;
             if (_value < 0) {

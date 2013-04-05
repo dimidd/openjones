@@ -12,6 +12,7 @@ import java.util.PriorityQueue;
 import jones.agents.Plan;
 import jones.agents.PlannerAgent;
 import jones.general.PlayerState;
+import jones.map.MapManager;
 
 /**
  *
@@ -23,7 +24,7 @@ public class AStarPlayer {
      * Our own implementation of the A-Star algorithm, for use with our Node
      * class and custom heuristic function.
      */
-    static public ArrayList<Plan> findPlan(PlayerState start, int goal, PlannerAgent agent) {
+    static public ArrayList<Plan> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map) {
         Map<PlayerState, Object> closedMap = new HashMap<>();
         PriorityQueue<ScoreNode<PlayerState>> openQueue = new PriorityQueue<>();
         Map<PlayerState, PlayerState> parentMap = new HashMap<>();
@@ -70,7 +71,7 @@ public class AStarPlayer {
             // not done yet -> check out the neighbors that we can reach and did
             // not check yet
 
-            for (PlayerStatePlan neighbour : getPlanNeigbours(current, agent)) {
+            for (PlayerStatePlan neighbour : getPlanNeigbours(current, agent, map)) {
                 if (closedMap.containsKey(neighbour.getPlayerState())) {
                     continue;
                 }
@@ -127,12 +128,12 @@ public class AStarPlayer {
         return goalScore - playerState.getScore();       
     }
 
-    private static Iterable<PlayerStatePlan> getPlanNeigbours(PlayerState current, PlannerAgent agent) {
+    private static Iterable<PlayerStatePlan> getPlanNeigbours(PlayerState current, PlannerAgent agent, MapManager map) {
         ArrayList<PlayerStatePlan> result = new ArrayList<>();
         List<Plan> neededPlans = agent.getNeededPlans(current);
         for(Plan plan: neededPlans) {
             PlayerState dummy = new PlayerState(current);
-            dummy.simulatePlan(plan);
+            dummy.simulatePlan(plan, map);
             PlayerStatePlan neighbour = new PlayerStatePlan(dummy, plan);
             result.add(neighbour);
         }

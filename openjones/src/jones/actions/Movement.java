@@ -8,6 +8,7 @@ import java.util.Objects;
 import jones.map.Grid;
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 import jones.map.Building;
 import jones.map.MapManager;
 
@@ -33,37 +34,37 @@ public class Movement extends Action {
     }
 
     @Override
-    protected void doAction(Player player) {
-        player.getState().setPos(getNewPos());
-        player.affectTime(_duration);
+    protected void doAction(PlayerState playerState) {
+        playerState.setPos(getNewPos());
+        playerState.affectTime(_duration);
                      
     }
     
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState playerState) {
         return 0;
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState playerState) {
         return 0;
     }
 
     @Override
-    protected ActionResponse checkConditions(Player player) {
-        return checkTime(player);
+    protected ActionResponse checkConditions(PlayerState playerState) {
+        return checkTime(playerState);
             
     
     }
 
     @Override
-    public int careerEffect(Player player) {
+    public int careerEffect(PlayerState playerState) {
         return 0;
     }
 
     @Override
-    public int cashEffect(Player player) {
+    public int cashEffect(PlayerState playerState) {
         return 0;
     }
 
@@ -73,7 +74,7 @@ public class Movement extends Action {
 //    }
 
     @Override
-    public int timeEffect(Player player) {
+    public int timeEffect(PlayerState playerState) {
             return _duration;
         
     }
@@ -159,7 +160,7 @@ public class Movement extends Action {
 
  
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState playerState) {
         return new ActionResponse(true, null);
     }
 

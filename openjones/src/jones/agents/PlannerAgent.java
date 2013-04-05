@@ -64,25 +64,38 @@ public class PlannerAgent extends Agent {
     }
 
     @Override
-    public int selectAction(ArrayList<? extends Action> actions) {
+    public int selectAction(ArrayList<? extends Action> possibleActions) {
         Action nextAction;
         nextAction = getCurPlan().getNextAction();
+        int indexInPossibleActions;
+        try {
+            indexInPossibleActions = getActionIndex(possibleActions, nextAction);           
+        } 
+        
+        catch (IllegalActionException ex) {
+            Logger.getLogger(PlannerAgent.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlannerAgent.class.getName()).log(Level.SEVERE, "schedule:{0}", _schedule);
+            return -10;
+        }
+
+
+        return indexInPossibleActions;
+
+    }
+
+    public static int getActionIndex(ArrayList<? extends Action> possibleActions, Action nextAction) throws IllegalActionException {
+
         if (null == nextAction) {
             return Game.NOOP_ACTION_INDEX;
         }
 
-        int indexInPossibleActions = actions.indexOf(nextAction);
+        int indexInPossibleActions = possibleActions.indexOf(nextAction);
         if (-1 == indexInPossibleActions) {
-            try {
-                throw new IllegalActionException(nextAction, actions);
-            } catch (IllegalActionException ex) {
-                Logger.getLogger(PlannerAgent.class.getName()).log(Level.SEVERE, null, ex);
-                Logger.getLogger(PlannerAgent.class.getName()).log(Level.SEVERE, "schedule:{0}", _schedule);
-                //sex.printStackTrace();
-            }
+            throw new IllegalActionException(nextAction, possibleActions);
         }
 
         return indexInPossibleActions;
+
     }
 
     @Override
@@ -143,9 +156,9 @@ public class PlannerAgent extends Agent {
         return result;
     }
 
-     public List<Plan> getNeededPlans(AbstractPlayerState state) {
-                
-        
+    public List<Plan> getNeededPlans(AbstractPlayerState state) {
+
+
         ArrayList<Plan> result = new ArrayList<>();
         int eduScore = state.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
@@ -182,15 +195,16 @@ public class PlannerAgent extends Agent {
 
         return result;
 
-     }
-    
+    }
+
     /**
      * Return all possible PlanScores
-     * @return 
+     *
+     * @return
      */
     protected List<PlanScore> getPlanScores() {
         ArrayList<PlanScore> result = new ArrayList<>();
-        
+
         int eduScore = _player.getEducationScore();
         result.add(new PlanScore(new StudyAllWeekPlan(this), eduScore));
         int healthScore = _player.getHealthScore();
@@ -199,7 +213,7 @@ public class PlannerAgent extends Agent {
         result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
         int wealthScore = _player.getWealthscore();
         result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
-        
+
         return result;
 
     }

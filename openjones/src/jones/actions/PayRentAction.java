@@ -6,6 +6,7 @@ package jones.actions;
 
 import jones.possessions.RentPossession;
 import jones.general.Player;
+import jones.general.PlayerState;
 
 /**
  *
@@ -20,12 +21,12 @@ import jones.general.Player;
     }
 
     @Override
-    public int healthEffect(Player player) {
+    public int healthEffect(PlayerState player) {
         return 0;
     }
 
     @Override
-    public int happinessEffect(Player player) {
+    public int happinessEffect(PlayerState player) {
         return 0;
     }
 
@@ -35,7 +36,7 @@ import jones.general.Player;
     }
 
     @Override
-    protected ActionResponse getPositiveResponse(Player player) {
+    protected ActionResponse getPositiveResponse(PlayerState player) {
         return new ActionResponse(true,"I'M here for all your renting needs");
     }
 
@@ -45,7 +46,7 @@ import jones.general.Player;
     }
 
     @Override
-    protected void purchaseEffects(Player player) {
+    protected void purchaseEffects(PlayerState player) {
         
     }
     
