@@ -7,6 +7,7 @@ package jones.agents;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.map.Building;
 
@@ -14,10 +15,12 @@ import jones.map.Building;
  *
  * @author dimid <dimidd@gmail.com>
  */
-class GetBetterClothesPlan extends Plan {
+class GetBetterClothesPlan extends AllOrNothingPlan {
+    private final PlayerState _playerState;
 
-    public GetBetterClothesPlan(Agent agent) {
+    public GetBetterClothesPlan(Agent agent, PlayerState playerState) {
         super (agent);
+        _playerState = playerState;
         build();
     }
 
@@ -35,7 +38,7 @@ class GetBetterClothesPlan extends Plan {
         
         //submenu actions of buildings
         //List<Action> buildingSpecificActions = employmentAgency.getPlayerBuildingSpecificActions(player);
-        _actions.add(new UpdatePossibleActionsMarker(this, null));       
+        _actions.add(new UpdatePossibleActionsMarker(this, null, _playerState));       
         _actions.add(new BuyClothesMarker(this, null));
        
     }

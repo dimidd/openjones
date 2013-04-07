@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import jones.actions.Action;
 import jones.general.Game;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 
 /**
  *
@@ -20,12 +21,12 @@ class BackInMenuMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
                 PlayerPosition src = _plan.getAgent().getPlayer().getPos();
         //MoveToPlan move = new MoveToPlan(_plan.getAgent(), src, _dest);
         
         Game game = _plan.getAgent().getGame();
-        ArrayList<? extends Action> possibletActions = game.getPossibletActions();
+        ArrayList<? extends Action> possibletActions =  playerState.getPossibleActions(game.getMap());
         int i = 0;
         Action firstPossibleAction = possibletActions.get(0);
         

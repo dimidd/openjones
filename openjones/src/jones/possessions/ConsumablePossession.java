@@ -15,7 +15,7 @@ public class ConsumablePossession extends Possession {
     private double _consumed;
     private boolean _isAutoConsmuptionOn;
     
-    public final double EPSILON = 0.001;
+    public static final double EPSILON = 0.001;
   
     public ConsumablePossession (int units, Commodity comm, double rate) {
         super(units, comm);
@@ -28,6 +28,14 @@ public class ConsumablePossession extends Possession {
         this(other._units, other._commodity, other._consumptionRate);
     }
 
+    
+    public ConsumablePossession deepCopy() {
+        ConsumablePossession result = new ConsumablePossession(_units, _commodity.deepCopy(), _consumptionRate);
+        result._consumed = _consumed;
+        result._isAutoConsmuptionOn = _isAutoConsmuptionOn;
+        
+        return result;
+    }
     
     @Override
     public int hashCode() {

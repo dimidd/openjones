@@ -5,6 +5,7 @@
 package jones.agents;
 
 import jones.actions.Action;
+import jones.general.PlayerState;
 
 /**
  *
@@ -20,7 +21,7 @@ class StopPlanOnResponseMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
         if (null !=_plan.getLastResponse() && _plan.getLastResponse()._isPositive == _responseStopValue) {
             _action = null;
             _plan.getActions().clear();

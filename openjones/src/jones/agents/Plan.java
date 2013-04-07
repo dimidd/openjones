@@ -20,6 +20,7 @@ import jones.general.AbstractPlayerState;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.general.Route;
 import jones.jobs.Job;
@@ -134,16 +135,16 @@ public abstract class Plan {
         this._lastJob = job;
     }
     
-    public Action getNextAction() {
-        Player player = _agent.getPlayer();
-        int timeLeft = player.timeLeft();
+    public Action getNextAction(PlayerState playerState) {
+        //Player player = _agent.getPlayer();
+        int timeLeft = playerState.timeLeft();
         PlanMarker marker = _actions.peek();
-        if (null == marker)
-            return null;
+//        if (null == marker)
+//            return null;
         Action result = marker.getAction();
         int timeEffect = Integer.MAX_VALUE;
         if (null != result) {
-            timeEffect = result.timeEffect(player.getState());
+            timeEffect = result.timeEffect(playerState);
         }
         
         if (!_isRepetetive) {  
@@ -153,7 +154,7 @@ public abstract class Plan {
             if (timeEffect >= timeLeft) {
                 _actions.remove();
             }
-        marker.changeState();
+        marker.changeState(playerState);
         result = marker.getAction();
             
         return result;
@@ -185,7 +186,13 @@ public abstract class Plan {
     }
     
     
- 
+ /**
+  * Return true if this Plan has no more markers
+  * @return 
+  */
+    public boolean isEmpty() {
+        return _actions.isEmpty();
+    }
      
    
     
@@ -217,5 +224,8 @@ public abstract class Plan {
     public String toString() {
         return getClass().getSimpleName()+" actions:"+_actions.toString();
     }
+    
+    public abstract void notifyOfNewTurn();
+        
     
 }

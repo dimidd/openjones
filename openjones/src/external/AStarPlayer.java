@@ -20,6 +20,8 @@ import jones.map.MapManager;
  */
 public class AStarPlayer {
 
+    public static final double HEURISTIC_SCALE_FACTOR = 200.0;
+    
     /**
      * Our own implementation of the A-Star algorithm, for use with our Node
      * class and custom heuristic function.
@@ -30,39 +32,45 @@ public class AStarPlayer {
         Map<PlayerState, PlayerState> parentMap = new HashMap<>();
         Map<PlayerState, Plan> planFromParentMap = new HashMap<>();
 
-        Map<PlayerState, Integer> gScore = new HashMap<>();
-        Map<PlayerState, Integer> hScore = new HashMap<>();
-        Map<PlayerState, Integer> fScore = new HashMap<>();
+        Map<PlayerState, Double> gScore = new HashMap<>();
+        Map<PlayerState, Double> hScore = new HashMap<>();
+        Map<PlayerState, Double> fScore = new HashMap<>();
 
         PlayerState bestState = null;
-        int bestScore = -1;
-
+        double highestTotalScore = -1;
+        double doubleGoal = (double) goal;
         // set scores for start Node
-        gScore.put(start, 0);
-        hScore.put(start, heuristic(start, goal));
+        gScore.put(start, 0.0);
+        hScore.put(start, heuristic(start, doubleGoal));
         fScore.put(start, hScore.get(start));
 
         // at the beginning, only the start node has to be considered
         openQueue.add(new ScoreNode(fScore.get(start), start));
-
+//        Timer timer = new Timer(); 
+        long startTime = System.currentTimeMillis();
+        long curTime;
+        long timeLapsed = 0;
+        long TIME_LIMIT_MILISECONDS = 55000;
+        
         // work through all the nodes in the openQueue, which are sorted by
         // their fScore
-        while (!openQueue.isEmpty()) {
+        while (!openQueue.isEmpty() && timeLapsed < TIME_LIMIT_MILISECONDS) {
             // move node from openQueue to closedMap
-            PlayerState current = openQueue.remove().getData();
-            closedMap.put(current, null);
+            ScoreNode<PlayerState> currentFscoreNode = openQueue.remove();
+            closedMap.put(currentFscoreNode.getData(), null);
 
-            if (current.getScore() > bestScore) {
-                bestScore = current.getScore();
-                bestState = current;
+            int currentFscoreNodeTotalScore = currentFscoreNode.getData().getTotalScore();
+            if (currentFscoreNodeTotalScore > highestTotalScore) {// 
+                highestTotalScore = currentFscoreNodeTotalScore;
+                bestState = currentFscoreNode.getData();
             }
 
             // arrived? if yes -> build the path from the predecessor map
-            if (goal != current.getScore()) {
+            if (goal != currentFscoreNode.getData().getTotalScore()) {
             } else {
 
-                ArrayList<Plan> path = reconstructPath(parentMap, planFromParentMap, current);
-                path.add(planFromParentMap.get(current));
+                ArrayList<Plan> path = reconstructPath(parentMap, planFromParentMap, currentFscoreNode.getData());
+                path.add(planFromParentMap.get(currentFscoreNode.getData()));
                 return path;
             }
 
@@ -71,16 +79,16 @@ public class AStarPlayer {
             // not done yet -> check out the neighbors that we can reach and did
             // not check yet
 
-            for (PlayerStatePlan neighbour : getPlanNeigbours(current, agent, map)) {
+            for (PlayerStatePlan neighbour : getPlanNeigbours(currentFscoreNode.getData(), agent, map)) {
                 if (closedMap.containsKey(neighbour.getPlayerState())) {
                     continue;
                 }
 
                 // calculate temporary gScore
-                int timeCostFromCurrentToNeighbour = neighbour.getPlayerState().getTotalTime() - current.getTotalTime();
-                int tentativeGScoreNeighbour = gScore.get(current) + timeCostFromCurrentToNeighbour;
+                int timeCostFromCurrentToNeighbour = neighbour.getPlayerState().getTotalTime() - currentFscoreNode.getData().getTotalTime();
+                double tentativeGScoreNeighbour = gScore.get(currentFscoreNode.getData()) + timeCostFromCurrentToNeighbour;
 
-                int storedGScoreNeighbour;
+                double storedGScoreNeighbour;
                 if (gScore.get(neighbour.getPlayerState()) != null) {
                     storedGScoreNeighbour = gScore.get(neighbour.getPlayerState());
                 } else {
@@ -96,19 +104,21 @@ public class AStarPlayer {
                 }
                 
                 if (!inOpenList) {
-                    parentMap.put((PlayerState) neighbour.getPlayerState(), current);
+                    parentMap.put((PlayerState) neighbour.getPlayerState(), currentFscoreNode.getData());
                     planFromParentMap.put((PlayerState) neighbour.getPlayerState(), neighbour.getPlan());
                     gScore.put((PlayerState) neighbour.getPlayerState(), tentativeGScoreNeighbour);
-                    int heuristicScore = heuristic(neighbour.getPlayerState(), goal);
+                    double heuristicScore = HEURISTIC_SCALE_FACTOR * heuristic(neighbour.getPlayerState(), goal);
                     hScore.put(neighbour.getPlayerState(), heuristicScore);
-                    int funcScore = tentativeGScoreNeighbour + heuristicScore;
+                    double funcScore = tentativeGScoreNeighbour +  heuristicScore;
                     fScore.put(neighbour.getPlayerState(),funcScore);
                     openQueue.add(new ScoreNode(funcScore, neighbour.getPlayerState()));
                 }
             }
             
-            
+            curTime = System.currentTimeMillis();
+            timeLapsed = curTime - startTime;
         }
+        
         
         return reconstructPath(parentMap, planFromParentMap, bestState);
         
@@ -124,8 +134,8 @@ public class AStarPlayer {
     
     
 
-    static private int heuristic(PlayerState playerState, int goalScore) {       
-        return goalScore - playerState.getScore();       
+    static private double heuristic(PlayerState playerState, double goalScore) {       
+        return goalScore - playerState.getTotalScore();       
     }
 
     private static Iterable<PlayerStatePlan> getPlanNeigbours(PlayerState current, PlannerAgent agent, MapManager map) {

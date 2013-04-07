@@ -6,6 +6,7 @@ package jones.agents;
 
 import jones.actions.Action;
 import jones.actions.SubMenuAction;
+import jones.general.PlayerState;
 import jones.map.Building;
 
 /**
@@ -19,7 +20,7 @@ class AddBuildingsWithJobsMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
         SubMenuAction buildingJobs;
 
         for (int buildingIndex = Building.LAST_INDEX_OF_SPECIAL_ACTION + 1; buildingIndex < _plan.getPossibletActions().size(); ++buildingIndex) {

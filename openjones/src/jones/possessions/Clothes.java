@@ -4,13 +4,31 @@
  */
 package jones.possessions;
 
+import jones.general.Copyable;
+
 /**
  *
  * @author dimid
  */
-public class Clothes extends Commodity {
+public class Clothes extends Commodity  {
+
+    protected int _level;
+    
+        
+    	
+    public Clothes (int value, String name, int level) {
+        super(value, name);
+        _level = level;
+	
+    }
 
     @Override
+    public  Clothes deepCopy() {                
+        return new Clothes(_unitValue, _name, _level);
+    }
+
+    
+     @Override
     public int hashCode() {
         int hash = 7;
         hash = 83 * hash + this._level;
@@ -32,14 +50,8 @@ public class Clothes extends Commodity {
         return true;
     }
     
-    protected int _level;
-    	
-    public Clothes (int value, String name, int level) {
-        super(value, name);
-        _level = level;
-	
-    }
 
+    
     /**
      * @return the _level
      */

@@ -5,6 +5,7 @@
 package jones.agents;
 
 import jones.actions.Action;
+import jones.general.PlayerState;
 
 /**
  *
@@ -17,8 +18,8 @@ class UpdateJobMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
-        _plan.setLastJob(_plan.getAgent().getPlayer().getJob());
+    public void changeState(PlayerState playerState) {
+        _plan.setLastJob(playerState.getJob());
     }
 
     

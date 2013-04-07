@@ -6,6 +6,7 @@ package jones.agents;
 
 import jones.actions.Action;
 import jones.actions.WorkAction;
+import jones.general.PlayerState;
 
 /**
  *
@@ -30,7 +31,7 @@ class PushMarkerOnResponseMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
         _plan.setIsRepetetive(false);
         
         if (null != _plan.getLastResponse() && _plan.getLastResponse()._isPositive == _responsePushValue && _plan.getLastResponse()._message.contains(_responseMessageSubstring)) {

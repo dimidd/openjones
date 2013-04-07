@@ -4,30 +4,32 @@
  */
 package jones.possessions;
 
+import jones.general.Copyable;
+
 /**
  * A Possession is an amount of units of a Commodity
  *
  * @author dimid
  */
-public class Possession {
-
+public class Possession implements Copyable<Possession> {
+    
+    protected int _units;
+    protected Commodity _commodity;
     
     public Possession (Possession other)  {
         this(other._units, new Commodity(other._commodity));
-    }
-    
+    }    
        
     public Possession (int units, Commodity commod) {
         _units = units;
         _commodity = commod;
     }
-
+ 
+    @Override
+    public Possession deepCopy() {
+        return new Possession(_units, _commodity.deepCopy());
+    }
     
-    
-    protected int _units;
-    protected Commodity _commodity;
-    //private int _unitValue;
-
     public Commodity getCommodity() {
         return _commodity;
     }
@@ -96,4 +98,6 @@ public class Possession {
     public String toString () {
         return _units +" X "+_commodity.toString();
     }
+
+   
 }

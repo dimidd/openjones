@@ -6,6 +6,7 @@ package jones.agents;
 
 import jones.actions.Action;
 import jones.actions.Movement;
+import jones.general.PlayerState;
 
 /**
  *
@@ -18,7 +19,7 @@ class NoOpMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
         //noop
     }
     

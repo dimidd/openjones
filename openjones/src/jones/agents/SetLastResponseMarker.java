@@ -6,6 +6,7 @@ package jones.agents;
 
 import jones.actions.Action;
 import jones.actions.ActionResponse;
+import jones.general.PlayerState;
 
 /**
  *
@@ -20,7 +21,7 @@ class SetLastResponseMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() { 
+    public void changeState(PlayerState playerState) { 
         _plan.setLastResponse(_lastResp);
     }
     

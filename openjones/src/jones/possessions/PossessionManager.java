@@ -33,7 +33,7 @@ public class PossessionManager {
 	}
 
         public PossessionManager (PossessionManager other) {
-            _rentContract = new RentContract(other._rentContract);
+            _rentContract = other._rentContract;
             
             //shallow copy possessions
             _poss = new ArrayList<>(other._poss);

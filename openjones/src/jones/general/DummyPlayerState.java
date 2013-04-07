@@ -134,7 +134,7 @@ public class DummyPlayerState extends AbstractPlayerState {
 //    }
 
     @Override
-    public int getScore() {
+    public int getTotalScore() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

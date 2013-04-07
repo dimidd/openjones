@@ -61,7 +61,7 @@ public abstract class AbstractPlayerState {
 
     //public abstract int getRentDebt();
 
-    public abstract int getScore();
+    public abstract int getTotalScore();
 
     //public abstract Skills getSkills();
 

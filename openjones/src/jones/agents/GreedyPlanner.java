@@ -44,7 +44,7 @@ public class GreedyPlanner extends PlannerAgent {
      * @return 
      */ 
     protected Plan getMinScorePlan() {
-        List<PlanScore> allPlanScores = getPlanScores();
+        List<PlanScore> allPlanScores = getPlanScores(_player.getState());
         return getMinScorePlan(allPlanScores);
     }
 

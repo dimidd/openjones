@@ -13,6 +13,12 @@ public class Stock extends ModifiableCommodity {
     
     private static int _totalUnitsOwned;
     
+    public Stock (int unitValue, String name, int totalUnitsOwned) {
+        super(unitValue, name);
+        _totalUnitsOwned = totalUnitsOwned;
+    }
+    
+    
     
     /**
      * Number of units of this stock owned by all players
@@ -26,10 +32,7 @@ public class Stock extends ModifiableCommodity {
         _totalUnitsOwned = aTotalUnitsOwned;
     }
     
-    public Stock (int unitValue, String name, int totalUnitsOwned) {
-        super(unitValue, name);
-        _totalUnitsOwned = totalUnitsOwned;
-    }
+   
     
     /**
      * Updates price at the end of the turn, usually dependent on getTotalUnitsOwned

@@ -195,8 +195,8 @@ public class Player extends AbstractPlayer {
         return _state.getCash();
     }
 
-    public int getScore() {
-        return _state.getScore();
+    public int getTotalScore() {
+        return _state.getTotalScore();
     }
 
      public String scoresString() {

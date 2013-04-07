@@ -12,7 +12,7 @@ import jones.possessions.Possession;
  * @author dimid
  */
 public class Contract {
-    protected Possession _possession;
+    protected  final Possession _possession;
 
 //    @Override
 //    public Contract clone()  {
@@ -32,8 +32,8 @@ public class Contract {
         return _possession;
     }
 
-    public void setPossession(Possession possession) {
-        this._possession = possession;
-    }
+//    public void setPossession(Possession possession) {
+//        this._possession = possession;
+//    }
     
 }

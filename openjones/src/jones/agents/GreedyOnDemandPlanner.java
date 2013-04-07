@@ -31,7 +31,7 @@ public class GreedyOnDemandPlanner extends GreedyPlanner {
     @Override
     protected Plan getMinScorePlan() {
         
-        List<PlanScore> neededPlanScores = getNeededPlanScores();
+        List<PlanScore> neededPlanScores = getNeededPlanScores(_player.getState());
         return getMinScorePlan(neededPlanScores);
     }
 

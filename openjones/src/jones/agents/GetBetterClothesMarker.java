@@ -5,20 +5,23 @@
 package jones.agents;
 
 import jones.actions.Action;
+import jones.general.PlayerState;
 
 /**
  *
  * @author dimid <dimidd@gmail.com>
  */
 class GetBetterClothesMarker  extends PlanMarker{
+    private final PlayerState _playerState;
 
-    public GetBetterClothesMarker(Plan plan, Action action) {
+    public GetBetterClothesMarker(Plan plan, Action action, PlayerState playerState) {
         super(plan, action);
+        _playerState = playerState;
     }
 
     @Override
-    public void changeState() {
-        _plan.push(new GetBetterClothesPlan(_plan.getAgent()));
+    public void changeState(PlayerState playerState) {
+        _plan.push(new GetBetterClothesPlan(_plan.getAgent(), playerState));
     }
 
     

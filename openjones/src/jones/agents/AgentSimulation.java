@@ -51,7 +51,8 @@ public class AgentSimulation {
         //final Agent agent = new OrderedOnDemandPlanner(p1, g);
         //final Agent agent = new RandomOnDemandPlanner(p1, g);
         //final Agent agent = new GreedyPlanner(p1, g);
-        final Agent agent = new GreedyOnDemandPlanner(p1, g);
+        //final Agent agent = new GreedyOnDemandPlanner(p1, g);
+        final Agent agent = new SearchPlanner(p1, g);
         
         final GUI gui;
         _gui = new GUI(g);
@@ -135,8 +136,7 @@ public class AgentSimulation {
 
         }
 
-        return game.getCurPlayer()
-                .getScore();
+        return game.getCurPlayer().getTotalScore();
     }
 
     public static void main(String args[]) {

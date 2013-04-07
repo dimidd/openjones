@@ -5,6 +5,7 @@
 package jones.agents;
 
 import jones.actions.Action;
+import jones.general.PlayerState;
 
 /**
  * Markers contain an action and are used to change Plan state at a certain stage.
@@ -26,7 +27,7 @@ public abstract class PlanMarker {
         _action = action;
     }
     
-    public abstract void changeState();
+    public abstract void changeState(PlayerState playerState);
     
     @Override
     public String toString () {

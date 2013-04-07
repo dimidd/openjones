@@ -10,7 +10,7 @@ import jones.actions.RelaxAction;
  *
  * @author dimid <dimidd@gmail.com>
  */
-public class RestAllWeekPlan extends Plan {
+public class RestAllWeekPlan extends WeekPlan {
 
     public RestAllWeekPlan(Agent agent) {
         super(agent);

@@ -13,7 +13,7 @@ import jones.general.PlayerPosition;
  *
  * @author dimid <dimidd@gmail.com>
  */
-public class StudyAllWeekPlan extends Plan {
+public class StudyAllWeekPlan extends WeekPlan {
 
     public StudyAllWeekPlan(Agent agent) {
         super(agent);

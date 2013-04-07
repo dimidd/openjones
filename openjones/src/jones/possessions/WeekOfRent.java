@@ -15,6 +15,18 @@ public class WeekOfRent extends Commodity {
     
     private House _house;
 
+     public WeekOfRent (int pricePerWeek, House house) {
+        super(pricePerWeek, "Week of rent");
+        _house = house;
+    }
+     
+     
+    @Override
+    public WeekOfRent deepCopy() {
+        return new WeekOfRent(_unitValue, _house);
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -54,8 +66,5 @@ public class WeekOfRent extends Commodity {
     }
     
     
-    public WeekOfRent (int pricePerWeek, House house) {
-        super(pricePerWeek, "Week of rent");
-        _house = house;
-    }
+   
 }

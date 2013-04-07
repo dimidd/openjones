@@ -16,7 +16,7 @@ public class ScoreNode<T> implements Comparable<ScoreNode<T>> {
 
     public double _score;
 
-    public double getScore() {
+    public double getSearchScore() {
         return _score;
     }
 

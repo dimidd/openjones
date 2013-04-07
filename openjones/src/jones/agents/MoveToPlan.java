@@ -15,7 +15,7 @@ import jones.general.Route;
  *
  * @author dimid <dimidd@gmail.com>
  */
-public class MoveToPlan extends Plan {
+public class MoveToPlan extends AllOrNothingPlan {
     private final PlayerPosition _dest;
     private final PlayerPosition _src;
 
@@ -70,6 +70,8 @@ public class MoveToPlan extends Plan {
 //        return result;
 //
 //    }
+
+  
     
     
 }

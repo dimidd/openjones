@@ -11,6 +11,7 @@ import jones.actions.SubMenuAction;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 import jones.general.Position;
 import jones.map.Building;
 
@@ -18,10 +19,12 @@ import jones.map.Building;
  *
  * @author dimid <dimidd@gmail.com>
  */
-class GetABetterJobPlan extends Plan {
+class GetABetterJobPlan extends AllOrNothingPlan {
+    private final PlayerState _playerState;
 
-    public GetABetterJobPlan(Agent agent) {
+    public GetABetterJobPlan(Agent agent, PlayerState playerState) {
         super(agent);
+        _playerState = playerState;
         build();
     }
   
@@ -64,7 +67,7 @@ class GetABetterJobPlan extends Plan {
     public void build() {
                
         Game game = _agent.getGame();
-        Player player = _agent.getPlayer();
+        //Player player = _agent.getPlayer();
         Building employmentAgency = game.getMap().getBuildingByName("employment");
         assert (employmentAgency != null);
         
@@ -74,7 +77,7 @@ class GetABetterJobPlan extends Plan {
         
         //submenu actions of buildings
         //List<Action> buildingSpecificActions = employmentAgency.getPlayerBuildingSpecificActions(player);
-        _actions.add(new UpdatePossibleActionsMarker(this, null));
+        _actions.add(new UpdatePossibleActionsMarker(this, null, _playerState));
         _actions.add(new AddBuildingsWithJobsMarker(this, null));
         
           

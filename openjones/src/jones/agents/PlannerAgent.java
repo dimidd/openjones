@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
-import jones.general.AbstractPlayerState;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerState;
@@ -40,9 +39,9 @@ public class PlannerAgent extends Agent {
     private void testPlans() {
 
         //_schedule.add(new StudyAllWeekPlan(this));
-        _schedule.add(new GetABetterJobPlan(this));
+        _schedule.add(new GetABetterJobPlan(this, _player.getState()));
         //_schedule.add(new GetABetterJobPlan(this));
-        _schedule.add(new WorkAllWeekPlan(this));
+        _schedule.add(new WorkAllWeekPlan(this, _player.getState()));
         _schedule.add(new RestAllWeekPlan(this));
 
     }
@@ -66,7 +65,7 @@ public class PlannerAgent extends Agent {
     @Override
     public int selectAction(ArrayList<? extends Action> possibleActions) {
         Action nextAction;
-        nextAction = getCurPlan().getNextAction();
+        nextAction = getCurPlan().getNextAction(getPlayer().getState());
         int indexInPossibleActions;
         try {
             indexInPossibleActions = getActionIndex(possibleActions, nextAction);           
@@ -117,102 +116,102 @@ public class PlannerAgent extends Agent {
      *
      * @return
      */
-    protected List<Plan> getNeededPlans() {
+    public List<Plan> getNeededPlans(PlayerState playerState) {
 
         boolean hasAddedWork = false;
         ArrayList<Plan> result = new ArrayList<>();
-        int eduScore = _player.getEducationScore();
+        int eduScore = playerState.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new StudyAllWeekPlan(this));
         }
 
-        int healthScore = _player.getHealthScore();
+        int healthScore = playerState.getHealthScore();
         if (healthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new RestAllWeekPlan(this));
         }
 
-        int careerScore = _player.getCareerScore();
+        int careerScore = playerState.getCareerScore();
         if (careerScore < Goals.MAX_MEASURE_SCORE) {
             int rank = _player.getJob().getRank();
             if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
                 int experienceLevel = _player.getCareer().getExperienceLevel(rank);
                 int cap = _player.getCareer().getExp().getCapByRank(rank);
                 if (experienceLevel >= cap) {
-                    result.add(new GetABetterJobPlan(this));
+                    result.add(new GetABetterJobPlan(this, playerState));
                 } else {
-                    result.add(new WorkAllWeekPlan(this));
+                    result.add(new WorkAllWeekPlan(this, playerState));
                     hasAddedWork = true;
                 }
             } else if (0 == rank) {
-                result.add(new GetABetterJobPlan(this));
+                result.add(new GetABetterJobPlan(this, playerState));
             }
         }
 
-        int wealthScore = _player.getWealthscore();
+        int wealthScore = playerState.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new WorkAllWeekPlan(this));
+            result.add(new WorkAllWeekPlan(this, playerState));
         }
 
         return result;
     }
 
-    public List<Plan> getNeededPlans(AbstractPlayerState state) {
-
-
-        ArrayList<Plan> result = new ArrayList<>();
-        int eduScore = state.getEducationScore();
-        if (eduScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new StudyAllWeekPlan(this));
-        }
-
-        int healthScore = state.getHealthScore();
-        if (healthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new RestAllWeekPlan(this));
-        }
-
-        boolean hasAddedWork = false;
-        int careerScore = state.getCareerScore();
-        if (careerScore < Goals.MAX_MEASURE_SCORE) {
-            int rank = state.getJob().getRank();
-            if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
-                int experienceLevel = state.getCareer().getExperienceLevel(rank);
-                int cap = state.getCareer().getExp().getCapByRank(rank);
-                if (experienceLevel >= cap) {
-                    result.add(new GetABetterJobPlan(this));
-                } else {
-                    result.add(new WorkAllWeekPlan(this));
-                    hasAddedWork = true;
-                }
-            } else if (0 == rank) {
-                result.add(new GetABetterJobPlan(this));
-            }
-        }
-
-        int wealthScore = state.getWealthscore();
-        if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new WorkAllWeekPlan(this));
-        }
-
-        return result;
-
-    }
+//    public List<Plan> getNeededPlans(AbstractPlayerState state) {
+//
+//
+//        ArrayList<Plan> result = new ArrayList<>();
+//        int eduScore = state.getEducationScore();
+//        if (eduScore < Goals.MAX_MEASURE_SCORE) {
+//            result.add(new StudyAllWeekPlan(this));
+//        }
+//
+//        int healthScore = state.getHealthScore();
+//        if (healthScore < Goals.MAX_MEASURE_SCORE) {
+//            result.add(new RestAllWeekPlan(this));
+//        }
+//
+//        boolean hasAddedWork = false;
+//        int careerScore = state.getCareerScore();
+//        if (careerScore < Goals.MAX_MEASURE_SCORE) {
+//            int rank = state.getJob().getRank();
+//            if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
+//                int experienceLevel = state.getCareer().getExperienceLevel(rank);
+//                int cap = state.getCareer().getExp().getCapByRank(rank);
+//                if (experienceLevel >= cap) {
+//                    result.add(new GetABetterJobPlan(this));
+//                } else {
+//                    result.add(new WorkAllWeekPlan(this));
+//                    hasAddedWork = true;
+//                }
+//            } else if (0 == rank) {
+//                result.add(new GetABetterJobPlan(this));
+//            }
+//        }
+//
+//        int wealthScore = state.getWealthscore();
+//        if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
+//            result.add(new WorkAllWeekPlan(this));
+//        }
+//
+//        return result;
+//
+//    }
 
     /**
      * Return all possible PlanScores
      *
      * @return
      */
-    protected List<PlanScore> getPlanScores() {
+    protected List<PlanScore> getPlanScores(PlayerState playerState) {
         ArrayList<PlanScore> result = new ArrayList<>();
 
-        int eduScore = _player.getEducationScore();
+        int eduScore = playerState.getEducationScore();
         result.add(new PlanScore(new StudyAllWeekPlan(this), eduScore));
-        int healthScore = _player.getHealthScore();
+        int healthScore = playerState.getHealthScore();
         result.add(new PlanScore(new RestAllWeekPlan(this), healthScore));
-        int careerScore = _player.getCareerScore();
-        result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
-        int wealthScore = _player.getWealthscore();
-        result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
+        int careerScore = playerState.getCareerScore();
+        result.add(new PlanScore(new GetABetterJobPlan(this,playerState), careerScore));
+        int wealthScore = playerState.getWealthscore();
+        result.add(new PlanScore(new WorkAllWeekPlan(this, playerState), wealthScore));
 
         return result;
 
@@ -224,45 +223,45 @@ public class PlannerAgent extends Agent {
      *
      * @return
      */
-    protected List<PlanScore> getNeededPlanScores() {
+    protected List<PlanScore> getNeededPlanScores(PlayerState playerState) {
 
         boolean hasAddedWork = false;
         ArrayList<PlanScore> result = new ArrayList<>();
 
 
-        int eduScore = _player.getEducationScore();
+        int eduScore = playerState.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new PlanScore(new StudyAllWeekPlan(this), eduScore));
         }
 
-        int healthScore = _player.getHealthScore();
+        int healthScore = playerState.getHealthScore();
         if (healthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new PlanScore(new RestAllWeekPlan(this), healthScore));
         }
 
-        int careerScore = _player.getCareerScore();
+        int careerScore = playerState.getCareerScore();
         if (careerScore < Goals.MAX_MEASURE_SCORE) {
-            int rank = _player.getJob().getRank();
+            int rank = playerState.getJob().getRank();
             if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
-                int experienceLevel = _player.getCareer().getExperienceLevel(rank);
-                int cap = _player.getCareer().getExp().getCapByRank(rank);
+                int experienceLevel = playerState.getCareer().getExperienceLevel(rank);
+                int cap = playerState.getCareer().getExp().getCapByRank(rank);
                 if (experienceLevel >= cap) {
-                    result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
+                    result.add(new PlanScore(new GetABetterJobPlan(this, playerState), careerScore));
                 } else {
-                    result.add(new PlanScore(new WorkAllWeekPlan(this), careerScore));
+                    result.add(new PlanScore(new WorkAllWeekPlan(this, playerState), careerScore));
                     hasAddedWork = true;
                 }
             } else if (0 == rank) {
-                result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
+                result.add(new PlanScore(new GetABetterJobPlan(this, playerState), careerScore));
             }
         }
 
 
 //        _player.setJob(_game.getMap().getBuildingByName("Monolith Burgers").getJobs().get(0));
 
-        int wealthScore = _player.getWealthscore();
+        int wealthScore = playerState.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
+            result.add(new PlanScore(new WorkAllWeekPlan(this, playerState), wealthScore));
         }
 
         return result;

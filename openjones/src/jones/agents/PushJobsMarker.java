@@ -10,6 +10,7 @@ import jones.actions.ActionResponse;
 import jones.actions.ApplyForJobAction;
 import jones.actions.SubMenuAction;
 import jones.general.Game;
+import jones.general.PlayerState;
 
 /**
  * Push all building's job to the head of the queue
@@ -22,10 +23,10 @@ class PushJobsMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
         Agent agent = _plan.getAgent();
         Game game = agent.getGame();
-         ArrayList<? extends Action> possibletActions = game.getPossibletActions();
+         ArrayList<? extends Action> possibletActions = playerState.getPossibleActions(game.getMap());
          
          //we set the last response to false (currently it is true because of the submenu action of the building),
          //so it would change to true only after being hired

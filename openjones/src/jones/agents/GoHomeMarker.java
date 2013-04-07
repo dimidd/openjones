@@ -7,6 +7,7 @@ package jones.agents;
 import jones.actions.Action;
 import jones.general.Player;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 import jones.map.House;
 
 /**
@@ -20,10 +21,10 @@ class GoHomeMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
+    public void changeState(PlayerState playerState) {
                 
-        Player player = _plan.getAgent().getPlayer();
-        House home = player.getRentContract().getHouse();
+        //Player player = _plan.getAgent().getPlayer();
+        House home = playerState.getRentContract().getHouse();
         _plan.setLastHome(home);
         
  

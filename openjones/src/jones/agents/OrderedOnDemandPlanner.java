@@ -58,14 +58,14 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
                 int experienceLevel = _player.getCareer().getExperienceLevel(rank);
                 int cap = _player.getCareer().getExp().getCapByRank(rank);
                 if (experienceLevel >= cap) {
-                    result.add(new GetABetterJobPlan(this));
+                    result.add(new GetABetterJobPlan(this, _player.getState()));
                 } else {
-                    result.add(new WorkAllWeekPlan(this));
+                    result.add(new WorkAllWeekPlan(this, _player.getState()));
                     hasAddedWork = true;
                 }
             }
             else if (0 == rank) {
-                result.add(new GetABetterJobPlan(this));
+                result.add(new GetABetterJobPlan(this, _player.getState()));
             }
         }
 
@@ -73,7 +73,7 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
 
         int wealthScore = _player.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new WorkAllWeekPlan(this));
+            result.add(new WorkAllWeekPlan(this, _player.getState()));
         }
 
         return result;

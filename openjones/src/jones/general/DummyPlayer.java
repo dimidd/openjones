@@ -48,7 +48,7 @@ public class DummyPlayer extends AbstractPlayer {
     }
 
     @Override
-    public int getScore() {
+    public int getTotalScore() {
         return _total;
     }
     

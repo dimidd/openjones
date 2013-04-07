@@ -15,5 +15,5 @@ public abstract class AbstractPlayer {
     public abstract int getCareerScore();
     public abstract int getHappinessScore();
     public abstract int getWealthscore();
-    public abstract int getScore();
+    public abstract int getTotalScore();
 }

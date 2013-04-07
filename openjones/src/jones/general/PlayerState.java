@@ -6,6 +6,7 @@ package jones.general;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jones.actions.Action;
@@ -190,7 +191,8 @@ public class PlayerState extends AbstractPlayerState {
     }
 
     public final House getHouse() {
-        return _possessions.getRentContract().getHouse();
+        RentContract rentContract = _possessions.getRentContract();
+        return rentContract.getHouse();
     }
 
     public PlayerPosition getPos() {
@@ -322,7 +324,8 @@ public class PlayerState extends AbstractPlayerState {
         return _possessions.areClothesAboutToWare();
     }
 
-    public int getScore() {
+    @Override
+    public int getTotalScore() {
         return _goals.getTotalScore(this, _health, _happiness, _career, _education);
     }
 
@@ -336,6 +339,64 @@ public class PlayerState extends AbstractPlayerState {
 
     public void affectEducation(int EDUCATION_POINTS_GAIN) {
         _education.add(EDUCATION_POINTS_GAIN);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + this._clock;
+        hash = 61 * hash + this._weeks;
+//        hash = 61 * hash + Objects.hashCode(this._possessions);
+        hash = 61 * hash + Objects.hashCode(this._job);
+        hash = 61 * hash + Objects.hashCode(this._pos);
+        hash = 61 * hash + Objects.hashCode(this._health);
+        hash = 61 * hash + Objects.hashCode(this._happiness);
+        hash = 61 * hash + Objects.hashCode(this._career);
+        hash = 61 * hash + Objects.hashCode(this._education);
+        hash = 61 * hash + this._cash;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PlayerState other = (PlayerState) obj;
+        if (this._clock != other._clock) {
+            return false;
+        }
+        if (this._weeks != other._weeks) {
+            return false;
+        }
+//        if (!Objects.equals(this._possessions, other._possessions)) {
+//            return false;
+//        }
+        if (!Objects.equals(this._job, other._job)) {
+            return false;
+        }
+        if (!Objects.equals(this._pos, other._pos)) {
+            return false;
+        }
+        if (!Objects.equals(this._health, other._health)) {
+            return false;
+        }
+        if (!Objects.equals(this._happiness, other._happiness)) {
+            return false;
+        }
+        if (!Objects.equals(this._career, other._career)) {
+            return false;
+        }
+        if (!Objects.equals(this._education, other._education)) {
+            return false;
+        }
+        if (this._cash != other._cash) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -383,8 +444,9 @@ public class PlayerState extends AbstractPlayerState {
     }
 
     public void simulatePlan(Plan plan, MapManager map) {
-        Action nextAction = plan.getNextAction();
-        while (nextAction != null) {
+        
+        while (!plan.isEmpty()) {
+            Action nextAction = plan.getNextAction(this);
             ArrayList<? extends Action> possibleActions = getPossibleActions(map);
             int indexInPossibleActions;
             try {
@@ -404,14 +466,24 @@ public class PlayerState extends AbstractPlayerState {
                 Movement move = (Movement) possibleActions.get(indexInPossibleActions);
                 if (move.timeEffect(this) > timeLeft()) {
                     newTurn();
+                    plan.notifyOfNewTurn();
                     continue;
                 }
                 response = movePlayer(move.getNewPos(), map);
             }
 
+            plan.setLastResponse(response);
             if (!hasTime()) {
-                newTurn();              
+                newTurn();
+                plan.notifyOfNewTurn();
             }
+        }
+    }
+    
+   
+    public void notifyOfNewTurn(Plan plan) {
+        if (plan.size() > 0) {
+            plan.rebuild();
         }
     }
 

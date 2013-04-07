@@ -22,7 +22,7 @@ public class RandomOnDemandPlanner extends RandomPlanner{
       
     @Override
     protected Plan getRandomPlan() {
-        List<Plan> neededPlans = getNeededPlans();
+        List<Plan> neededPlans = getNeededPlans(_player.getState());
         Random random = new Random();
         int choice = random.nextInt(neededPlans.size());
         return neededPlans.get(choice);

@@ -9,6 +9,7 @@ import jones.actions.Action;
 import jones.actions.ExitBuildingMovement;
 import jones.general.Game;
 import jones.general.PlayerPosition;
+import jones.general.PlayerState;
 
 /**
  * Pushes MoveTo plan from player`s current position to _dest
@@ -23,12 +24,12 @@ public class MoveMarker extends PlanMarker {
     }
 
     @Override
-    public void changeState() {
-        PlayerPosition src = _plan.getAgent().getPlayer().getPos();
+    public void changeState(PlayerState playerState) {
+        PlayerPosition src = playerState.getPos();
         MoveToPlan move = new MoveToPlan(_plan.getAgent(), src, _dest);
         
         Game game = _plan.getAgent().getGame();
-        ArrayList<? extends Action> possibletActions = game.getPossibletActions();
+        ArrayList<? extends Action> possibletActions = playerState.getPossibleActions(game.getMap());
         int i = 0;
 //        Action firstMovement = move.getActions().get(i++).getAction();
 //        while (firstMovement == null && i < move.getActions().size())

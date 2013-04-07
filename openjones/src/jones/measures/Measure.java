@@ -38,4 +38,7 @@ public class Measure {
         this._score = score;
     }
     
+    public String toString() {
+        return getClass().getSimpleName()+":"+_score;
+    }
 }
