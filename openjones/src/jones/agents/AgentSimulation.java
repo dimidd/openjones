@@ -46,13 +46,13 @@ public class AgentSimulation {
         g.addPlayer(p1);
         g.startGame();
 
-        //final Agent agent = new PlannerAgent(p1, g);
+        //final PlannerAgent agent = new PlannerAgent(p1, g); agent.testPlans();
         //final Agent agent = new RandomPlanner(p1, g);
         //final Agent agent = new OrderedOnDemandPlanner(p1, g);
         //final Agent agent = new RandomOnDemandPlanner(p1, g);
         //final Agent agent = new GreedyPlanner(p1, g);
-        //final Agent agent = new GreedyOnDemandPlanner(p1, g);
-        final Agent agent = new SearchPlanner(p1, g);
+        final Agent agent = new GreedyOnDemandPlanner(p1, g);
+        //final Agent agent = new SearchPlanner(p1, g);
         
         final GUI gui;
         _gui = new GUI(g);

@@ -36,10 +36,10 @@ public class PossessionManager {
             _rentContract = other._rentContract;
             
             //shallow copy possessions
-            _poss = new ArrayList<>(other._poss);
-//            _poss = new ArrayList<>();
-//            for (Possession p: other._poss)
-//                _poss.add(new Possession(p));
+   //         _poss = new ArrayList<>(other._poss);
+            _poss = new ArrayList<>();
+            for (Possession p: other._poss)
+                _poss.add(new Possession(p));
             
             _rentDebt = other._rentDebt;
             _nOutfits = other._nOutfits;

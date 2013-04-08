@@ -139,8 +139,8 @@ public abstract class Plan {
         //Player player = _agent.getPlayer();
         int timeLeft = playerState.timeLeft();
         PlanMarker marker = _actions.peek();
-//        if (null == marker)
-//            return null;
+        if (null == marker)
+            return null;
         Action result = marker.getAction();
         int timeEffect = Integer.MAX_VALUE;
         if (null != result) {

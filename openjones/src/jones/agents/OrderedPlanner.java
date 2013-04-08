@@ -22,16 +22,8 @@ class OrderedPlanner extends PlannerAgent {
         
     @Override
     public boolean hasNextAction() {
-      while (_schedule.size() > 0) {
-          if (getCurPlan().size() > 0) {
-              return true;
-          }
-          else {
-              _schedule.remove();
-          }
-      }
-      
-      _schedule.addAll(getOrderedPlans());
+      if (!hasNextActionInSchedule())     
+        _schedule.addAll(getOrderedPlans());
       return true;
     }
 

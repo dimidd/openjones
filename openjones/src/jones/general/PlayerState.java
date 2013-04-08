@@ -447,6 +447,9 @@ public class PlayerState extends AbstractPlayerState {
         
         while (!plan.isEmpty()) {
             Action nextAction = plan.getNextAction(this);
+            if (null == nextAction) {
+                continue;
+            }
             ArrayList<? extends Action> possibleActions = getPossibleActions(map);
             int indexInPossibleActions;
             try {

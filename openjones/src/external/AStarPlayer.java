@@ -6,6 +6,8 @@ package external;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -21,22 +23,22 @@ import jones.map.MapManager;
 public class AStarPlayer {
 
     public static final double HEURISTIC_SCALE_FACTOR = 200.0;
-    
+
     /**
      * Our own implementation of the A-Star algorithm, for use with our Node
      * class and custom heuristic function.
      */
-    static public ArrayList<Plan> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map) {
+    static public List<Plan> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map) {
         Map<PlayerState, Object> closedMap = new HashMap<>();
-        PriorityQueue<ScoreNode<PlayerState>> openQueue = new PriorityQueue<>();
-        Map<PlayerState, PlayerState> parentMap = new HashMap<>();
-        Map<PlayerState, Plan> planFromParentMap = new HashMap<>();
+        PriorityQueue<ScoreNode<PlayerStateNode>> openQueue = new PriorityQueue<>();
+        //Map<PlayerState, PlayerStatePlan> parentMap = new HashMap<>();
+        //Map<PlayerState, Plan> planFromParentMap = new HashMap<>();
 
         Map<PlayerState, Double> gScore = new HashMap<>();
         Map<PlayerState, Double> hScore = new HashMap<>();
         Map<PlayerState, Double> fScore = new HashMap<>();
 
-        PlayerState bestState = null;
+        PlayerStateNode bestState = null;
         double highestTotalScore = -1;
         double doubleGoal = (double) goal;
         // set scores for start Node
@@ -45,125 +47,113 @@ public class AStarPlayer {
         fScore.put(start, hScore.get(start));
 
         // at the beginning, only the start node has to be considered
-        openQueue.add(new ScoreNode(fScore.get(start), start));
-//        Timer timer = new Timer(); 
+        PlayerStateNode startNode = new PlayerStateNode(start, null, null);
+        openQueue.add(new ScoreNode(fScore.get(start), startNode));
         long startTime = System.currentTimeMillis();
         long curTime;
         long timeLapsed = 0;
         long TIME_LIMIT_MILISECONDS = 55000;
-        
+
         // work through all the nodes in the openQueue, which are sorted by
         // their fScore
         while (!openQueue.isEmpty() && timeLapsed < TIME_LIMIT_MILISECONDS) {
             // move node from openQueue to closedMap
-            ScoreNode<PlayerState> currentFscoreNode = openQueue.remove();
-            closedMap.put(currentFscoreNode.getData(), null);
+            ScoreNode<PlayerStateNode> currentFscoreNode = openQueue.remove();
+            closedMap.put(currentFscoreNode.getData().getState(), null);
 
-            int currentFscoreNodeTotalScore = currentFscoreNode.getData().getTotalScore();
+            int currentFscoreNodeTotalScore = currentFscoreNode.getData().getState().getTotalScore();
             if (currentFscoreNodeTotalScore > highestTotalScore) {// 
                 highestTotalScore = currentFscoreNodeTotalScore;
                 bestState = currentFscoreNode.getData();
             }
 
             // arrived? if yes -> build the path from the predecessor map
-            if (goal != currentFscoreNode.getData().getTotalScore()) {
-            } else {
+            if (goal != currentFscoreNode.getData().getState().getTotalScore()) {
+            
+            } 
+            
+            else {
 
-                ArrayList<Plan> path = reconstructPath(parentMap, planFromParentMap, currentFscoreNode.getData());
-                path.add(planFromParentMap.get(currentFscoreNode.getData()));
+                List<Plan> path = reconstructPath(currentFscoreNode.getData());
+                //path.add(planFromParentMap.get(currentFscoreNode.getData()));
                 return path;
             }
+            
+            for (PlayerStateNode neighbour : getPlanNeigbours(currentFscoreNode.getData(), agent, map)) {
 
-
-
-            // not done yet -> check out the neighbors that we can reach and did
-            // not check yet
-
-            for (PlayerStatePlan neighbour : getPlanNeigbours(currentFscoreNode.getData(), agent, map)) {
-                if (closedMap.containsKey(neighbour.getPlayerState())) {
+                if (closedMap.containsKey(neighbour.getState())) {
                     continue;
                 }
-
-                // calculate temporary gScore
-                int timeCostFromCurrentToNeighbour = neighbour.getPlayerState().getTotalTime() - currentFscoreNode.getData().getTotalTime();
-                double tentativeGScoreNeighbour = gScore.get(currentFscoreNode.getData()) + timeCostFromCurrentToNeighbour;
-
+                
+                int timeCostFromCurrentToNeighbour = neighbour.getState().getTotalTime() - currentFscoreNode.getData().getState().getTotalTime();
+                double tentativeGScoreNeighbour = gScore.get(currentFscoreNode.getData().getState()) + timeCostFromCurrentToNeighbour;
                 double storedGScoreNeighbour;
-                if (gScore.get(neighbour.getPlayerState()) != null) {
-                    storedGScoreNeighbour = gScore.get(neighbour.getPlayerState());
+                if (gScore.get(neighbour.getState()) != null) {
+                    storedGScoreNeighbour = gScore.get(neighbour.getState());
                 } else {
                     storedGScoreNeighbour = Integer.MAX_VALUE;
                 }
-
                 boolean inOpenList = false;
-                if (openQueue.contains(new ScoreNode(0, neighbour.getPlayerState()))) {
+                if (openQueue.contains(new ScoreNode(0, neighbour))) {
                     inOpenList = true;
                     if (tentativeGScoreNeighbour >= storedGScoreNeighbour) {
                         continue;
                     }
                 }
-                
                 if (!inOpenList) {
-                    parentMap.put((PlayerState) neighbour.getPlayerState(), currentFscoreNode.getData());
-                    planFromParentMap.put((PlayerState) neighbour.getPlayerState(), neighbour.getPlan());
-                    gScore.put((PlayerState) neighbour.getPlayerState(), tentativeGScoreNeighbour);
-                    double heuristicScore = HEURISTIC_SCALE_FACTOR * heuristic(neighbour.getPlayerState(), goal);
-                    hScore.put(neighbour.getPlayerState(), heuristicScore);
-                    double funcScore = tentativeGScoreNeighbour +  heuristicScore;
-                    fScore.put(neighbour.getPlayerState(),funcScore);
-                    openQueue.add(new ScoreNode(funcScore, neighbour.getPlayerState()));
+ 
+                    gScore.put((PlayerState) neighbour.getState(), tentativeGScoreNeighbour);
+                    double heuristicScore = HEURISTIC_SCALE_FACTOR * heuristic(neighbour.getState(), goal);
+                    hScore.put(neighbour.getState(), heuristicScore);
+                    double funcScore = tentativeGScoreNeighbour + heuristicScore;
+                    fScore.put(neighbour.getState(), funcScore);
+
+                    openQueue.add(new ScoreNode(funcScore, neighbour));
                 }
             }
-            
+
             curTime = System.currentTimeMillis();
             timeLapsed = curTime - startTime;
         }
-        
-        
-        return reconstructPath(parentMap, planFromParentMap, bestState);
-        
-    }
-        
-        /**
-         * Heuristic function for A-Star, using the Tie-Breaker Manhattan
-         * Distance
-         * <br>
-         * As tie-breaker the delta y * 0.001 was chosen.
-         *
-         */
-    
-    
 
-    static private double heuristic(PlayerState playerState, double goalScore) {       
-        return goalScore - playerState.getTotalScore();       
+
+        return reconstructPath(bestState);
+
     }
 
-    private static Iterable<PlayerStatePlan> getPlanNeigbours(PlayerState current, PlannerAgent agent, MapManager map) {
-        ArrayList<PlayerStatePlan> result = new ArrayList<>();
-        List<Plan> neededPlans = agent.getNeededPlans(current);
-        for(Plan plan: neededPlans) {
-            PlayerState dummy = new PlayerState(current);
+    /**
+     * Heuristic function for A-Star, using the Tie-Breaker Manhattan Distance
+     * <br>
+     * As tie-breaker the delta y * 0.001 was chosen.
+     *
+     */
+    static private double heuristic(PlayerState playerState, double goalScore) {
+        return goalScore - playerState.getTotalScore();
+    }
+
+    private static Iterable<PlayerStateNode> getPlanNeigbours(PlayerStateNode current, PlannerAgent agent, MapManager map) {
+        ArrayList<PlayerStateNode> result = new ArrayList<>();
+        List<Plan> neededPlans = agent.getNeededPlans(current.getState());
+        for (Plan plan : neededPlans) {
+            PlayerState dummy = new PlayerState(current.getState());
             dummy.simulatePlan(plan, map);
-            PlayerStatePlan neighbour = new PlayerStatePlan(dummy, plan);
+            PlayerStateNode neighbour = new PlayerStateNode(dummy, current, plan);
             result.add(neighbour);
         }
-        
+
         return result;
     }
 
-    private static ArrayList<Plan> reconstructPath(Map<PlayerState, PlayerState> parentMap, Map<PlayerState, Plan> planFromParentMap, PlayerState current) {
-           
-        if (parentMap.containsKey(current)) {
-            ArrayList<Plan> path = reconstructPath(parentMap,planFromParentMap, parentMap.get(current));
-            path.add(planFromParentMap.get(current));
-            return path;
-        } else {
-            ArrayList<Plan> path = new ArrayList<>();
-            path.add(planFromParentMap.get(current));
-            return path;
+    private static List<Plan> reconstructPath(PlayerStateNode node) {
+        LinkedList<Plan> path = new LinkedList<>();;
+        Plan plan = node.getEdge();
+        while (plan != null) {
+            path.push(plan);
+            node = node.getParent();
+            plan = node.getEdge();
         }
 
-        
-        
+        return path;
+
     }
 }

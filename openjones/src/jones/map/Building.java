@@ -88,34 +88,13 @@ public abstract  class Building extends Site {
     }
     
     public  ArrayList<? extends Action> getPlayerActions() {
-        assert(null != getPlayerActionsParent());
-        setActions(new ArrayList<Action>());
-//        GenericTreeNode<Action> root = getActionsTree().getRoot();
-//        
-//        Action doneAction;
-//        if (root == _playerActionsParent) {           
-//            doneAction = new ExitBuildingMovement(this.getPosition(), this); //exit            
-//        }
-//        else {
-//            doneAction = new SubMenuAction(0, "back", _playerActionsParent.getParent()); //back
-//        }
-//        _actions.add(DONE_ACTION_INDEX,doneAction);
-//                   
-//        Action relaxAction =  null;
-//        if (player.getState().getHouse() == this) {
-//            relaxAction = new RelaxAction(player.getState().getHouse());
-//        }
-//        _actions.add(RELAX_ACTION_INDEX,relaxAction);
-//               
-//        Action workAction = null;
-//        if (player.getState().getJob().getBuilding() == this) {
-//            workAction =  new WorkAction(player.getState().getJob());
-//        }
-//        _actions.add(WORK_ACTION_INDEX,workAction);
-
-  //      _actions.addAll(getMenuActions(player));
-         getActions().addAll(getPlayerActionsParent().getDataOfChildren());
-        return getActions();
+        if(null == _playerActionsParent) 
+            _playerActionsParent = getActionsTree().getRoot();
+        _actions = new ArrayList<Action>();
+        List<Action> dataOfChildren = _playerActionsParent.getDataOfChildren();
+         _actions.addAll(dataOfChildren);
+         
+        return _actions;
     }
 
     public void prepareForPlayerEntrance(PlayerState playerState) {

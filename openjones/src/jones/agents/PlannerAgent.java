@@ -36,13 +36,13 @@ public class PlannerAgent extends Agent {
         //testPlans();
     }
 
-    private void testPlans() {
+    public void testPlans() {
 
-        //_schedule.add(new StudyAllWeekPlan(this));
-        _schedule.add(new GetABetterJobPlan(this, _player.getState()));
-        //_schedule.add(new GetABetterJobPlan(this));
-        _schedule.add(new WorkAllWeekPlan(this, _player.getState()));
-        _schedule.add(new RestAllWeekPlan(this));
+        _schedule.add(new StudyAllWeekPlan(this));
+ //       _schedule.add(new GetABetterJobPlan(this, _player.getState()));
+ //       _schedule.add(new GetABetterJobPlan(this, _player.getState()));
+//        _schedule.add(new WorkAllWeekPlan(this, _player.getState()));
+//        _schedule.add(new RestAllWeekPlan(this));
 
     }
 
@@ -96,9 +96,9 @@ public class PlannerAgent extends Agent {
         return indexInPossibleActions;
 
     }
-
-    @Override
-    public boolean hasNextAction() {
+    
+    protected boolean  hasNextActionInSchedule() {
+                
         while (_schedule.size() > 0) {
             if (getCurPlan().size() > 0) {
                 return true;
@@ -106,8 +106,15 @@ public class PlannerAgent extends Agent {
                 _schedule.remove();
             }
         }
-
+        
         return false;
+
+    }
+
+    @Override
+    public boolean hasNextAction() {
+        
+        return hasNextActionInSchedule();
     }
 
     /**

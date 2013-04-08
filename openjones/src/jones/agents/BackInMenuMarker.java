@@ -4,11 +4,12 @@
  */
 package jones.agents;
 
-import java.util.ArrayList;
 import jones.actions.Action;
-import jones.general.Game;
+import jones.actions.SubMenuAction;
 import jones.general.PlayerPosition;
 import jones.general.PlayerState;
+import jones.map.Building;
+import net.vivin.GenericTreeNode;
 
 /**
  *
@@ -22,26 +23,23 @@ class BackInMenuMarker extends PlanMarker {
 
     @Override
     public void changeState(PlayerState playerState) {
-                PlayerPosition src = _plan.getAgent().getPlayer().getPos();
+
+        PlayerPosition src = _plan.getAgent().getPlayer().getPos();
         //MoveToPlan move = new MoveToPlan(_plan.getAgent(), src, _dest);
-        
-        Game game = _plan.getAgent().getGame();
-        ArrayList<? extends Action> possibletActions =  playerState.getPossibleActions(game.getMap());
-        int i = 0;
-        Action firstPossibleAction = possibletActions.get(0);
-        
-        if (!firstPossibleAction.toString().equals("Exit")) {
-                //game.performBuildingAction(0);
-                _plan.getActions().push(new BackInMenuMarker(_plan,firstPossibleAction));
-//                possibletActions = game.getPossibletActions();
-//                index = possibletActions.indexOf(move);
-            
+
+ 
+        if (src.isInBuilding()) {
+            Building build = (Building) _plan.getAgent().getGame().getMap().getTile(src);
+            GenericTreeNode<Action> root = build.getActionsTree().getRoot();
+            if (build.getPlayerActionsParent() != root) {
+                _plan.getActions().push(new BackInMenuMarker(_plan, new SubMenuAction(0, "back", build.getPlayerActionsParent().getParent(), build)));
+            } else {
+                _action = null;
+            }
         }
-        
-        else 
-            _action = null;
+
+
+
 
     }
-
-    
 }

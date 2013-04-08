@@ -6,6 +6,7 @@ package jones.agents;
 
 import external.AStarPlayer;
 import java.util.ArrayList;
+import java.util.List;
 import jones.general.Game;
 import jones.general.Player;
 import jones.measures.Goals;
@@ -32,7 +33,7 @@ public class SearchPlanner extends PlannerAgent {
           }
       }
         
-      ArrayList<Plan> foundPlans = AStarPlayer.findPlan(_player.getState(), Goals.MAX_TOTAL_SCORE, this, _game.getMap());
+      List<Plan> foundPlans = AStarPlayer.findPlan(_player.getState(), Goals.MAX_TOTAL_SCORE, this, _game.getMap());
 //      Plan first = foundPlans.get(0);
 //      for (int i =1; i < foundPlans.size(); ++i)
 //          first.concatenate(foundPlans.get(i));

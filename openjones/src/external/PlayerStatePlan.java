@@ -36,4 +36,11 @@ public class PlayerStatePlan {
         _playerState = playerState;
         _plan = plan;
     }
+
+    @Override
+    public String toString() {
+        return "PlayerStatePlan{" + "_playerState=" + _playerState + ", _plan=" + _plan + '}';
+    }
+    
+    
 }

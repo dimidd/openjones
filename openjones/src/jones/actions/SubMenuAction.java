@@ -39,7 +39,7 @@ public class SubMenuAction extends Action {
         if (this._duration != other._duration) {
             return false;
         }
-        if (!this._name.equals(other._name)) {
+        if (this._name != null && !this._name.equals(other._name)) {
             return false;
         }
         if (!(this._node == other._node)) {

@@ -22,16 +22,8 @@ public class RandomPlanner extends PlannerAgent {
         
     @Override
     public boolean hasNextAction() {
-      while (_schedule.size() > 0) {
-          if (getCurPlan().size() > 0) {
-              return true;
-          }
-          else {
-              _schedule.remove();
-          }
-      }
-      
-      _schedule.add(getRandomPlan());
+      if (!hasNextActionInSchedule())          
+        _schedule.add(getRandomPlan());
       return true;
     }
 
