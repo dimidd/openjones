@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
+import jones.actions.ExitBuildingMovement;
 import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerState;
@@ -39,7 +40,7 @@ public class PlannerAgent extends Agent {
     public void testPlans() {
 
         _schedule.add(new StudyAllWeekPlan(this));
- //       _schedule.add(new GetABetterJobPlan(this, _player.getState()));
+        _schedule.add(new GetABetterJobPlan(this, _player.getState()));
  //       _schedule.add(new GetABetterJobPlan(this, _player.getState()));
 //        _schedule.add(new WorkAllWeekPlan(this, _player.getState()));
 //        _schedule.add(new RestAllWeekPlan(this));
@@ -89,6 +90,7 @@ public class PlannerAgent extends Agent {
         }
 
         int indexInPossibleActions = possibleActions.indexOf(nextAction);
+        
         if (-1 == indexInPossibleActions) {
             throw new IllegalActionException(nextAction, possibleActions);
         }
@@ -146,7 +148,7 @@ public class PlannerAgent extends Agent {
                 if (experienceLevel >= cap) {
                     result.add(new GetABetterJobPlan(this, playerState));
                 } else {
-                    result.add(new WorkAllWeekPlan(this, playerState));
+                    result.add(new WorkAllWeekPlan(this));
                     hasAddedWork = true;
                 }
             } else if (0 == rank) {
@@ -156,7 +158,7 @@ public class PlannerAgent extends Agent {
 
         int wealthScore = playerState.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new WorkAllWeekPlan(this, playerState));
+            result.add(new WorkAllWeekPlan(this));
         }
 
         return result;
@@ -218,7 +220,7 @@ public class PlannerAgent extends Agent {
         int careerScore = playerState.getCareerScore();
         result.add(new PlanScore(new GetABetterJobPlan(this,playerState), careerScore));
         int wealthScore = playerState.getWealthscore();
-        result.add(new PlanScore(new WorkAllWeekPlan(this, playerState), wealthScore));
+        result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
 
         return result;
 
@@ -255,7 +257,7 @@ public class PlannerAgent extends Agent {
                 if (experienceLevel >= cap) {
                     result.add(new PlanScore(new GetABetterJobPlan(this, playerState), careerScore));
                 } else {
-                    result.add(new PlanScore(new WorkAllWeekPlan(this, playerState), careerScore));
+                    result.add(new PlanScore(new WorkAllWeekPlan(this), careerScore));
                     hasAddedWork = true;
                 }
             } else if (0 == rank) {
@@ -268,7 +270,7 @@ public class PlannerAgent extends Agent {
 
         int wealthScore = playerState.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new PlanScore(new WorkAllWeekPlan(this, playerState), wealthScore));
+            result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
         }
 
         return result;

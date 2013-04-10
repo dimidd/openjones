@@ -10,8 +10,8 @@ package jones.agents;
  */
 public abstract class AllOrNothingPlan extends Plan {
 
-    public AllOrNothingPlan(Agent agent) {
-        super(agent);
+    public AllOrNothingPlan(Agent agent, PlanType type) {
+        super(agent, type);
     }
      
     @Override

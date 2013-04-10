@@ -16,7 +16,7 @@ import jones.general.PlayerPosition;
 public class StudyAllWeekPlan extends WeekPlan {
 
     public StudyAllWeekPlan(Agent agent) {
-        super(agent);
+        super(agent, PlanType.STUDY_ALL_WEEK);
         build();
     }
 

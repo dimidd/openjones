@@ -35,7 +35,7 @@ public class RandomPlanner extends PlannerAgent {
                 
                 case STUDY_PLAN_INDEX: return new StudyAllWeekPlan(this);            
                 case JOB_PLAN_INDEX:   return new GetABetterJobPlan(this, _player.getState());
-                case WORK_PLAN_INDEX:  return new WorkAllWeekPlan(this, _player.getState());
+                case WORK_PLAN_INDEX:  return new WorkAllWeekPlan(this);
                 case REST_PLAN_INDEX:  return new RestAllWeekPlan(this);
                 default:               return new RestAllWeekPlan(this);                                
                         

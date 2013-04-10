@@ -39,6 +39,14 @@ public abstract class Plan {
     protected ActionResponse _lastResponse;
     protected Job _lastJob;
     protected House _lastHome;
+    protected final PlanType _type;
+    
+//    public static final int STUDY_ALL_WEEK_PLAN_TYPE = 0;
+//    public static final int REST_ALL_WEEK_PLAN_TYPE = 1;
+//    public static final int WORK_ALL_WEEK_PLAN_TYPE = 2;
+//    public static final int BETTER_JOB_PLAN_TYPE = 3;
+    
+    public enum PlanType  {STUDY_ALL_WEEK, REST_ALL_WEEK,  WORK_ALL_WEEK, BETTER_JOB, MOVE_TO, BETTER_CLOTHES};
 
     public Player getPlayer() {
         return _agent.getPlayer();
@@ -46,6 +54,10 @@ public abstract class Plan {
     
     public House getLastHome() {
         return _lastHome;
+    }
+
+    public PlanType getType() {
+        return _type;
     }
 
     public void setLastHome(House _lastHome) {
@@ -62,14 +74,17 @@ public abstract class Plan {
     protected ArrayList<? extends Action>  _possibletActions;
     
     //public abstract int getDuration(AbstractPlayerState state);
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + Objects.hashCode(this._agent);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this._agent);
+        hash = 79 * hash + (this._type != null ? this._type.hashCode() : 0);
         return hash;
     }
+    
+ 
 
+   
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -82,6 +97,10 @@ public abstract class Plan {
         if (!Objects.equals(this._agent, other._agent)) {
             return false;
         }
+        
+        if (_type != other._type)
+            return false;
+                
         return true;
     }
 
@@ -112,9 +131,11 @@ public abstract class Plan {
         return _agent;
     }
     
-    protected Plan (Agent agent) {
+    protected Plan (Agent agent, PlanType type) {
         _agent   = agent;
         _actions = new LinkedList<>();
+        _type = type;
+        
         //build();
         
     }

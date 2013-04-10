@@ -13,7 +13,7 @@ import jones.actions.RelaxAction;
 public class RestAllWeekPlan extends WeekPlan {
 
     public RestAllWeekPlan(Agent agent) {
-        super(agent);
+        super(agent, PlanType.REST_ALL_WEEK);
         build();
     }
 

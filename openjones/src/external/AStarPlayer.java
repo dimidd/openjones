@@ -52,7 +52,7 @@ public class AStarPlayer {
         long startTime = System.currentTimeMillis();
         long curTime;
         long timeLapsed = 0;
-        long TIME_LIMIT_MILISECONDS = 55000;
+        long TIME_LIMIT_MILISECONDS = 125000;
 
         // work through all the nodes in the openQueue, which are sorted by
         // their fScore
@@ -136,6 +136,9 @@ public class AStarPlayer {
         List<Plan> neededPlans = agent.getNeededPlans(current.getState());
         for (Plan plan : neededPlans) {
             PlayerState dummy = new PlayerState(current.getState());
+            if (current.getEdge() != null && current.getEdge().getType() == Plan.PlanType.BETTER_JOB) {
+                boolean b = false;
+            }
             dummy.simulatePlan(plan, map);
             PlayerStateNode neighbour = new PlayerStateNode(dummy, current, plan);
             result.add(neighbour);

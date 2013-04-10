@@ -58,6 +58,7 @@ public class ExitBuildingMovement extends Movement{
     }
  
     public ExitBuildingMovement (Position oldpos, Building build) {
+//        this(new PlayerPosition(oldpos,true), build);
         super(new PlayerPosition(oldpos,true), new PlayerPosition(oldpos,false));     
         _build = build;
     }

@@ -49,7 +49,8 @@ public class MoveMarker extends PlanMarker {
         if (src.isInBuilding()) {
             Building build = (Building) _plan.getAgent().getGame().getMap().getTile(src);
             GenericTreeNode<Action> root = build.getActionsTree().getRoot();
-            if (build.getPlayerActionsParent() != root) {
+            GenericTreeNode<Action> playerActionsParent = build.getPlayerActionsParent();
+            if (playerActionsParent != null && playerActionsParent != root) {
                 gotoMainMenu.add(new BackInMenuMarker(_plan, null));
             }
 

@@ -18,14 +18,14 @@ import jones.map.MapManager;
  */
 public class Movement extends Action {
     
-    protected PlayerPosition _oldPos;
-    protected PlayerPosition _newPos;
+    protected final PlayerPosition _oldPos;
+    protected final PlayerPosition _newPos;
     protected int _duration;
     
     /**
      *  The time it takes to move to an adjacent tile on the map 
      */
-    public final int SINGLE_TILE_MOVEMENT_DURATION = 10;
+    public static final int SINGLE_TILE_MOVEMENT_DURATION = 10;
     
     public Movement (PlayerPosition oldpos, PlayerPosition newpos) {
         _oldPos = oldpos;
@@ -137,12 +137,12 @@ public class Movement extends Action {
         return _oldPos;
     }
 
-    /**
-     * @param oldPos the _oldPos to set
-     */
-    public void setOldPos(PlayerPosition oldPos) {
-        this._oldPos = oldPos;
-    }
+//    /**
+//     * @param oldPos the _oldPos to set
+//     */
+//    public void setOldPos(PlayerPosition oldPos) {
+//        this._oldPos = oldPos;
+//    }
 
     /**
      * @return the _newPos
@@ -151,12 +151,12 @@ public class Movement extends Action {
         return _newPos;
     }
 
-    /**
-     * @param newPos the _newPos to set
-     */
-    public void setNewPos(PlayerPosition newPos) {
-        this._newPos = newPos;
-    }
+//    /**
+//     * @param newPos the _newPos to set
+//     */
+//    public void setNewPos(PlayerPosition newPos) {
+//        this._newPos = newPos;
+//    }
 
  
     @Override

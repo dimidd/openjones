@@ -19,7 +19,7 @@ class GetBetterClothesPlan extends AllOrNothingPlan {
     private final PlayerState _playerState;
 
     public GetBetterClothesPlan(Agent agent, PlayerState playerState) {
-        super (agent);
+        super (agent, PlanType.BETTER_CLOTHES);
         _playerState = playerState;
         build();
     }

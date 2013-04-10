@@ -20,7 +20,7 @@ public class MoveToPlan extends AllOrNothingPlan {
     private final PlayerPosition _src;
 
     public MoveToPlan(Agent agent, PlayerPosition src, PlayerPosition dest) {
-        super(agent);
+        super(agent, PlanType.MOVE_TO);
         _dest = dest;
         _src = src;
         build();

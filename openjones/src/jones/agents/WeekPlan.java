@@ -10,8 +10,8 @@ package jones.agents;
  */
 public abstract class WeekPlan extends Plan {
 
-    public WeekPlan(Agent agent) {
-        super(agent);
+    public WeekPlan(Agent agent, PlanType type) {
+        super(agent, type);
     }
 
    

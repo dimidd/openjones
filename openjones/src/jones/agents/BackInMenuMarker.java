@@ -24,7 +24,7 @@ class BackInMenuMarker extends PlanMarker {
     @Override
     public void changeState(PlayerState playerState) {
 
-        PlayerPosition src = _plan.getAgent().getPlayer().getPos();
+        PlayerPosition src = playerState.getPos();
         //MoveToPlan move = new MoveToPlan(_plan.getAgent(), src, _dest);
 
  

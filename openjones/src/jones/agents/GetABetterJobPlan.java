@@ -23,7 +23,7 @@ class GetABetterJobPlan extends AllOrNothingPlan {
     private final PlayerState _playerState;
 
     public GetABetterJobPlan(Agent agent, PlayerState playerState) {
-        super(agent);
+        super(agent, PlanType.BETTER_JOB);
         _playerState = playerState;
         build();
     }

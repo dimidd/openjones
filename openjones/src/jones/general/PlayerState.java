@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import jones.actions.Action;
 import jones.actions.ActionResponse;
 import jones.actions.EnterBuildingMovement;
+import jones.actions.ExitBuildingMovement;
 import jones.actions.Movement;
 import jones.agents.IllegalActionException;
 import jones.agents.Plan;
@@ -444,7 +445,7 @@ public class PlayerState extends AbstractPlayerState {
     }
 
     public void simulatePlan(Plan plan, MapManager map) {
-        
+
         while (!plan.isEmpty()) {
             Action nextAction = plan.getNextAction(this);
             if (null == nextAction) {
@@ -482,8 +483,7 @@ public class PlayerState extends AbstractPlayerState {
             }
         }
     }
-    
-   
+
     public void notifyOfNewTurn(Plan plan) {
         if (plan.size() > 0) {
             plan.rebuild();
@@ -506,7 +506,17 @@ public class PlayerState extends AbstractPlayerState {
         PlayerPosition curPos = getPos();
         if (curPos.isInBuilding()) {
             Building curBuild = (Building) map.getTile(curPos);
-            return curBuild.getPlayerActions();
+            ArrayList<? extends Action> possibleActions = curBuild.getPlayerActions();
+            Action first = possibleActions.get(0);
+            if (first instanceof ExitBuildingMovement) {
+                ExitBuildingMovement exit = (ExitBuildingMovement) first;
+                if (exit.getOldPos().getX() != exit.getNewPos().getX()) {
+                    int fuck = 0;
+
+                }
+            }
+            return possibleActions;
+
         } else {
             return getPossibleMovements(map);
         }

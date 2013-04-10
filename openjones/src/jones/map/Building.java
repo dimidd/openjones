@@ -90,7 +90,7 @@ public abstract  class Building extends Site {
     public  ArrayList<? extends Action> getPlayerActions() {
         if(null == _playerActionsParent) 
             _playerActionsParent = getActionsTree().getRoot();
-        _actions = new ArrayList<Action>();
+        _actions = new ArrayList<>();
         List<Action> dataOfChildren = _playerActionsParent.getDataOfChildren();
          _actions.addAll(dataOfChildren);
          

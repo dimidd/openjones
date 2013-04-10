@@ -22,19 +22,6 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
         super(p1, g);
     }
 
-//    @Override
-//    public boolean hasNextAction() {
-//        while (_schedule.size() > 0) {
-//            if (getCurPlan().size() > 0) {
-//                return true;
-//            } else {
-//                _schedule.remove();
-//            }
-//        }
-//
-//        _schedule.addAll(getOrderedPlans());
-//        return true;
-//    }
 
     @Override
     protected List<Plan> getOrderedPlans() {
@@ -60,7 +47,7 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
                 if (experienceLevel >= cap) {
                     result.add(new GetABetterJobPlan(this, _player.getState()));
                 } else {
-                    result.add(new WorkAllWeekPlan(this, _player.getState()));
+                    result.add(new WorkAllWeekPlan(this));
                     hasAddedWork = true;
                 }
             }
@@ -73,7 +60,7 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
 
         int wealthScore = _player.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
-            result.add(new WorkAllWeekPlan(this, _player.getState()));
+            result.add(new WorkAllWeekPlan(this));
         }
 
         return result;
