@@ -70,8 +70,8 @@ public class PlannerAgent extends Agent {
         Plan curPlan = getCurPlan();
         if (null == curPlan) {
             return Game.NOOP_ACTION_INDEX;
-           // _schedule.remove();
-          //  curPlan = getCurPlan();
+//           // _schedule.remove();
+//          //  curPlan = getCurPlan();
         }
         nextAction = curPlan.getNextAction(getPlayer().getState());
         int indexInPossibleActions;

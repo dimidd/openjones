@@ -137,6 +137,7 @@ public class Game {
         movePlayer(pos);
     }
 
+    
     /**
      * Advances game to the next player`s turn.
      *
@@ -144,35 +145,9 @@ public class Game {
      */
     public boolean endTurn() {
 
-        ArrayList<GameAnnouncement> vicorsAnnouncements = new ArrayList<>();
-        // we check all players, even players who haven't this turn,
-        // since they may win due to an economy change
-        // (e.g. stocks rising, losing a job)
-        for (Player p : _players) {
-            if (p.hasWon()) {
-                _victors.add(p);
-                vicorsAnnouncements.add(new GameAnnouncement(p.getName()+" has won!"));
-            }
-        }
-
-        
-        if (!_victors.isEmpty()) {
-            _hasEnded = true;
-            _annoncments.clear();
-            _annoncments.addAll(vicorsAnnouncements);
-            return true;
-        }
-
-        _curPlayer = getNextPlayer();
-        
+        checkVictory();
+        _curPlayer = getNextPlayer();        
         _curPlayer.startWeek();
-//        _curPlayer.gotoStartPosition();
-//        _curPlayer.setClock(0);
-//        _curPlayer.advanceWeeks();
-        
-//        _weekendEvent = _eventGen.getRandomWeekendEvent(_curPlayer);
-//        _weekendEvent.perform (_curPlayer);
-
         changeEconomy();
         updateAnnouncements();
         _curPlayer.consume();
@@ -402,6 +377,33 @@ public class Game {
        }
        
        return result.toString();
+    }
+
+    private boolean checkVictory() {
+                ArrayList<GameAnnouncement> vicorsAnnouncements = new ArrayList<>();
+        // we check all players, even players who haven't this turn,
+        // since they may win due to an economy change
+        // (e.g. stocks rising, losing a job)
+        for (Player p : _players) {
+            if (p.hasWon()) {
+                _victors.add(p);
+                vicorsAnnouncements.add(new GameAnnouncement(p.getName()+" has won!"));
+            }
+        }
+        
+        if (_victors.size() == _players.size())
+            _hasEnded = true;
+        
+        if (!_victors.isEmpty()) {
+            _hasEnded = true;
+            _annoncments.clear();
+            _annoncments.addAll(vicorsAnnouncements);
+            return true;
+        }
+        
+        return false;
+
+        
     }
 
  

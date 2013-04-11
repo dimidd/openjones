@@ -134,6 +134,7 @@ public class AgentSimulation {
                 agent.notifyOfNewTurn();
             }
 
+            
         }
 
         return game.getCurPlayer().getTotalScore();
