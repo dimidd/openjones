@@ -36,8 +36,8 @@ public class Main {
         Position homePos =map.getLowestHousing().getPosition();
         PlayerPosition homePosInside = new PlayerPosition(homePos, true);
         g.movePlayer(homePosInside);
-        ArrayList<? extends Action> gePossibletActions = g.getPossibletActions();
-        g.performBuildingAction(Building.RELAX_ACTION_INDEX);
+        ArrayList<Action> gePossibletActions = g.getPossibletActions();
+        g.performBuildingAction(Building.RELAX_ACTION_INDEX, gePossibletActions);
         
         Position rentAgencyPos = new Position(1, 0);
         PlayerPosition rentAgencyPosInside = new PlayerPosition(rentAgencyPos, true);
@@ -47,11 +47,11 @@ public class Main {
         gePossibletActions = g.getPossibletActions();
         
         //while (g.hasTime())
-        g.performBuildingAction(Building.WORK_ACTION_INDEX);
+        g.performBuildingAction(Building.WORK_ACTION_INDEX, gePossibletActions);
         
              
         System.out.println("player:"+curPlayer.getName()+" cash:"+curPlayer.getState().getCash());
 
-        g.performBuildingAction(Building.DONE_ACTION_INDEX);
+        g.performBuildingAction(Building.DONE_ACTION_INDEX, gePossibletActions);
     }
 }

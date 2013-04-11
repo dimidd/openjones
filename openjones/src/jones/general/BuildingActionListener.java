@@ -39,7 +39,7 @@ class BuildingActionListener extends java.awt.event.MouseAdapter{
     //    try {
             
             //System.out.println("before:"+_game.getCurPlayer().getPos());
-            _game.performBuildingAction(_actionID);
+            _game.performBuildingAction(_actionID, _gui.getPossibletActions());
             if (_action instanceof SubMenuAction) {
                 _gui.setLastSelectedBuildingActionIndex(-1);
             }

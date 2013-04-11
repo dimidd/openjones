@@ -4,12 +4,8 @@
  */
 package jones.agents;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import jones.actions.Action;
-import jones.actions.ExitBuildingMovement;
-import jones.actions.SubMenuAction;
-import jones.general.Game;
 import jones.general.PlayerPosition;
 import jones.general.PlayerState;
 import jones.map.Building;
@@ -47,9 +43,9 @@ public class MoveMarker extends PlanMarker {
 
         LinkedList<PlanMarker> gotoMainMenu = new LinkedList<>();
         if (src.isInBuilding()) {
-            Building build = (Building) _plan.getAgent().getGame().getMap().getTile(src);
-            GenericTreeNode<Action> root = build.getActionsTree().getRoot();
-            GenericTreeNode<Action> playerActionsParent = build.getPlayerActionsParent();
+            //Building build = (Building) _plan.getAgent().getGame().getMap().getTile(src);
+            GenericTreeNode<Action> root = playerState.getActionsTree().getRoot();
+            GenericTreeNode<Action> playerActionsParent = playerState.getPlayerActionsParent();
             if (playerActionsParent != null && playerActionsParent != root) {
                 gotoMainMenu.add(new BackInMenuMarker(_plan, null));
             }

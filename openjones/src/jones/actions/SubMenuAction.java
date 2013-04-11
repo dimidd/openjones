@@ -66,7 +66,7 @@ public class SubMenuAction extends Action {
  
     @Override
     protected void doAction(PlayerState player) {
-        _building.setPlayerActionsParent(_node);
+        player.setPlayerActionsParent(_node);
     }
 
     @Override

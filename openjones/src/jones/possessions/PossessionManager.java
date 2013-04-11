@@ -20,7 +20,7 @@ public class PossessionManager {
 	private ArrayList<Possession> _poss;
 	private int _rentDebt;
         private int _nOutfits;
-        //private int _clothesLevel;                
+       
         private ConsumablePossession _bestClothesPossesion;
         /**
          * The number of WORs a player has at the beginning 

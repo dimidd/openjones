@@ -77,7 +77,7 @@ public class AgentSimulation {
         Game game = agent.getGame();
 
         while (agent.hasNextAction() && game.getWeek() <= N_WEEKS && !game.hasEnded()) {
-            ArrayList<? extends Action> possibletActions = game.getPossibletActions();
+            ArrayList<Action> possibletActions = game.getPossibletActions();
             int choice = agent.selectAction(possibletActions);
             if (Game.NOOP_ACTION_INDEX == choice) {
                 continue;
@@ -85,7 +85,7 @@ public class AgentSimulation {
 
             ActionResponse response;
             if (game.isInside()) {
-                response = game.performBuildingAction(choice);
+                response = game.performBuildingAction(choice, possibletActions);
             } else {
                 Movement move = (Movement) possibletActions.get(choice);
                 if (move.timeEffect(agent.getPlayer().getState()) > agent.getPlayer().timeLeft()) {

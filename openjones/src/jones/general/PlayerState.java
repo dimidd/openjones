@@ -6,6 +6,7 @@ package jones.general;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,8 @@ import jones.possessions.RentContract;
 import jones.map.House;
 import jones.map.MapManager;
 import jones.map.RentAgency;
+import net.vivin.GenericTree;
+import net.vivin.GenericTreeNode;
 
 /**
  *
@@ -63,10 +66,15 @@ public class PlayerState extends AbstractPlayerState {
     private Career _career;
     private Education _education;
     private int _cash;
+    
     //last time the player was annonced, that rent was due
     private int _lastRentAnnouncement;
+    
+    private GenericTreeNode<Action> _playerActionsParent;   
+    private GenericTree<Action> _actionsTree;
 
-    //private int _rentDebt;
+             
+            
     /**
      * Creates a new PlayerState with default values
      *
@@ -93,6 +101,12 @@ public class PlayerState extends AbstractPlayerState {
         _career = new Career(MAX_JOB_RANK, _weeks);
         _cash = INITIAL_CASH;
         _education = new Education();
+        _playerActionsParent = null;
+        _actionsTree = null;
+    }
+
+    public GenericTreeNode<Action> getPlayerActionsParent() {
+        return _playerActionsParent;
     }
 
     public PlayerState(PlayerState o) {
@@ -113,8 +127,28 @@ public class PlayerState extends AbstractPlayerState {
         _career = new Career(o._career);
         _cash = o._cash;
         _education = new Education(o.getEducation().getScore());
+        _playerActionsParent = null;
+        _actionsTree = null;
     }
 
+    
+  
+    public GenericTree<Action> getActionsTree() {
+        return _actionsTree;
+    }
+
+    public void setActionsTree(GenericTree<Action> _actionsTree) {
+        this._actionsTree = _actionsTree;
+    }
+    
+
+    /**
+     * @param playerActionsParent the _playerActionsParent to set
+     */
+    public void setPlayerActionsParent(GenericTreeNode<Action> playerActionsParent) {
+        this._playerActionsParent = playerActionsParent;
+    }
+    
     public int getClock() {
         return _clock;
     }
@@ -175,6 +209,11 @@ public class PlayerState extends AbstractPlayerState {
         return _clock;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public Goals getGoals() {
         return _goals;
     }
@@ -187,15 +226,18 @@ public class PlayerState extends AbstractPlayerState {
         return _skills;
     }
 
+    @Override
     public Job getJob() {
         return _job;
     }
 
+    @Override
     public final House getHouse() {
         RentContract rentContract = _possessions.getRentContract();
         return rentContract.getHouse();
     }
 
+    @Override
     public PlayerPosition getPos() {
         return _pos;
     }
@@ -260,6 +302,7 @@ public class PlayerState extends AbstractPlayerState {
         return Game.TIMEUNITS_PER_WEEK - getHour();
     }
 
+    @Override
     public int getCash() {
         return _cash;
     }
@@ -268,10 +311,12 @@ public class PlayerState extends AbstractPlayerState {
         _weeks += 1;
     }
 
+    @Override
     public int getWeeks() {
         return _weeks;
     }
 
+    @Override
     public boolean hasTime() {
         return timeLeft() > 0;
     }
@@ -300,6 +345,7 @@ public class PlayerState extends AbstractPlayerState {
         _possessions.setRentDebt(newRentDebt);
     }
 
+    @Override
     public boolean hasWon() {
         return _goals.recompute(this, _health, _happiness, _career, _education);
     }
@@ -451,7 +497,7 @@ public class PlayerState extends AbstractPlayerState {
             if (null == nextAction) {
                 continue;
             }
-            ArrayList<? extends Action> possibleActions = getPossibleActions(map);
+            ArrayList<Action> possibleActions = getPossibleActions(map);
             int indexInPossibleActions;
             try {
                 indexInPossibleActions = PlannerAgent.getActionIndex(possibleActions, nextAction);
@@ -465,7 +511,7 @@ public class PlayerState extends AbstractPlayerState {
             }
             ActionResponse response;
             if (_pos.isInBuilding()) {
-                response = performBuildingAction(indexInPossibleActions, map);
+                response = performBuildingAction(indexInPossibleActions, map, possibleActions);
             } else {
                 Movement move = (Movement) possibleActions.get(indexInPossibleActions);
                 if (move.timeEffect(this) > timeLeft()) {
@@ -490,9 +536,9 @@ public class PlayerState extends AbstractPlayerState {
         }
     }
 
-    public ActionResponse performBuildingAction(int actionIndex, MapManager map) {
+    public ActionResponse performBuildingAction(int actionIndex, MapManager map, ArrayList<Action> possibleActions) {
         Building build = (Building) getPlayerTile(map);
-        ActionResponse result = build.performAction(actionIndex, this);
+        ActionResponse result = build.performAction(actionIndex, this, possibleActions);
 
         return result;
     }
@@ -501,23 +547,39 @@ public class PlayerState extends AbstractPlayerState {
         return map.getTile(getPos());
     }
 
-    public ArrayList<? extends Action> getPossibleActions(MapManager map) {
+    public ArrayList<Action> getPossibleActions(MapManager map) {
 
         PlayerPosition curPos = getPos();
         if (curPos.isInBuilding()) {
             Building curBuild = (Building) map.getTile(curPos);
-            ArrayList<? extends Action> possibleActions = curBuild.getPlayerActions();
-            Action first = possibleActions.get(0);
-            if (first instanceof ExitBuildingMovement) {
-                ExitBuildingMovement exit = (ExitBuildingMovement) first;
-                if (exit.getOldPos().getX() != exit.getNewPos().getX()) {
-                    int fuck = 0;
-
-                }
+            if (null == _actionsTree || null == _playerActionsParent) {
+                _playerActionsParent = null;
+                _actionsTree = curBuild.buildAllActionsTree(this);
+                _playerActionsParent = _actionsTree.getRoot();
             }
+            
+            List<Action> playerBuildingSpecialActions = curBuild.getPlayerBuildingSpecialActions(this);
+            List<Action> playerBuildingSpecificActions = _playerActionsParent.getDataOfChildren();
+            ArrayList<Action> possibleActions = new ArrayList<>();
+            possibleActions.addAll(playerBuildingSpecialActions);
+            possibleActions.addAll(playerBuildingSpecificActions);
+            
+            //ArrayList<? extends Action> possibleActions = curBuild.getPlayerActions();
+               
+//            Action first = possibleActions.get(0);
+//            if (first instanceof ExitBuildingMovement) {
+//                ExitBuildingMovement exit = (ExitBuildingMovement) first;
+//                if (exit.getOldPos().getX() != exit.getNewPos().getX()) {
+//                    int fuck = 0;
+//
+//                }
+//            }
+//            
             return possibleActions;
 
-        } else {
+        } 
+        
+        else {
             return getPossibleMovements(map);
         }
 
@@ -531,9 +593,9 @@ public class PlayerState extends AbstractPlayerState {
      *
      * @return List of movements
      */
-    private ArrayList<? extends Action> getPossibleMovements(MapManager map) {
+    private ArrayList<Action> getPossibleMovements(MapManager map) {
 
-        ArrayList<Movement> result = new ArrayList<>();
+        ArrayList<Action> result = new ArrayList<>();
         PlayerPosition curPos = getPos();
         assert (!curPos.isInBuilding());
         Position test = new Position(curPos);
@@ -567,4 +629,6 @@ public class PlayerState extends AbstractPlayerState {
             return new ActionResponse(true, null);
         }
     }
+
+    
 }

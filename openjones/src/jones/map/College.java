@@ -10,6 +10,7 @@ import jones.general.Player;
 import jones.general.PlayerState;
 import jones.general.Position;
 import jones.jobs.Job;
+import net.vivin.GenericTree;
 import net.vivin.GenericTreeNode;
 
 /**
@@ -29,10 +30,10 @@ class College extends Building {
     }
 
     @Override
-    protected void buildActionsTree(PlayerState player) {
+    protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
         Action study = new StudyAction();
         GenericTreeNode<Action> studyNode = new GenericTreeNode<>(study);
-        _actionsTree.getRoot().addChild(studyNode);
+        actionsTree.getRoot().addChild(studyNode);
 
     }
 

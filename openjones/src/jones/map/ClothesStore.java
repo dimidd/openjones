@@ -15,6 +15,7 @@ import jones.possessions.BusinessSuit;
 import jones.possessions.CasualClothes;
 import jones.possessions.ConsumablePossession;
 import jones.possessions.DressClothes;
+import net.vivin.GenericTree;
 import net.vivin.GenericTreeNode;
 
 /**
@@ -47,9 +48,9 @@ public class ClothesStore extends Building {
     }
 
 	@Override
-	protected void buildActionsTree(PlayerState player) {
+	protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
 		   
-            GenericTreeNode<Action> root = getActionsTree().getRoot();
+            GenericTreeNode<Action> root = actionsTree.getRoot();
             
             Action casualPurchase = new PurchaseClothesAction(_casualClothesPoss);
             GenericTreeNode<Action> casualPurchaseNode = new GenericTreeNode<>(casualPurchase);

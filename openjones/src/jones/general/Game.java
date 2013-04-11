@@ -211,9 +211,9 @@ public class Game {
 //        
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-    public ActionResponse performBuildingAction(int actionIndex) {
+    public ActionResponse performBuildingAction(int actionIndex, ArrayList<Action> possibleActions) {
         
-        ActionResponse result =  _curPlayer.getState().performBuildingAction(actionIndex, _map);
+        ActionResponse result =  _curPlayer.getState().performBuildingAction(actionIndex, _map, possibleActions);
         if (null != result._message) {
             _annoncments.add(new GameAnnouncement(result._message+"\n"));
         }
@@ -232,7 +232,7 @@ public class Game {
      *
      * @return
      */
-    public ArrayList<? extends Action> getPossibletActions() {        
+    public ArrayList<Action> getPossibletActions() {        
             return _curPlayer.getPossibletActions(_map);      
     }
 

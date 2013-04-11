@@ -4,9 +4,12 @@
  */
 package jones.map;
 
+import java.util.List;
+import jones.actions.Action;
 import jones.general.Player;
 import jones.general.PlayerState;
 import jones.general.Position;
+import net.vivin.GenericTree;
 
 /**
  *
@@ -20,7 +23,7 @@ class ApplianceStore extends Building {
     }
 
 	@Override
-	protected void buildActionsTree(PlayerState player) {
+	protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -30,5 +33,6 @@ class ApplianceStore extends Building {
 		// TODO Auto-generated method stub
 		
 	}
-    
+
 }
+   

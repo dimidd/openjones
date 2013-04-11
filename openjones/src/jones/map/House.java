@@ -9,6 +9,8 @@ import jones.actions.RelaxAction;
 import jones.general.Player;
 import jones.general.PlayerState;
 import jones.general.Position;
+import net.vivin.GenericTree;
+import net.vivin.GenericTreeNode;
 
 /**
  *
@@ -25,7 +27,7 @@ public abstract class House extends Building {
     public House (Position pos, String name, int pricePerMonth) {
         super(pos,name);
  
-        _actions.add(new RelaxAction(this));
+     //   _actions.add();
         _pricePerMonth = pricePerMonth;
        
     }
@@ -48,7 +50,9 @@ public abstract class House extends Building {
     }
 
     @Override
-    protected void buildActionsTree(PlayerState player) {
+    protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
+        Action relaxAction = new RelaxAction(this);
+        actionsTree.getRoot().addChild(new GenericTreeNode<>(relaxAction));
         //no actions
     }
 

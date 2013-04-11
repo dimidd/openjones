@@ -266,7 +266,7 @@ public class Player extends AbstractPlayer {
  
     
 
-    public ArrayList<? extends Action> getPossibletActions(MapManager map) {
+    public ArrayList<Action> getPossibletActions(MapManager map) {
         return _state.getPossibleActions(map);
     }
 

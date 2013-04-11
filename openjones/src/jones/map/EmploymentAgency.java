@@ -8,10 +8,10 @@ import jones.actions.ApplyForJobAction;
 import java.util.ArrayList;
 import jones.actions.Action;
 import jones.actions.SubMenuAction;
-import jones.general.Player;
 import jones.general.PlayerState;
 import jones.general.Position;
 import jones.jobs.Job;
+import net.vivin.GenericTree;
 import net.vivin.GenericTreeNode;
 
 /**
@@ -28,8 +28,8 @@ class EmploymentAgency extends Building {
     }
 
 	@Override
-	protected void buildActionsTree(PlayerState player) {
-            GenericTreeNode<Action> root = getActionsTree().getRoot();
+	protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
+            GenericTreeNode<Action> root = actionsTree.getRoot();
             for (Building b : _map.getBuildings()) {
                 ArrayList<Job> jobs = b.getJobs();
                 if (!jobs.isEmpty()) {
@@ -41,7 +41,7 @@ class EmploymentAgency extends Building {
                     //build submenu ( go back action and building`s jobs
                     Action mainmenu =  new SubMenuAction(0, "back", root, this);
                     GenericTreeNode<Action> mainmenuNode = new GenericTreeNode<>(mainmenu);
-                    buildingNode.addChild(mainmenuNode);
+                    //buildingNode.addChild(mainmenuNode);
                                          
                     for (Job j: jobs) {
                         Action apply = new ApplyForJobAction(j);

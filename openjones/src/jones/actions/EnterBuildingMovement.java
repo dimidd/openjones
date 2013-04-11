@@ -39,7 +39,9 @@ public class EnterBuildingMovement extends Movement {
     @Override
     protected void doAction(PlayerState playerState) {
         playerState.setPos(getNewPos());
-        _build.prepareForPlayerEntrance(playerState);
+        //_build.prepareForPlayerEntrance(playerState);
+        playerState.setActionsTree(null);
+        //
         playerState.affectTime(ENTER_BUILDING_DURATION);
         
     }

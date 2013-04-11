@@ -30,9 +30,9 @@ class BackInMenuMarker extends PlanMarker {
  
         if (src.isInBuilding()) {
             Building build = (Building) _plan.getAgent().getGame().getMap().getTile(src);
-            GenericTreeNode<Action> root = build.getActionsTree().getRoot();
-            if (build.getPlayerActionsParent() != root) {
-                _plan.getActions().push(new BackInMenuMarker(_plan, new SubMenuAction(0, "back", build.getPlayerActionsParent().getParent(), build)));
+            GenericTreeNode<Action> root = playerState.getActionsTree().getRoot();
+            if (playerState.getPlayerActionsParent() != root) {
+                _plan.getActions().push(new BackInMenuMarker(_plan, new SubMenuAction(0, "back", playerState.getPlayerActionsParent().getParent(), build)));
             } else {
                 _action = null;
             }

@@ -30,6 +30,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
     protected Game _game;
     protected final Image _jonesImg;
     protected int _lastSelectedBuildingActionIndex;
+    private ArrayList<Action> _possibletActions;
 
     /**
      * Creates new form GUI
@@ -39,6 +40,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         _game = game;
         ImageIcon img = new ImageIcon("./images/jones.png");
         _jonesImg = img.getImage().getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+        _possibletActions = null;
         //initComponents();
         initComponents2();
     }
@@ -540,10 +542,10 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         
         //populate building panel
         if (curPos.isInBuilding()) {           
-            ArrayList<? extends Action> possibletActions = _game.getPossibletActions();
+             _possibletActions = _game.getPossibletActions();
             //_buildingActionLabels = new JLabel
             int actionID = 0;
-            for (Action a : possibletActions) {
+            for (Action a : _possibletActions) {
                 javax.swing.JLabel label = new javax.swing.JLabel();
                 if (null != a) {
                     label.setText(a.toString());
@@ -577,6 +579,10 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         possessionsText.setText(_game.getCurPlayer().getPossessions().toString());
         jobText.setText(_game.getCurPlayer().getJob().toString());
         experiencesText.setText(_game.getCurPlayer().getExperiences().toString());
+    }
+
+    public ArrayList<Action> getPossibletActions() {
+        return _possibletActions;
     }
 
     public int getLastSelectedBuildingActionIndex() {

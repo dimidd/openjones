@@ -73,7 +73,8 @@ public class ExitBuildingMovement extends Movement{
     @Override
     protected void doAction(PlayerState playerState) {
         playerState.setPos(getNewPos());
-        _build.prepareForPlayerExit();
+        //_build.prepareForPlayerExit();
+         playerState.setActionsTree(null);
         playerState.affectTime(EXIT_BUILDING_DURATION);
         
     }

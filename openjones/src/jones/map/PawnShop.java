@@ -11,6 +11,7 @@ import jones.general.Player;
 import jones.general.PlayerState;
 import jones.general.Position;
 import jones.possessions.Possession;
+import net.vivin.GenericTree;
 
 /**
  * Allows the user to pawn items for quick cash.
@@ -38,7 +39,7 @@ class PawnShop extends Building {
 
  
 	@Override
-	protected void buildActionsTree(PlayerState player) {
+	protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
 		// TODO Auto-generated method stub
 		
 	}

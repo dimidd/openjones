@@ -41,9 +41,9 @@ public class PlannerAgent extends Agent {
 
         _schedule.add(new StudyAllWeekPlan(this));
         _schedule.add(new GetABetterJobPlan(this, _player.getState()));
- //       _schedule.add(new GetABetterJobPlan(this, _player.getState()));
-//        _schedule.add(new WorkAllWeekPlan(this, _player.getState()));
-//        _schedule.add(new RestAllWeekPlan(this));
+        _schedule.add(new GetABetterJobPlan(this, _player.getState()));
+        _schedule.add(new WorkAllWeekPlan(this));
+        _schedule.add(new RestAllWeekPlan(this));
 
     }
 
