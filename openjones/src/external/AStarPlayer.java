@@ -39,7 +39,7 @@ public class AStarPlayer {
         Map<PlayerState, Double> fScore = new HashMap<>();
 
         PlayerStateNode bestState = null;
-        double highestTotalScore = -1;
+        double highestSumScore = -1;
         double doubleGoal = (double) goal;
         // set scores for start Node
         gScore.put(start, 0.0);
@@ -61,9 +61,9 @@ public class AStarPlayer {
             ScoreNode<PlayerStateNode> currentFscoreNode = openQueue.remove();
             closedMap.put(currentFscoreNode.getData().getState(), null);
 
-            int currentFscoreNodeTotalScore = currentFscoreNode.getData().getState().getTotalScore();
-            if (currentFscoreNodeTotalScore > highestTotalScore) {// 
-                highestTotalScore = currentFscoreNodeTotalScore;
+            int currentFscoreNodeSumScore = currentFscoreNode.getData().getState().getSumScore();
+            if (currentFscoreNodeSumScore > highestSumScore) {// 
+                highestSumScore = currentFscoreNodeSumScore;
                 bestState = currentFscoreNode.getData();
             }
 

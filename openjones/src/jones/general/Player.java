@@ -244,7 +244,7 @@ public class Player extends AbstractPlayer {
     }
     
     public int getCareerScore() {
-        return _state.getGoals().careerScore(getCareer());        
+        return _state.getGoals().careerScore(getCareer(), _state);        
     }
     
      public int getHappinessScore() {

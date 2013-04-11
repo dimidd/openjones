@@ -373,7 +373,7 @@ public class PlayerState extends AbstractPlayerState {
 
     @Override
     public int getTotalScore() {
-        return _goals.getTotalScore(this, _health, _happiness, _career, _education);
+        return _goals.getAverageScore(this, _health, _happiness, _career, _education);
     }
 
     public String scoresString() {
@@ -458,7 +458,7 @@ public class PlayerState extends AbstractPlayerState {
 
     @Override
     public int getCareerScore() {
-        return getGoals().careerScore(getCareer());
+        return getGoals().careerScore(getCareer(), this);
     }
 
     @Override
@@ -628,6 +628,10 @@ public class PlayerState extends AbstractPlayerState {
         } else {
             return new ActionResponse(true, null);
         }
+    }
+
+    public int getSumScore() {
+        return _goals.getSumScore(this, _health, _happiness, _career, _education);
     }
 
     

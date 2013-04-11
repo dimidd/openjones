@@ -17,6 +17,7 @@ import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerState;
 import jones.measures.Goals;
+import sun.org.mozilla.javascript.ast.ContinueStatement;
 
 /**
  *
@@ -66,7 +67,13 @@ public class PlannerAgent extends Agent {
     @Override
     public int selectAction(ArrayList<? extends Action> possibleActions) {
         Action nextAction;
-        nextAction = getCurPlan().getNextAction(getPlayer().getState());
+        Plan curPlan = getCurPlan();
+        if (null == curPlan) {
+            return Game.NOOP_ACTION_INDEX;
+           // _schedule.remove();
+          //  curPlan = getCurPlan();
+        }
+        nextAction = curPlan.getNextAction(getPlayer().getState());
         int indexInPossibleActions;
         try {
             indexInPossibleActions = getActionIndex(possibleActions, nextAction);           

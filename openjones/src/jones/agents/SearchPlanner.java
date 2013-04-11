@@ -41,6 +41,9 @@ public class SearchPlanner extends PlannerAgent {
 //      _schedule.add(first);
       for (PlanType type: foundPlansTypes) {
           Plan plan = createPlanFromType(type);
+          if (plan == null) {
+              int fuck = -1;
+          }
           _schedule.add(plan);
       }
       return true;
