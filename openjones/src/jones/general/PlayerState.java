@@ -373,7 +373,7 @@ public class PlayerState extends AbstractPlayerState {
 
     @Override
     public int getTotalScore() {
-        return _goals.getAverageScore(this, _health, _happiness, _career, _education);
+        return (int) _goals.getAverageScore(this, _health, _happiness, _career, _education);
     }
 
     public String scoresString() {
@@ -447,27 +447,27 @@ public class PlayerState extends AbstractPlayerState {
     }
 
     @Override
-    public int getEducationScore() {
+    public double getEducationScore() {
         return getGoals().educationScore(getEducation());
     }
 
     @Override
-    public int getHealthScore() {
+    public double getHealthScore() {
         return getGoals().healthScore(getHealth());
     }
 
     @Override
-    public int getCareerScore() {
+    public double getCareerScore() {
         return getGoals().careerScore(getCareer(), this);
     }
 
     @Override
-    public int getHappinessScore() {
+    public double getHappinessScore() {
         return getGoals().happinessScore(getHappiness());
     }
 
     @Override
-    public int getWealthscore() {
+    public double getWealthscore() {
         return getGoals().wealthScore(this);
     }
 
@@ -630,7 +630,7 @@ public class PlayerState extends AbstractPlayerState {
         }
     }
 
-    public int getSumScore() {
+    public double getSumScore() {
         return _goals.getSumScore(this, _health, _happiness, _career, _education);
     }
 

@@ -23,9 +23,9 @@ import jones.possessions.RentContract;
  * @author dimid
  */
 public class DummyPlayerState extends AbstractPlayerState {
-    private  int _educationScore;
-    private  int _healthScore;
-    private  int _happinessScore;
+    private  double _educationScore;
+    private  double _healthScore;
+    private  double _happinessScore;
     private  int _possesionsWorth;
     private  Career _career;
             
@@ -159,27 +159,27 @@ public class DummyPlayerState extends AbstractPlayerState {
     }
 
     @Override
-    public int getCareerScore() {
+    public double getCareerScore() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getEducationScore() {
+    public double getEducationScore() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getHappinessScore() {
+    public double getHappinessScore() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getHealthScore() {
+    public double getHealthScore() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getWealthscore() {
+    public double getWealthscore() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

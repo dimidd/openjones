@@ -71,15 +71,15 @@ public abstract class AbstractPlayerState {
 
     public abstract boolean hasWon();
 
-    public abstract int getCareerScore();
+    public abstract double getCareerScore();
 
-    public abstract int getEducationScore();
+    public abstract double getEducationScore();
 
-    public abstract int getHappinessScore();
+    public abstract double getHappinessScore();
 
-    public abstract int getHealthScore();
+    public abstract double getHealthScore();
 
-    public abstract int getWealthscore();
+    public abstract double getWealthscore();
 
     public int getTotalTime() {
         return getWeeks() * Game.TIMEUNITS_PER_WEEK + getHour();

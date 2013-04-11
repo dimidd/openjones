@@ -23,27 +23,27 @@ public class DummyPlayer extends AbstractPlayer {
     }
     
     @Override
-    public int getEducationScore() {
+    public double getEducationScore() {
         return _education;
     }
 
     @Override
-    public int getHealthScore() {
+    public double getHealthScore() {
         return _health;
     }
 
     @Override
-    public int getCareerScore() {
+    public double getCareerScore() {
         return _career;
     }
 
     @Override
-    public int getHappinessScore() {
+    public double getHappinessScore() {
         return _happiness;
     }
 
     @Override
-    public int getWealthscore() {
+    public double getWealthscore() {
         return _wealth;
     }
 

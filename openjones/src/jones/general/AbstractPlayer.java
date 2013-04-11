@@ -10,10 +10,10 @@ package jones.general;
  */
 public abstract class AbstractPlayer {
     
-    public abstract int getEducationScore();
-    public abstract int getHealthScore();
-    public abstract int getCareerScore();
-    public abstract int getHappinessScore();
-    public abstract int getWealthscore();
+    public abstract double getEducationScore();
+    public abstract double getHealthScore();
+    public abstract double getCareerScore();
+    public abstract double getHappinessScore();
+    public abstract double getWealthscore();
     public abstract int getTotalScore();
 }

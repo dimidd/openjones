@@ -14,12 +14,13 @@ public class PlanScore implements Comparable<PlanScore>{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this._plan);
-        hash = 73 * hash + this._score;
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this._plan);
+        hash = 83 * hash + (int) (Double.doubleToLongBits(this._score) ^ (Double.doubleToLongBits(this._score) >>> 32));
         return hash;
     }
 
+  
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -39,7 +40,7 @@ public class PlanScore implements Comparable<PlanScore>{
     }
     
     protected Plan _plan;
-    protected int _score;
+    protected double _score;
 
     public Plan getPlan() {
         return _plan;
@@ -49,7 +50,7 @@ public class PlanScore implements Comparable<PlanScore>{
         this._plan = _plan;
     }
 
-    public int getScore() {
+    public double getScore() {
         return _score;
     }
 
@@ -57,14 +58,14 @@ public class PlanScore implements Comparable<PlanScore>{
         this._score = _score;
     }
     
-    public PlanScore (Plan plan, int score) {
+    public PlanScore (Plan plan, double score) {
         _plan = plan;
         _score = score;
     }
 
     @Override
     public int compareTo(PlanScore o) {
-        return _score - o._score;
+        return (int) (_score - o._score);
     }
 
     @Override

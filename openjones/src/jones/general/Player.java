@@ -235,19 +235,19 @@ public class Player extends AbstractPlayer {
         _state.affectEducation(EDUCATION_POINTS_GAIN);
     }
 
-    public int getEducationScore() {
+    public double getEducationScore() {
         return _state.getGoals().educationScore(getEducation());        
     }
   
-    public int getHealthScore() {
+    public double getHealthScore() {
         return _state.getGoals().healthScore(getHealth());        
     }
     
-    public int getCareerScore() {
+    public double getCareerScore() {
         return _state.getGoals().careerScore(getCareer(), _state);        
     }
     
-     public int getHappinessScore() {
+     public double getHappinessScore() {
         return _state.getGoals().happinessScore(getHappiness());        
     }
 
@@ -255,7 +255,7 @@ public class Player extends AbstractPlayer {
         return _state.getHappiness();
     }
     
-    public int getWealthscore() {
+    public double getWealthscore() {
         return _state.getGoals().wealthScore(_state);
     }
 

@@ -136,17 +136,17 @@ public class PlannerAgent extends Agent {
 
         boolean hasAddedWork = false;
         ArrayList<Plan> result = new ArrayList<>();
-        int eduScore = playerState.getEducationScore();
+        double eduScore = playerState.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new StudyAllWeekPlan(this));
         }
 
-        int healthScore = playerState.getHealthScore();
+        double healthScore = playerState.getHealthScore();
         if (healthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new RestAllWeekPlan(this));
         }
 
-        int careerScore = playerState.getCareerScore();
+        double careerScore = playerState.getCareerScore();
         if (careerScore < Goals.MAX_MEASURE_SCORE) {
             int rank = _player.getJob().getRank();
             if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
@@ -163,7 +163,7 @@ public class PlannerAgent extends Agent {
             }
         }
 
-        int wealthScore = playerState.getWealthscore();
+        double wealthScore = playerState.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new WorkAllWeekPlan(this));
         }
@@ -220,13 +220,13 @@ public class PlannerAgent extends Agent {
     protected List<PlanScore> getPlanScores(PlayerState playerState) {
         ArrayList<PlanScore> result = new ArrayList<>();
 
-        int eduScore = playerState.getEducationScore();
+        double eduScore = playerState.getEducationScore();
         result.add(new PlanScore(new StudyAllWeekPlan(this), eduScore));
-        int healthScore = playerState.getHealthScore();
+        double healthScore = playerState.getHealthScore();
         result.add(new PlanScore(new RestAllWeekPlan(this), healthScore));
-        int careerScore = playerState.getCareerScore();
+        double careerScore = playerState.getCareerScore();
         result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
-        int wealthScore = playerState.getWealthscore();
+        double wealthScore = playerState.getWealthscore();
         result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
 
         return result;
@@ -245,17 +245,17 @@ public class PlannerAgent extends Agent {
         ArrayList<PlanScore> result = new ArrayList<>();
 
 
-        int eduScore = playerState.getEducationScore();
+        double eduScore = playerState.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new PlanScore(new StudyAllWeekPlan(this), eduScore));
         }
 
-        int healthScore = playerState.getHealthScore();
+        double healthScore = playerState.getHealthScore();
         if (healthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new PlanScore(new RestAllWeekPlan(this), healthScore));
         }
 
-        int careerScore = playerState.getCareerScore();
+        double careerScore = playerState.getCareerScore();
         if (careerScore < Goals.MAX_MEASURE_SCORE) {
             int rank = playerState.getJob().getRank();
             if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
@@ -275,7 +275,7 @@ public class PlannerAgent extends Agent {
 
 //        _player.setJob(_game.getMap().getBuildingByName("Monolith Burgers").getJobs().get(0));
 
-        int wealthScore = playerState.getWealthscore();
+        double wealthScore = playerState.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
         }

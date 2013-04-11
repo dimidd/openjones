@@ -28,17 +28,17 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
 
         boolean hasAddedWork = false;
         ArrayList<Plan> result = new ArrayList<>();
-        int eduScore = _player.getEducationScore();
+        double eduScore = _player.getEducationScore();
         if (eduScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new StudyAllWeekPlan(this));
         }
 
-        int healthScore = _player.getHealthScore();
+        double healthScore = _player.getHealthScore();
         if (healthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new RestAllWeekPlan(this));
         }
 
-        int careerScore = _player.getCareerScore();
+        double careerScore = _player.getCareerScore();
         if (careerScore < Goals.MAX_MEASURE_SCORE) {
             int rank = _player.getJob().getRank();
             if (rank > 0 && rank <= PlayerState.MAX_JOB_RANK) {
@@ -58,7 +58,7 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
 
 //        _player.setJob(_game.getMap().getBuildingByName("Monolith Burgers").getJobs().get(0));
 
-        int wealthScore = _player.getWealthscore();
+        double wealthScore = _player.getWealthscore();
         if (!hasAddedWork && wealthScore < Goals.MAX_MEASURE_SCORE) {
             result.add(new WorkAllWeekPlan(this));
         }

@@ -61,7 +61,7 @@ public class AStarPlayer {
             ScoreNode<PlayerStateNode> currentFscoreNode = openQueue.remove();
             closedMap.put(currentFscoreNode.getData().getState(), null);
 
-            int currentFscoreNodeSumScore = currentFscoreNode.getData().getState().getSumScore();
+            double currentFscoreNodeSumScore = currentFscoreNode.getData().getState().getSumScore();
             if (currentFscoreNodeSumScore > highestSumScore) {// 
                 highestSumScore = currentFscoreNodeSumScore;
                 bestState = currentFscoreNode.getData();

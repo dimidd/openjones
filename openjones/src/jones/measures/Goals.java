@@ -50,12 +50,12 @@ public class Goals {
     }
 
     public boolean recompute(PlayerState ps, Health health, Happiness happiness, Career career, Education education) {
-        int wealthGoalMetPercent    = wealthScore(ps);
-        int healthGoalMetPercent    = healthScore(health);
-        int happinessGoalMetPercent = happinessScore(happiness);
-        int careerGoalMetPercent    = careerScore(career, ps);
-        int educationGoalMetPercent = educationScore(education);
-        
+              double wealthGoalMetPercent    = wealthScore(ps);
+        double healthGoalMetPercent    = healthScore(health);
+        double happinessGoalMetPercent = happinessScore(happiness);
+        double careerGoalMetPercent    = careerScore(career, ps);
+        double educationGoalMetPercent = educationScore(education);
+   
         boolean wealthGoalMet    = wealthGoalMetPercent >= _wealth;
         boolean healthGoalMet    = healthGoalMetPercent >= _health;
         boolean happinessGoalMet = happinessGoalMetPercent >= _happiness;
@@ -65,29 +65,29 @@ public class Goals {
         return wealthGoalMet && healthGoalMet && happinessGoalMet && careerGoalMet && educationGoalMet;          
     }
     
-    public int getAverageScore (PlayerState ps, Health health, Happiness happiness, Career career, Education education) {
+    public double getAverageScore (PlayerState ps, Health health, Happiness happiness, Career career, Education education) {
          
-        int wealthGoalMetPercent    = wealthScore(ps);
-        int healthGoalMetPercent    = healthScore(health);
-        int happinessGoalMetPercent = happinessScore(happiness);
-        int careerGoalMetPercent    = careerScore(career, ps);
-        int educationGoalMetPercent = educationScore(education);
-        
-        int total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent) / N_GOALS;
+           double wealthGoalMetPercent    = wealthScore(ps);
+        double healthGoalMetPercent    = healthScore(health);
+        double happinessGoalMetPercent = happinessScore(happiness);
+        double careerGoalMetPercent    = careerScore(career, ps);
+        double educationGoalMetPercent = educationScore(education);
+       
+        double total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent) / N_GOALS;
 
         return total;     
 
     }
     
-    public int getSumScore (PlayerState ps, Health health, Happiness happiness, Career career, Education education) {
+    public double getSumScore (PlayerState ps, Health health, Happiness happiness, Career career, Education education) {
          
-        int wealthGoalMetPercent    = wealthScore(ps);
-        int healthGoalMetPercent    = healthScore(health);
-        int happinessGoalMetPercent = happinessScore(happiness);
-        int careerGoalMetPercent    = careerScore(career, ps);
-        int educationGoalMetPercent = educationScore(education);
+         double wealthGoalMetPercent    = wealthScore(ps);
+        double healthGoalMetPercent    = healthScore(health);
+        double happinessGoalMetPercent = happinessScore(happiness);
+        double careerGoalMetPercent    = careerScore(career, ps);
+        double educationGoalMetPercent = educationScore(education);
         
-        int sum = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent);
+        double sum = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent);
         
         return sum;
     }
@@ -95,40 +95,40 @@ public class Goals {
    
     public String getScoresString (PlayerState ps, Health health, Happiness happiness, Career career, Education education) {
          
-        int wealthGoalMetPercent    = wealthScore(ps);
-        int healthGoalMetPercent    = healthScore(health);
-        int happinessGoalMetPercent = happinessScore(happiness);
-        int careerGoalMetPercent    = careerScore(career, ps);
-        int educationGoalMetPercent = educationScore(education);
+        double wealthGoalMetPercent    = wealthScore(ps);
+        double healthGoalMetPercent    = healthScore(health);
+        double happinessGoalMetPercent = happinessScore(happiness);
+        double careerGoalMetPercent    = careerScore(career, ps);
+        double educationGoalMetPercent = educationScore(education);
 
 
-        int total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent) / N_GOALS;
+        double total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent) / N_GOALS;
         
         return "Total:"+total+"/100  Wealth:"+(ps.getCash() + ps.getPossessions().totalValue())+"/"+_wealth +" Health:"+health.getScore()+"/"+_health +" Happiness:" +
               happiness.getScore()+"/"+_happiness +" Career:" + career.getScore()+"/"+_career+" Education:" +education.getScore()+"/"+_education; 
     }
     
-    public int wealthScore (PlayerState ps) {
-        return (int) Math.min(MAX_MEASURE_SCORE, 100 * (  ((double)ps.getCash() + ps.getPossessions().totalValue()) / _wealth));
+    public double wealthScore (PlayerState ps) {
+        return  Math.min(MAX_MEASURE_SCORE, 100 * (  ((double)ps.getCash() + ps.getPossessions().totalValue()) / _wealth));
     }
     
      
-    public int healthScore (Health health) {
-        return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)health.getScore() /  _health));
+    public double healthScore (Health health) {
+        return  Math.min(MAX_MEASURE_SCORE, 100 * ((double)health.getScore() /  _health));
     }
  
       
-    public int happinessScore (Happiness happiness) {
-        return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)happiness.getScore() /  _happiness));
+    public double happinessScore (Happiness happiness) {
+        return  Math.min(MAX_MEASURE_SCORE, 100 * ((double)happiness.getScore() /  _happiness));
     }
    
-    public int careerScore (Career career, PlayerState playerState) {
+    public double careerScore (Career career, PlayerState playerState) {
         double score = 100 * ((double)career.getScore() + playerState.getJob().getWagePerHour());
-        return (int) Math.min(MAX_MEASURE_SCORE, score /  _career);
+        return  Math.min(MAX_MEASURE_SCORE, score /  _career);
     }
 
-    public int educationScore(Education education) {
-        return (int) Math.min(MAX_MEASURE_SCORE, 100 * ((double)education.getScore() /  _education));
+    public double educationScore(Education education) {
+        return  Math.min(MAX_MEASURE_SCORE, 100 * ((double)education.getScore() /  _education));
     }
  
  
