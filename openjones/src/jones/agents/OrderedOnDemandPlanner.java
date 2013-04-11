@@ -45,14 +45,14 @@ class OrderedOnDemandPlanner extends OrderedPlanner {
                 int experienceLevel = _player.getCareer().getExperienceLevel(rank);
                 int cap = _player.getCareer().getExp().getCapByRank(rank);
                 if (experienceLevel >= cap) {
-                    result.add(new GetABetterJobPlan(this, _player.getState()));
+                    result.add(new GetABetterJobPlan(this));
                 } else {
                     result.add(new WorkAllWeekPlan(this));
                     hasAddedWork = true;
                 }
             }
             else if (0 == rank) {
-                result.add(new GetABetterJobPlan(this, _player.getState()));
+                result.add(new GetABetterJobPlan(this));
             }
         }
 

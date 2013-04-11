@@ -6,12 +6,12 @@ package external;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import jones.agents.Plan;
+import jones.agents.Plan.PlanType;
 import jones.agents.PlannerAgent;
 import jones.general.PlayerState;
 import jones.map.MapManager;
@@ -28,7 +28,7 @@ public class AStarPlayer {
      * Our own implementation of the A-Star algorithm, for use with our Node
      * class and custom heuristic function.
      */
-    static public List<Plan> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map) {
+    static public List<PlanType> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map) {
         Map<PlayerState, Object> closedMap = new HashMap<>();
         PriorityQueue<ScoreNode<PlayerStateNode>> openQueue = new PriorityQueue<>();
         //Map<PlayerState, PlayerStatePlan> parentMap = new HashMap<>();
@@ -74,7 +74,7 @@ public class AStarPlayer {
             
             else {
 
-                List<Plan> path = reconstructPath(currentFscoreNode.getData());
+                List<PlanType> path = reconstructPath(currentFscoreNode.getData());
                 //path.add(planFromParentMap.get(currentFscoreNode.getData()));
                 return path;
             }
@@ -147,11 +147,11 @@ public class AStarPlayer {
         return result;
     }
 
-    private static List<Plan> reconstructPath(PlayerStateNode node) {
-        LinkedList<Plan> path = new LinkedList<>();;
+    private static List<PlanType> reconstructPath(PlayerStateNode node) {
+        LinkedList<PlanType> path = new LinkedList<>();;
         Plan plan = node.getEdge();
         while (plan != null) {
-            path.push(plan);
+            path.push(plan.getType());
             node = node.getParent();
             plan = node.getEdge();
         }

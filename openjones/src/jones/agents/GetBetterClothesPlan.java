@@ -16,11 +16,11 @@ import jones.map.Building;
  * @author dimid <dimidd@gmail.com>
  */
 class GetBetterClothesPlan extends AllOrNothingPlan {
-    private final PlayerState _playerState;
+    //private final PlayerState _playerState;
 
-    public GetBetterClothesPlan(Agent agent, PlayerState playerState) {
+    public GetBetterClothesPlan(Agent agent) {
         super (agent, PlanType.BETTER_CLOTHES);
-        _playerState = playerState;
+        //_playerState = playerState;
         build();
     }
 
@@ -38,7 +38,7 @@ class GetBetterClothesPlan extends AllOrNothingPlan {
         
         //submenu actions of buildings
         //List<Action> buildingSpecificActions = employmentAgency.getPlayerBuildingSpecificActions(player);
-        _actions.add(new UpdatePossibleActionsMarker(this, null, _playerState));       
+        _actions.add(new UpdatePossibleActionsMarker(this, null));       
         _actions.add(new BuyClothesMarker(this, null));
        
     }

@@ -32,7 +32,7 @@ class OrderedPlanner extends PlannerAgent {
         ArrayList<Plan> result = new ArrayList<>();
         result.add(new StudyAllWeekPlan(this));                       
         result.add(new RestAllWeekPlan(this));
-        result.add(new GetABetterJobPlan(this, _player.getState()));
+        result.add(new GetABetterJobPlan(this));
 //        _player.setJob(_game.getMap().getBuildingByName("Monolith Burgers").getJobs().get(0));
         result.add(new WorkAllWeekPlan(this));
                         

@@ -9,6 +9,7 @@ import jones.actions.Action;
 import jones.general.PlayerPosition;
 import jones.general.PlayerState;
 import jones.map.Building;
+import net.vivin.GenericTree;
 import net.vivin.GenericTreeNode;
 
 /**
@@ -44,12 +45,14 @@ public class MoveMarker extends PlanMarker {
         LinkedList<PlanMarker> gotoMainMenu = new LinkedList<>();
         if (src.isInBuilding()) {
             //Building build = (Building) _plan.getAgent().getGame().getMap().getTile(src);
-            GenericTreeNode<Action> root = playerState.getActionsTree().getRoot();
-            GenericTreeNode<Action> playerActionsParent = playerState.getPlayerActionsParent();
-            if (playerActionsParent != null && playerActionsParent != root) {
-                gotoMainMenu.add(new BackInMenuMarker(_plan, null));
+            GenericTree<Action> actionsTree = playerState.getActionsTree();
+            if (actionsTree != null) {
+                GenericTreeNode<Action> root = playerState.getActionsTree().getRoot();
+                GenericTreeNode<Action> playerActionsParent = playerState.getPlayerActionsParent();
+                if (playerActionsParent != null && playerActionsParent != root) {
+                    gotoMainMenu.add(new BackInMenuMarker(_plan, null));
+                }
             }
-
         }
 
         //MoveToPlan move;

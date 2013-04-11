@@ -14,11 +14,11 @@ import jones.general.PlayerState;
  * @author dimid <dimidd@gmail.com>
  */
 class UpdatePossibleActionsMarker extends PlanMarker {
-    private final PlayerState _playerState;
+    //private final PlayerState _playerState;
 
-    public UpdatePossibleActionsMarker(Plan plan, Action action, PlayerState playerState) {
+    public UpdatePossibleActionsMarker(Plan plan, Action action) {
         super(plan, action);
-        _playerState = playerState;
+        //_playerState = playerState;
         
     }
 

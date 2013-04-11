@@ -40,8 +40,8 @@ public class PlannerAgent extends Agent {
     public void testPlans() {
 
         _schedule.add(new StudyAllWeekPlan(this));
-        _schedule.add(new GetABetterJobPlan(this, _player.getState()));
-        _schedule.add(new GetABetterJobPlan(this, _player.getState()));
+        _schedule.add(new GetABetterJobPlan(this));
+        _schedule.add(new GetABetterJobPlan(this));
         _schedule.add(new WorkAllWeekPlan(this));
         _schedule.add(new RestAllWeekPlan(this));
 
@@ -146,13 +146,13 @@ public class PlannerAgent extends Agent {
                 int experienceLevel = _player.getCareer().getExperienceLevel(rank);
                 int cap = _player.getCareer().getExp().getCapByRank(rank);
                 if (experienceLevel >= cap) {
-                    result.add(new GetABetterJobPlan(this, playerState));
+                    result.add(new GetABetterJobPlan(this));
                 } else {
                     result.add(new WorkAllWeekPlan(this));
                     hasAddedWork = true;
                 }
             } else if (0 == rank) {
-                result.add(new GetABetterJobPlan(this, playerState));
+                result.add(new GetABetterJobPlan(this));
             }
         }
 
@@ -218,7 +218,7 @@ public class PlannerAgent extends Agent {
         int healthScore = playerState.getHealthScore();
         result.add(new PlanScore(new RestAllWeekPlan(this), healthScore));
         int careerScore = playerState.getCareerScore();
-        result.add(new PlanScore(new GetABetterJobPlan(this,playerState), careerScore));
+        result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
         int wealthScore = playerState.getWealthscore();
         result.add(new PlanScore(new WorkAllWeekPlan(this), wealthScore));
 
@@ -255,13 +255,13 @@ public class PlannerAgent extends Agent {
                 int experienceLevel = playerState.getCareer().getExperienceLevel(rank);
                 int cap = playerState.getCareer().getExp().getCapByRank(rank);
                 if (experienceLevel >= cap) {
-                    result.add(new PlanScore(new GetABetterJobPlan(this, playerState), careerScore));
+                    result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
                 } else {
                     result.add(new PlanScore(new WorkAllWeekPlan(this), careerScore));
                     hasAddedWork = true;
                 }
             } else if (0 == rank) {
-                result.add(new PlanScore(new GetABetterJobPlan(this, playerState), careerScore));
+                result.add(new PlanScore(new GetABetterJobPlan(this), careerScore));
             }
         }
 

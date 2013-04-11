@@ -21,7 +21,7 @@ class GetBetterClothesMarker  extends PlanMarker{
 
     @Override
     public void changeState(PlayerState playerState) {
-        _plan.push(new GetBetterClothesPlan(_plan.getAgent(), playerState));
+        _plan.push(new GetBetterClothesPlan(_plan.getAgent()));
     }
 
     

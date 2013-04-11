@@ -20,11 +20,11 @@ import jones.map.Building;
  * @author dimid <dimidd@gmail.com>
  */
 class GetABetterJobPlan extends AllOrNothingPlan {
-    private final PlayerState _playerState;
+    //private final PlayerState _playerState;
 
-    public GetABetterJobPlan(Agent agent, PlayerState playerState) {
+    public GetABetterJobPlan(Agent agent) {
         super(agent, PlanType.BETTER_JOB);
-        _playerState = playerState;
+        //_playerState = playerState;
         build();
     }
   
@@ -77,7 +77,7 @@ class GetABetterJobPlan extends AllOrNothingPlan {
         
         //submenu actions of buildings
         //List<Action> buildingSpecificActions = employmentAgency.getPlayerBuildingSpecificActions(player);
-        _actions.add(new UpdatePossibleActionsMarker(this, null, _playerState));
+        _actions.add(new UpdatePossibleActionsMarker(this, null));
         _actions.add(new AddBuildingsWithJobsMarker(this, null));
         
           
