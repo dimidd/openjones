@@ -17,9 +17,13 @@ public abstract class Passage extends Location {
     * @param pos
     */
     public Passage (Position pos) {
-        super(pos);
+        this(pos, "passage");
     }
 
+     public Passage (Position pos, String name) {
+        super(pos, name);
+    }
+    
     @Override
     public boolean isPassable() {
         return true;

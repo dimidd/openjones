@@ -49,7 +49,7 @@ public class BuildingListener extends java.awt.event.MouseAdapter {
         PlayerPosition curPos = game.getCurPlayer().getPos();
         javax.swing.JButton butt = gui.getButtons()[curPos.getY()][curPos.getX()];        
         Location tile = (Location) game.getMap().getGrid().get(curPos);        
-        butt.setText(tile.toString());        
+        //butt.setText(tile.toString());        
 
     }
 }

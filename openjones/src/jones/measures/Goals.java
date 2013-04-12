@@ -103,8 +103,9 @@ public class Goals {
 
 
         double total = (wealthGoalMetPercent + healthGoalMetPercent + happinessGoalMetPercent + careerGoalMetPercent + educationGoalMetPercent) / N_GOALS;
+       int totalRounded = (int) Math.round(total);
         
-        return "Total:"+total+"/100  Wealth:"+(ps.getCash() + ps.getPossessions().totalValue())+"/"+_wealth +" Health:"+health.getScore()+"/"+_health +" Happiness:" +
+        return "Total:"+totalRounded+"/100  Wealth:"+(ps.getCash() + ps.getPossessions().totalValue())+"/"+_wealth +" Health:"+health.getScore()+"/"+_health +" Happiness:" +
               happiness.getScore()+"/"+_happiness +" Career:" + career.getScore()+"/"+_career+" Education:" +education.getScore()+"/"+_education; 
     }
     

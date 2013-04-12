@@ -26,9 +26,6 @@ import net.vivin.GenericTreeNode;
  * @author dimid
  */
 public abstract  class Building extends Site {
-    
-    
-    protected String _name;
     protected ArrayList<Job> _jobs;
     //protected ArrayList<Action> _actions;
 //    protected GenericTreeNode<Action> _playerActionsParent;
@@ -170,25 +167,6 @@ public abstract  class Building extends Site {
         
         return actionsTree;
         
-    }
-
-//    private Collection<? extends Action> getMenuActions(PlayerState player) {
-//        assert (null != getPlayerActionsParent());
-//        return getPlayerActionsParent().getDataOfChildren();
-//    }
-
-    /**
-     * @return the _name
-     */
-    public String getName() {
-        return _name;
-    }
-
-    /**
-     * @param name the _name to set
-     */
-    public void setName(String name) {
-        this._name = name;
     }
 
     /**

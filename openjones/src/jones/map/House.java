@@ -51,8 +51,8 @@ public abstract class House extends Building {
 
     @Override
     protected void buildActionsTree(PlayerState player, GenericTree<Action> actionsTree) {
-        Action relaxAction = new RelaxAction(this);
-        actionsTree.getRoot().addChild(new GenericTreeNode<>(relaxAction));
+//        Action relaxAction = new RelaxAction(this);
+//        actionsTree.getRoot().addChild(new GenericTreeNode<>(relaxAction));
         //no actions
     }
 

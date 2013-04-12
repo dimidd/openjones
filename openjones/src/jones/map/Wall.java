@@ -17,7 +17,7 @@ public class Wall extends Location {
      * @param pos
      */
     public Wall (Position pos) {
-        super(pos);
+        super(pos, "Wall");
     }
 
     

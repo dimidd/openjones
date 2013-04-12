@@ -99,31 +99,34 @@ public class MapManager {
         pos.setXY(4,2);
         _buildings.add(new ClothesStore (pos,"QT clothing"));
         
-        pos.setXY(4,3);
+        pos.setXY(4,4);
         _buildings.add(new ApplianceStore (pos,"SocketCity"));
                  
-        pos.setXY(3,3);
+        pos.setXY(3,4);
         _buildings.add(new College (pos,"HI-TECH U"));
                
 //        pos.setXY(2,3);
 //        _buildings.add(new Spot (pos));        
       
-        pos.setXY(1,3);
+        pos.setXY(1,4);
         _buildings.add(new EmploymentAgency (pos,"employment",this));  
          
-        pos.setXY(0,3);
+        pos.setXY(0,4);
         _buildings.add(new Factory (pos,"factory"));
          
-        pos.setXY(0,2);
+        pos.setXY(0,3);
         _buildings.add(new Bank (pos,"bank"));
          
-        pos.setXY(0,1);
+        pos.setXY(0,2);
         _buildings.add(new SuperMarket (pos,"black market"));
+        
+       
+        
 
     }
 
     private static Grid<Location> getDefaultGrid(ArrayList<Building> buildings, ArrayList<Location> nonBuildings, ArrayList<Wall> walls) {
-        Grid<Location> g = new Grid<>(5,4);
+        Grid<Location> g = new Grid<>(5,5);
         
         for (Building b: buildings) {
             g.set(b.getPosition(), b);
@@ -150,16 +153,23 @@ public class MapManager {
      * Add all default Locations 
      */
     private void addDefaultLocations() {
-        Position pos = new Position (2,3);
-        _nonBuildings.add(new Spot (pos));
+        Position pos = new Position (2,4);
+        _nonBuildings.add(new Spot (pos, "clock"));
+        
+         pos.setXY(0,1);
+        _nonBuildings.add(new Spot (pos,"black_top"));
+        
+         pos.setXY(4,3);
+        _nonBuildings.add(new Spot (pos,"socket_top"));
         
         //add internal rectangle of walls
         for (int col=1;col<=3;++col) {        
-            for (int row=1;row<=2;++row) {
+            for (int row=1;row<=3;++row) {
                 pos.setXY(col,row);
                 _walls.add(new Wall(pos));
             }
         }
+        
         
         //addDefaultBuildings();
         

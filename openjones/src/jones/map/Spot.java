@@ -20,6 +20,11 @@ public class Spot extends Passage {
         super(pos);
     }
 
+    public Spot (Position pos, String name) {
+        super(pos,name);
+    }
+
+    
     
     @Override
     public boolean isVisitable() {
