@@ -19,6 +19,14 @@ public class Wall extends Location {
     public Wall (Position pos) {
         super(pos, "Wall");
     }
+    
+    /** Create a new wall
+     *
+     * @param pos
+     */
+    public Wall (Position pos, String name) {
+        super(pos, name);
+    }
 
     
     @Override

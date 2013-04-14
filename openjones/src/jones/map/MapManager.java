@@ -163,21 +163,28 @@ public class MapManager {
         _nonBuildings.add(new Spot (pos,"socket_top"));
         
         //add internal rectangle of walls
-        for (int col=1;col<=3;++col) {        
-            for (int row=1;row<=3;++row) {
+         for (int row=1;row<=3;++row) {
+             for (int col=1;col<=3;++col) {                   
                 pos.setXY(col,row);
-                _walls.add(new Wall(pos));
+                int index = (5*(row) + col);
+                String str;
+                if (index <10)
+                     str = new String("test0"+index);
+                else
+                    str = new String("test"+index);
+                           
+                _walls.add(new Wall(pos, str));
             }
         }
-        _walls.get(2).setName("employment_top");
-        _walls.get(5).setName("clock_top");
-        _walls.get(8).setName("hitech_top");
-        _walls.get(0).setName("rent_bot");
-        _walls.get(3).setName("lowcost_bot");
-        _walls.get(6).setName("pawn_bot");
-        _walls.get(1).setName("black_right");
-        _walls.get(7).setName("clothing_left");
-      
+//        _walls.get(2).setName("employment_top");
+//        _walls.get(5).setName("clock_top");
+//        _walls.get(8).setName("hitech_top");
+//        _walls.get(0).setName("rent_bot");
+//        _walls.get(3).setName("lowcost_bot");
+//        _walls.get(6).setName("pawn_bot");
+//        _walls.get(1).setName("black_right");
+//        _walls.get(7).setName("clothing_left");
+//      
      
         
         //addDefaultBuildings();

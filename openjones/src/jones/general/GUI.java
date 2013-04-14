@@ -517,7 +517,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         int x = _buttons[pos.getY()][pos.getX()].getX();
         int y = _buttons[pos.getY()][pos.getX()].getY();
       
-        _glassPane.setPoint(new Point ( x + TILE_WIDTH/2,  y + (int) (2.5*TILE_HIGHT) ));
+        _glassPane.setPoint(new Point ( x + TILE_WIDTH/2,  y + (int) (2.25*TILE_HIGHT) ));
         this.setGlassPane(_glassPane);
         _glassPane.setVisible(true);
         _glassPane.repaint();
@@ -1084,7 +1084,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buildingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                        .addComponent(buildingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                     .addComponent(scorePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

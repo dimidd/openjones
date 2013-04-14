@@ -6,6 +6,7 @@ package jones.general;
 
 import java.util.HashMap;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import jones.map.GridTile;
 
 /**
@@ -21,8 +22,8 @@ public class GUIGraphics {
         _mapGraphics.put("Low-Cost Apartment", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/lowcost.png"));
         _mapGraphics.put("rent", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/rent.png"));
         _mapGraphics.put("pawn", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/pawn.png"));
-        _mapGraphics.put("lowcost_bot", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/lowcost_bot.png"));
-        _mapGraphics.put("rent_bot", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/rent_bot.png"));
+        _mapGraphics.put("lowcost_bot", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/lowcost_bot2.png"));
+        _mapGraphics.put("rent_bot", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/rent_bot2.png"));
         _mapGraphics.put("pawn_bot", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/pawn_bot.png"));
         _mapGraphics.put("zmarket", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/zmart.png"));
         _mapGraphics.put("Monolith Burgers", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/monolith.png"));
@@ -39,10 +40,27 @@ public class GUIGraphics {
         _mapGraphics.put("black market", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/black_bot.png"));
         _mapGraphics.put("Security Apartment", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/security.png"));
         _mapGraphics.put("clock_bot", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/clock_bot.png"));
-        _mapGraphics.put("clock_top", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/clock_top.png"));
+        _mapGraphics.put("clock_top", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/clock_top3.png"));
         _mapGraphics.put("employment_top", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/employment_top.png"));
-        _mapGraphics.put("hitech_top", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/hitech_top.png"));
-        _mapGraphics.put("Wall", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/wall.png"));
+        _mapGraphics.put("hitech_top", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images/hitech_top3.png"));
+        _mapGraphics.put("Wall", new javax.swing.ImageIcon("/home/dimid/NetBeansProjects/openjones/openjones/images//Grass_small_blur.png"));
+
+
+        for (int row = 1; row <= 3; ++row) {
+            for (int col = 1; col <= 3; ++col) {
+                //pos.setXY(col,row);
+                int index = (5 * (row) + col);
+                String str;
+                if (index < 10) {
+                    str = new String("test0" + index);
+                } else {
+                    str = new String("test" + index);
+                }
+                String filename = "/home/dimid/NetBeansProjects/openjones/openjones/images/" + str + ".png";
+                ImageIcon imageIcon = new javax.swing.ImageIcon(filename);
+                _mapGraphics.put(str, imageIcon);
+            }
+        }
 
     }
 
