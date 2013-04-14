@@ -154,7 +154,7 @@ public class MapManager {
      */
     private void addDefaultLocations() {
         Position pos = new Position (2,4);
-        _nonBuildings.add(new Spot (pos, "clock"));
+        _nonBuildings.add(new Spot (pos, "clock_bot"));
         
          pos.setXY(0,1);
         _nonBuildings.add(new Spot (pos,"black_top"));
@@ -169,7 +169,16 @@ public class MapManager {
                 _walls.add(new Wall(pos));
             }
         }
-        
+        _walls.get(2).setName("employment_top");
+        _walls.get(5).setName("clock_top");
+        _walls.get(8).setName("hitech_top");
+        _walls.get(0).setName("rent_bot");
+        _walls.get(3).setName("lowcost_bot");
+        _walls.get(6).setName("pawn_bot");
+        _walls.get(1).setName("black_right");
+        _walls.get(7).setName("clothing_left");
+      
+     
         
         //addDefaultBuildings();
         
