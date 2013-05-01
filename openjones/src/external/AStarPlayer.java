@@ -28,7 +28,7 @@ public class AStarPlayer {
      * Our own implementation of the A-Star algorithm, for use with our Node
      * class and custom heuristic function.
      */
-    static public List<PlanType> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map) {
+    static public List<PlanType> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map, boolean isOnDemand) {
         Map<PlayerState, Object> closedMap = new HashMap<>();
         PriorityQueue<ScoreNode<PlayerStateNode>> openQueue = new PriorityQueue<>();
         //Map<PlayerState, PlayerStatePlan> parentMap = new HashMap<>();
@@ -79,7 +79,8 @@ public class AStarPlayer {
                 return path;
             }
             
-            for (PlayerStateNode neighbour : getPlanNeigbours(currentFscoreNode.getData(), agent, map)) {
+            Iterable<PlayerStateNode> planNeigbours = isOnDemand? getNeededPlanNeigbours(currentFscoreNode.getData(), agent, map) : getPlanNeigbours(currentFscoreNode.getData(), agent, map);
+            for (PlayerStateNode neighbour : planNeigbours) {
 
                 if (closedMap.containsKey(neighbour.getState())) {
                     continue;
@@ -131,7 +132,7 @@ public class AStarPlayer {
         return goalScore - playerState.getTotalScore();
     }
 
-    private static Iterable<PlayerStateNode> getPlanNeigbours(PlayerStateNode current, PlannerAgent agent, MapManager map) {
+    private static Iterable<PlayerStateNode> getNeededPlanNeigbours(PlayerStateNode current, PlannerAgent agent, MapManager map) {
         ArrayList<PlayerStateNode> result = new ArrayList<>();
         List<Plan> neededPlans = agent.getNeededPlans(current.getState());
         for (Plan plan : neededPlans) {
@@ -146,6 +147,23 @@ public class AStarPlayer {
 
         return result;
     }
+    
+       private static Iterable<PlayerStateNode> getPlanNeigbours(PlayerStateNode current, PlannerAgent agent, MapManager map) {
+        ArrayList<PlayerStateNode> result = new ArrayList<>();
+        List<Plan> neededPlans = agent.getPlans(current.getState());
+        for (Plan plan : neededPlans) {
+            PlayerState dummy = new PlayerState(current.getState());
+            if (current.getEdge() != null && current.getEdge().getType() == Plan.PlanType.BETTER_JOB) {
+                boolean b = false;
+            }
+            dummy.simulatePlan(plan, map);
+            PlayerStateNode neighbour = new PlayerStateNode(dummy, current, plan);
+            result.add(neighbour);
+        }
+
+        return result;
+    }
+
 
     private static List<PlanType> reconstructPath(PlayerStateNode node) {
         LinkedList<PlanType> path = new LinkedList<>();;

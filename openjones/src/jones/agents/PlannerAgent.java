@@ -126,6 +126,23 @@ public class PlannerAgent extends Agent {
         return hasNextActionInSchedule();
     }
 
+        /**
+     * Return a list of all plans. 
+     *
+     * @return
+     */
+    public List<Plan> getPlans(PlayerState playerState) {
+        ArrayList<Plan> result = new ArrayList<>();
+        
+        result.add(new StudyAllWeekPlan(this));
+        result.add(new GetABetterJobPlan(this));
+        result.add(new WorkAllWeekPlan(this));
+        result.add(new RestAllWeekPlan(this));
+        
+        return result;
+    }
+
+    
     /**
      * Return a list of needed (by score) plans. E.g. if Happiness is too low,
      * the result would include a ResTAllWeekPlan
