@@ -8,6 +8,7 @@ import jones.general.Player;
 import jones.general.PlayerState;
 import jones.map.House;
 import jones.possessions.Possession;
+import jones.possessions.PossessionManager;
 import jones.possessions.RentContract;
 import jones.possessions.RentPossession;
 import jones.possessions.WeekOfRent;
@@ -38,10 +39,17 @@ public class RentHouseAction extends PurchaseAction {
 
     @Override
     protected void purchaseEffects(PlayerState player) {
-        player.getPossessions().remove(player.getPossessions().getRentPossession());
+        PossessionManager pss = player.getPossessions();
+        pss.remove(pss.getRentPossession());
 
-    	//player.getRentContract().setPossession(new RentPossession (_possession));
         player.setRentContract(new RentContract(new RentPossession (_possession)));
+        int debt = pss.getRentDebt();
+        if (debt <= _possession.worth()) {
+            player.getPossessions().setRentDebt(0);
+        }
+        else {
+            player.getPossessions().setRentDebt(debt - _possession.worth());
+        }
     }
 
     @Override
