@@ -17,7 +17,6 @@ import jones.general.Game;
 import jones.general.Player;
 import jones.general.PlayerState;
 import jones.measures.Goals;
-import sun.org.mozilla.javascript.ast.ContinueStatement;
 
 /**
  *
