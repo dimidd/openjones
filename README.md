@@ -6,4 +6,10 @@ Open source "Jones in the fast lane"
 
 [Demo](https://www.youtube.com/watch?v=hpq0cq14IxI)
 
+Build
+=====
+
+* import project to netbeans
+* build and run
+
 ## This is no longer maintained. Ping me if you want to step in.
