@@ -11,7 +11,5 @@ Open source "Jones in the fast lane"
 Build
 =====
 
-* import project to netbeans
+* import project to [NetBeans](https://netbeans.org/)
 * build and run
-
-## This is no longer maintained. Ping me if you want to step in.
