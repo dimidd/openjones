@@ -31,8 +31,6 @@ public class AStarPlayer {
     static public List<PlanType> findPlan(PlayerState start, int goal, PlannerAgent agent, MapManager map, boolean isOnDemand) {
         Map<PlayerState, Object> closedMap = new HashMap<>();
         PriorityQueue<ScoreNode<PlayerStateNode>> openQueue = new PriorityQueue<>();
-        //Map<PlayerState, PlayerStatePlan> parentMap = new HashMap<>();
-        //Map<PlayerState, Plan> planFromParentMap = new HashMap<>();
 
         Map<PlayerState, Double> gScore = new HashMap<>();
         Map<PlayerState, Double> hScore = new HashMap<>();
@@ -48,7 +46,7 @@ public class AStarPlayer {
 
         // at the beginning, only the start node has to be considered
         PlayerStateNode startNode = new PlayerStateNode(start, null, null);
-        openQueue.add(new ScoreNode(fScore.get(start), startNode));
+        openQueue.add(new ScoreNode<>(fScore.get(start), startNode));
         long startTime = System.currentTimeMillis();
         long curTime;
         long timeLapsed = 0;
@@ -62,30 +60,29 @@ public class AStarPlayer {
             closedMap.put(currentFscoreNode.getData().getState(), null);
 
             double currentFscoreNodeSumScore = currentFscoreNode.getData().getState().getSumScore();
-            if (currentFscoreNodeSumScore > highestSumScore) {// 
+            if (currentFscoreNodeSumScore > highestSumScore) {
                 highestSumScore = currentFscoreNodeSumScore;
                 bestState = currentFscoreNode.getData();
             }
 
             // arrived? if yes -> build the path from the predecessor map
             if (goal != currentFscoreNode.getData().getState().getTotalScore()) {
-            
-            } 
-            
+
+            }
+
             else {
 
                 List<PlanType> path = reconstructPath(currentFscoreNode.getData());
-                //path.add(planFromParentMap.get(currentFscoreNode.getData()));
                 return path;
             }
-            
+
             Iterable<PlayerStateNode> planNeigbours = isOnDemand? getNeededPlanNeigbours(currentFscoreNode.getData(), agent, map) : getPlanNeigbours(currentFscoreNode.getData(), agent, map);
             for (PlayerStateNode neighbour : planNeigbours) {
 
                 if (closedMap.containsKey(neighbour.getState())) {
                     continue;
                 }
-                
+
                 int timeCostFromCurrentToNeighbour = neighbour.getState().getTotalTime() - currentFscoreNode.getData().getState().getTotalTime();
                 double tentativeGScoreNeighbour = gScore.get(currentFscoreNode.getData().getState()) + timeCostFromCurrentToNeighbour;
                 double storedGScoreNeighbour;
@@ -95,21 +92,21 @@ public class AStarPlayer {
                     storedGScoreNeighbour = Integer.MAX_VALUE;
                 }
                 boolean inOpenList = false;
-                if (openQueue.contains(new ScoreNode(0, neighbour))) {
+                if (openQueue.contains(new ScoreNode<>(0, neighbour))) {
                     inOpenList = true;
                     if (tentativeGScoreNeighbour >= storedGScoreNeighbour) {
                         continue;
                     }
                 }
                 if (!inOpenList) {
- 
+
                     gScore.put((PlayerState) neighbour.getState(), tentativeGScoreNeighbour);
                     double heuristicScore = HEURISTIC_SCALE_FACTOR * heuristic(neighbour.getState(), goal);
                     hScore.put(neighbour.getState(), heuristicScore);
                     double funcScore = tentativeGScoreNeighbour + heuristicScore;
                     fScore.put(neighbour.getState(), funcScore);
 
-                    openQueue.add(new ScoreNode(funcScore, neighbour));
+                    openQueue.add(new ScoreNode<>(funcScore, neighbour));
                 }
             }
 
@@ -147,26 +144,28 @@ public class AStarPlayer {
 
         return result;
     }
-    
+
        private static Iterable<PlayerStateNode> getPlanNeigbours(PlayerStateNode current, PlannerAgent agent, MapManager map) {
         ArrayList<PlayerStateNode> result = new ArrayList<>();
         List<Plan> neededPlans = agent.getPlans(current.getState());
-        for (Plan plan : neededPlans) {
+        neededPlans.stream().map((plan) -> {
             PlayerState dummy = new PlayerState(current.getState());
             if (current.getEdge() != null && current.getEdge().getType() == Plan.PlanType.BETTER_JOB) {
                 boolean b = false;
             }
             dummy.simulatePlan(plan, map);
             PlayerStateNode neighbour = new PlayerStateNode(dummy, current, plan);
+            return neighbour;
+        }).forEachOrdered((neighbour) -> {
             result.add(neighbour);
-        }
+        });
 
         return result;
     }
 
 
     private static List<PlanType> reconstructPath(PlayerStateNode node) {
-        LinkedList<PlanType> path = new LinkedList<>();;
+        LinkedList<PlanType> path = new LinkedList<>();
         Plan plan = node.getEdge();
         while (plan != null) {
             path.push(plan.getType());
@@ -175,6 +174,5 @@ public class AStarPlayer {
         }
 
         return path;
-
     }
 }
