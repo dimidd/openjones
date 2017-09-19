@@ -204,7 +204,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
 
         player.setText("Player:");
 
-        clothesLevel.setText("Clothes:");
+        clothesLevel.setText("Clothes Level:");
 
         score.setText("Score:");
 
@@ -240,7 +240,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scoreText))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, scorePanelLayout.createSequentialGroup()
-                                .addGap(0, 26, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(playerText, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(scorePanelLayout.createSequentialGroup()
                         .addGroup(scorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -882,7 +882,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
 
         player.setText("Player:");
 
-        clothesLevel.setText("Clothes:");
+        clothesLevel.setText("Clothes Level:");
 
         score.setText("Score:");
 
