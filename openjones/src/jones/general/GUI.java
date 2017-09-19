@@ -446,13 +446,6 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_endTurnButtonActionPerformed
 
     private void endTurnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_endTurnButtonMouseClicked
-
-        //remove player text from old position
-        PlayerPosition curPos = _game.getCurPlayer().getPos();
-        javax.swing.JButton butt = getButtons()[curPos.getY()][curPos.getX()];
-        Location tile = (Location) _game.getMap().getGrid().get(curPos);
-        butt.setText(tile.toString());
-
         _game.endTurn();
         repaint();
     }//GEN-LAST:event_endTurnButtonMouseClicked
@@ -478,7 +471,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -516,7 +509,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         PlayerPosition pos = _game.getCurPlayer().getPos();
         int x = _buttons[pos.getY()][pos.getX()].getX();
         int y = _buttons[pos.getY()][pos.getX()].getY();
-      
+
         _glassPane.setPoint(new Point ( x + TILE_WIDTH/2,  y + (int) (2.25*TILE_HIGHT) ));
         this.setGlassPane(_glassPane);
         _glassPane.setVisible(true);
@@ -703,7 +696,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         Location tile;
         _glassPane = new MyGlassPane(this);
         this.setGlassPane(_glassPane);
-        
+
         //initComponents();
 
         //mapPanel.removeAll();
@@ -715,7 +708,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         mapPanel.setAlignmentX(0);
         mapPanel.setAlignmentY(0);
         //mapPanel.set
-        
+
        // mapPanel.setSize(new Dimension( width * 155, height * 96));
         for (int row = 0; row < height; ++row) {
             for (int col = 0; col < width; ++col) {
@@ -728,7 +721,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                  _buttons[row][col].setMargin(new Insets(0, 0, 0, 0));
                 // _buttons[row][col].setSize(new Dimension(  155,  96));
                 mapPanel.add(_buttons[row][col]);
-                
+
                 pos.setXY(col, row);
                 tile = (Location) grid.get(pos);
                 // _buttons[row][col].setText(tile.toString());
@@ -743,8 +736,8 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                 } catch (Exception ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
+
+
                 if (tile.isEnterable()) {
                     java.awt.event.MouseAdapter listener = new BuildingListener(col, row, _game, this);
                     _buttons[row][col].addMouseListener(listener);
@@ -758,7 +751,7 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
 
         //*******************************************************************************************************************
         //*******************************************            AUTO             *******************************************
-        //******************************************************************************************************************* 
+        //*******************************************************************************************************************
 
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -895,10 +888,10 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
         jobText.setText("jTextField1");
 
         experiencesLabel.setText("Experiences:");
-        
-        
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
                javax.swing.GroupLayout scorePanelLayout = new javax.swing.GroupLayout(scorePanel);
         scorePanel.setLayout(scorePanelLayout);
         scorePanelLayout.setHorizontalGroup(
@@ -1092,8 +1085,8 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
                         .addComponent(announcementsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        
-        
+
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -1112,9 +1105,9 @@ public class GUI extends javax.swing.JFrame implements ActionListener {
 
         pack();
 
-        
-        
-        
+
+
+
 
     }
 
