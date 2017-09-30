@@ -31,7 +31,7 @@ public class RentHouseAction extends PurchaseAction {
     public House getHouse() {
         return ((WeekOfRent)_possession.getCommodity()).getHouse();
     }
-    
+
     @Override
     public int happinessEffect(PlayerState player) {
     	return 0;
@@ -43,12 +43,16 @@ public class RentHouseAction extends PurchaseAction {
         pss.remove(pss.getRentPossession());
 
         player.setRentContract(new RentContract(new RentPossession (_possession)));
-        int debt = pss.getRentDebt();
-        if (debt <= _possession.worth()) {
-            player.getPossessions().setRentDebt(0);
+        int newDebt = calculateNewRentDebt(pss.getRentDebt(), _possession.worth());
+        player.getPossessions().setRentDebt(newDebt);
+     }
+
+    public static int calculateNewRentDebt(int debt, int rent) {
+        if (debt <= rent) {
+            return 0;
         }
         else {
-            player.getPossessions().setRentDebt(debt - _possession.worth());
+            return debt - rent;
         }
     }
 
@@ -56,8 +60,8 @@ public class RentHouseAction extends PurchaseAction {
     protected ActionResponse getPositiveResponse(PlayerState player) {
     	return new ActionResponse(true, "Tell all your rich friends about us");
     }
-    
-        
+
+
     @Override
     protected ActionResponse checkConditions(PlayerState player) {
         if (getHouse() == player.getRentContract().getHouse()) {
@@ -67,26 +71,26 @@ public class RentHouseAction extends PurchaseAction {
             return checkCash(player);
         }
     }
-    
-     
+
+
     @Override
     public String toString () {
         return "Rent "+getHouse().getName()+" "+getHouse().getPricePerMonth();
     }
 
-      
+
     @Override
     public void clearCachedValues() {
-        
-      
+
+
     }
-    
-     
+
+
     @Override
     public boolean shouldRebuildActions () {
         return true;
     }
-  
+
 
 
 }

@@ -4,6 +4,7 @@
  */
 package jones.actions;
 
+import static jones.actions.RentHouseAction.calculateNewRentDebt;
 import jones.possessions.RentPossession;
 import jones.general.Player;
 import jones.general.PlayerState;
@@ -13,8 +14,8 @@ import jones.general.PlayerState;
  * @author dimid
  */
  public class PayRentAction extends PurchaseAction {
-     
-	 
+
+
 
     public PayRentAction(RentPossession rent) {
         super(rent);
@@ -47,14 +48,16 @@ import jones.general.PlayerState;
 
     @Override
     protected void purchaseEffects(PlayerState player) {
-        
-    }
-    
-      
-    @Override
-    public void clearCachedValues() {
-      
+        int debt = player.getPossessions().getRentDebt();
+        int newDebt = calculateNewRentDebt(debt, _possession.worth());
+        player.getPossessions().setRentDebt(newDebt);
     }
 
-    
+
+    @Override
+    public void clearCachedValues() {
+
+    }
+
+
 }
