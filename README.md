@@ -14,3 +14,8 @@ Build
 
 * import project to [NetBeans](https://netbeans.org/)
 * build and run
+
+
+  * For Single Player use GUI.java
+
+  ![img](https://i.imgur.com/Ap7oVtL.png)
